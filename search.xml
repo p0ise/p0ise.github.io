@@ -3,7 +3,7 @@
   <entry>
     <title>windows右键新建菜单增加md文件</title>
     <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<h1 id="windows右键新建菜单增加md文件"><a href="#windows右键新建菜单增加md文件" class="headerlink" title="windows右键新建菜单增加md文件"></a>windows右键新建菜单增加md文件</h1><blockquote>
+    <content><![CDATA[<blockquote>
 <p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
 </blockquote>
 <p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
@@ -33,30 +33,12 @@
 <p>双击以管理员权限运行。</p>
 <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
 ]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
       <tags>
         <tag>markdown</tag>
         <tag>windows</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>os.urandom()编码问题</title>
-    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
-
-<p>处理后得到正常的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
-]]></content>
-      <tags>
-        <tag>python</tag>
-        <tag>crypto</tag>
       </tags>
   </entry>
   <entry>
@@ -78,14 +60,41 @@
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 ]]></content>
+      <categories>
+        <category>博客建设</category>
+      </categories>
       <tags>
         <tag>hexo</tag>
       </tags>
   </entry>
   <entry>
+    <title>os.urandom()编码问题</title>
+    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
+
+<p>处理后得到正常的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>crypto</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>tkinter command传参问题解决</title>
     <url>/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<h1 id="command调用函数传参"><a href="#command调用函数传参" class="headerlink" title="command调用函数传参"></a>command调用函数传参</h1><p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
+    <content><![CDATA[<p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
 <p>其实使用的都是封装的方法，只是有不同的实现。</p>
 <h2 id="方案一：lambda函数"><a href="#方案一：lambda函数" class="headerlink" title="方案一：lambda函数"></a>方案一：lambda函数</h2><p><strong>个人比较喜欢这个方法</strong></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ttk.Button(frame, text=<span class="string">&#x27;button&#x27;</span>,command=<span class="keyword">lambda</span>:func(param))</span><br></pre></td></tr></table></figure>
@@ -94,7 +103,7 @@
 <span id="more"></span>
 
 <p>举个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">	<span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">	<span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
 
 <p>如果你正好有动态传值的需要，那么这个恰能符合你的需求。如果你想要传入固定的参数值，则我们需要用到默认参数解决这一问题。</p>
 <p>示例如下：</p>
@@ -115,6 +124,9 @@
 <p>有趣的是，python类绑定方法的实现与partial有异曲同工之妙，感兴趣的同学可以了解一下</p>
 </blockquote>
 ]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
       <tags>
         <tag>python</tag>
         <tag>tkinter</tag>
