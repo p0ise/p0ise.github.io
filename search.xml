@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>windows右键新建菜单增加md文件</title>
+    <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<h1 id="windows右键新建菜单增加md文件"><a href="#windows右键新建菜单增加md文件" class="headerlink" title="windows右键新建菜单增加md文件"></a>windows右键新建菜单增加md文件</h1><blockquote>
+<p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
+</blockquote>
+<p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
+<p>本文提供两种方式：<strong>脚本修改</strong>和<strong>手动修改</strong>。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>一个Markdown编辑器（本文用的是 Typora，其他的同理，如果用脚本需要相应作出更改）</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
+<p><img src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
+<h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
+<li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
+</ol>
+<p><img src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
+<ol start="2">
+<li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
+</ol>
+<p><img src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
+<ol start="3">
+<li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
+</ol>
+<p><img src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
+<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
+
+<p>双击以管理员权限运行。</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+]]></content>
+      <tags>
+        <tag>markdown</tag>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>os.urandom()编码问题</title>
+    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
+
+<p>处理后得到正常的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>crypto</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/11/30/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<span id="more"></span>
+
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tkinter command传参问题解决</title>
+    <url>/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<h1 id="command调用函数传参"><a href="#command调用函数传参" class="headerlink" title="command调用函数传参"></a>command调用函数传参</h1><p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
+<p>其实使用的都是封装的方法，只是有不同的实现。</p>
+<h2 id="方案一：lambda函数"><a href="#方案一：lambda函数" class="headerlink" title="方案一：lambda函数"></a>方案一：lambda函数</h2><p><strong>个人比较喜欢这个方法</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ttk.Button(frame, text=<span class="string">&#x27;button&#x27;</span>,command=<span class="keyword">lambda</span>:func(param))</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，这里存在一个小细节，不了解lambda函数机制的同学要注意一下，否则可能产生与你预期不符的结果。lambda函数只会在<strong>调用时</strong>执行内部语句，也就是说，如果你传递的参数（这里是param）是一个变量，并且在之后这个变量的值发生了变化，调用时就会传入之后的值而不是你之前想要传入的值。</p>
+<span id="more"></span>
+
+<p>举个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">	<span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">	<span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你正好有动态传值的需要，那么这个恰能符合你的需求。如果你想要传入固定的参数值，则我们需要用到默认参数解决这一问题。</p>
+<p>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> p=param:func(p)</span><br></pre></td></tr></table></figure>
+
+<p>这样就能把参数固定下来了。</p>
+<h2 id="方案二：类封装"><a href="#方案二：类封装" class="headerlink" title="方案二：类封装"></a>方案二：类封装</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Callback</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args, **kwargs</span>):</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line">        self.kwargs = kwargs</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.func(*self.args, **self.kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default_callback</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button &#x27;&#123;&#125;&#x27; pressed.&quot;</span>.<span class="built_in">format</span>(t))</span><br><span class="line"></span><br><span class="line">root = tk.Tk()</span><br><span class="line"></span><br><span class="line">buttons = [<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(buttons):</span><br><span class="line">    tk.Button(root, text=b, command=Callback(default_callback, b)).grid(row=i, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">tk.mainloop()</span><br></pre></td></tr></table></figure>
+
+<p>这里不多做介绍了，调用的地方像这样实例化一个对象就行了。</p>
+<h2 id="方案三：functools的partial"><a href="#方案三：functools的partial" class="headerlink" title="方案三：functools的partial"></a>方案三：functools的partial</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line">button = Tk.Button(master=frame, text=<span class="string">&#x27;press&#x27;</span>, command=partial(func, arg))</span><br></pre></td></tr></table></figure>
+
+<p>partial用于创建一个类似原函数但有固定参数的偏函数，原型如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">functools.partial(func, *args, **keywords)</span><br></pre></td></tr></table></figure>
+
+<p>和方案二玩法差不多，具体不多介绍了。</p>
+<blockquote>
+<p>Note:</p>
+<p>有趣的是，python类绑定方法的实现与partial有异曲同工之妙，感兴趣的同学可以了解一下</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>tkinter</tag>
+      </tags>
+  </entry>
+</search>
