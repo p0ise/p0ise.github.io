@@ -29,18 +29,18 @@
 <meta property="og:site_name" content="p0ise&#39;s blog">
 <meta property="og:description" content="因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法  Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。 本文提供两种方式：脚本修改和手动修改。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。 准备工作 一个Markdown编辑器（本文用的是 Typora，其">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png">
 <meta property="article:published_time" content="2021-12-07T12:02:26.000Z">
 <meta property="article:modified_time" content="2021-12-13T16:27:05.184Z">
 <meta property="article:author" content="p0ise">
 <meta property="article:tag" content="markdown">
 <meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png">
+<meta name="twitter:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png">
 
 <link rel="canonical" href="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/">
 
@@ -314,24 +314,24 @@
 <span id="more"></span>
 
 <h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
 <h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
 <li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
 </ol>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
 <ol start="2">
 <li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
 </ol>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
 <ol start="3">
 <li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
 </ol>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
 <h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
 
 <p>双击以管理员权限运行。</p>
-<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
 
     </div>
 
@@ -451,20 +451,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">10</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -508,12 +508,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">3k</span>
+    <span title="站点总字数">6k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">3 分钟</span>
+    <span title="站点阅读时长">6 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

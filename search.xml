@@ -14,24 +14,24 @@
 <span id="more"></span>
 
 <h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
 <h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
 <li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
 </ol>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
 <ol start="2">
 <li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
 </ol>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
 <ol start="3">
 <li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
 </ol>
-<p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
 <h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
 
 <p>双击以管理员权限运行。</p>
-<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
 ]]></content>
       <categories>
         <category>杂项</category>
@@ -39,6 +39,30 @@
       <tags>
         <tag>markdown</tag>
         <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>os.urandom()编码问题</title>
+    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
+
+<p>处理后得到正常的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>crypto</tag>
       </tags>
   </entry>
   <entry>
@@ -65,30 +89,6 @@
       </categories>
       <tags>
         <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>os.urandom()编码问题</title>
-    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
-
-<p>处理后得到正常的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>crypto</tag>
       </tags>
   </entry>
   <entry>
@@ -130,6 +130,195 @@
       <tags>
         <tag>python</tag>
         <tag>tkinter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>键冲突报错注入详解</title>
+    <url>/2021/12/14/%E9%94%AE%E5%86%B2%E7%AA%81%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>利用<code>RAND()</code>和<code>GROUP BY</code>，以包含<code>RAND()</code>的数据为键进行分组（GROUP BY），在执行过程中，<code>GROUP BY</code>会读取每一行数据，如果已存在相应的键值会更新对应行的值，否则会插入该键值，而插入该键值时会重新执行<code>RAND()</code>函数，而不是用之前读取到的值，如果此时<code>RAND()</code>生成了与已有键值冲突的值，则会导致主键冲突报错，报错格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ERROR 1062 (23000): Duplicate entry &#x27;&lt;group&gt;&#x27; for key &#x27;&lt;group_key&gt;&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>&lt;group&gt;</code>是前面<code>GROUP BY</code>分组所用的键值。</p>
+<span id="more"></span>
+
+<h2 id="公式"><a href="#公式" class="headerlink" title="公式"></a>公式</h2><p>为了方便观察，我调整了SQL注入语句的格式，其中注释包含的内容是查询语句，要求只能查询返回单个结果的语句</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">AND</span></span><br><span class="line">(</span><br><span class="line">    <span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span></span><br><span class="line">    (</span><br><span class="line">        <span class="keyword">SELECT</span></span><br><span class="line">        <span class="built_in">COUNT</span>(<span class="operator">*</span>),</span><br><span class="line">        CONCAT</span><br><span class="line">        (</span><br><span class="line">            <span class="built_in">FLOOR</span>(RAND(<span class="number">0</span>)<span class="operator">*</span><span class="number">2</span>),</span><br><span class="line">            (</span><br><span class="line">                <span class="comment">-- query begin --</span></span><br><span class="line">                <span class="keyword">SELECT</span></span><br><span class="line">                CONCAT</span><br><span class="line">                (</span><br><span class="line">                    <span class="number">0x7e7e3a7e7e</span>,</span><br><span class="line">                    <span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> table_schema),</span><br><span class="line">                    <span class="number">0x7e7e3a7e7e</span></span><br><span class="line">                )</span><br><span class="line">                <span class="keyword">FROM</span></span><br><span class="line">                information_schema.tables</span><br><span class="line">            	LIMIT <span class="number">0</span>,<span class="number">1</span></span><br><span class="line">        		<span class="comment">-- query end --</span></span><br><span class="line">            )</span><br><span class="line">        ) x</span><br><span class="line">        <span class="keyword">FROM</span> information_schema.tables</span><br><span class="line">        <span class="keyword">GROUP</span> <span class="keyword">BY</span> x</span><br><span class="line">    ) a</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>整理压缩后：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">AND</span> (<span class="keyword">SELECT</span> <span class="number">1</span> <span class="keyword">FROM</span> (<span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),CONCAT(<span class="built_in">FLOOR</span>(RAND(<span class="number">0</span>)<span class="operator">*</span><span class="number">2</span>),(<span class="keyword">SELECT</span> CONCAT(<span class="number">0x7e7e3a7e7e</span>,<span class="built_in">COUNT</span>(<span class="keyword">DISTINCT</span> table_schema),<span class="number">0x7e7e3a7e7e</span>) <span class="keyword">FROM</span> information_schema.tables LIMIT <span class="number">0</span>,<span class="number">1</span>)) x <span class="keyword">FROM</span> information_schema.tables <span class="keyword">GROUP</span> <span class="keyword">BY</span> x) a)</span><br></pre></td></tr></table></figure>
+<h2 id="关键语句"><a href="#关键语句" class="headerlink" title="关键语句"></a>关键语句</h2><ul>
+<li>RAND()</li>
+<li>FLOOR()</li>
+<li>COUNT()</li>
+<li>GROUP BY</li>
+</ul>
+<h3 id="RAND"><a href="#RAND" class="headerlink" title="RAND()"></a>RAND()</h3><p>产生一个 0<del>1 的伪随机数，加上固定随机数种子后返回的数值序列会固定。<code>RAND(0)*2</code>可以生成 0</del>2 之间的固定值序列。在公式中用于结合其他函数生成 0,1 的固定序列使键值重复。</p>
+<p><img data-src="/2021/12/14/%E9%94%AE%E5%86%B2%E7%AA%81%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/image-20211114001752437.png" alt="RAND(0)*2"></p>
+<h3 id="FLOOR"><a href="#FLOOR" class="headerlink" title="FLOOR()"></a>FLOOR()</h3><p>向下取整。<code>FLOOR(RAND(0)*2)</code>可以生成固定的 0,1 值序列。</p>
+<p><img data-src="/2021/12/14/%E9%94%AE%E5%86%B2%E7%AA%81%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/image-20211114001725708.png" alt="FLOOR(RAND(0)*2)"></p>
+<h3 id="COUNT"><a href="#COUNT" class="headerlink" title="COUNT()"></a>COUNT()</h3><p>返回匹配指定条件的行数。<code>COUNT()</code>即为一种简单的聚合函数，可以配合<code>GROUP BY</code>实现分组并聚合数据。</p>
+<blockquote>
+<p>这里不一定要使用<code>COUNT()</code>，也可以使用其他聚合函数。</p>
+<p>关于聚合函数的更多知识，这里不作赘述，感兴趣的可以自行搜索。</p>
+</blockquote>
+<h3 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a>GROUP BY</h3><p>用于结合聚合函数，根据一个或多个列对结果集进行分组。</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> key_name, aggregate_function(column_name)</span><br><span class="line"><span class="keyword">FROM</span> table_name</span><br><span class="line"><span class="keyword">WHERE</span> column_name operator <span class="keyword">value</span></span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> key_name;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>aggregate_function()</code>表示一种聚合函数</p>
+</blockquote>
+<p>工作过程：</p>
+<div id="flowchart-0" class="flow-chart"></div>
+
+<p>关注到工作流程图中的两个子程序，分别在两次取数据时执行了数据中的子语句，这是该类报错注入的核心，因为两次分别执行了数据中的子语句，导致判断时用的键值和插入时的键值可能不同，从而可能插入已存在的键值，导致主键冲突。</p>
+<h2 id="剖析"><a href="#剖析" class="headerlink" title="剖析"></a>剖析</h2><h3 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h3><p>在一个SELECT语句里还有一个SELECT语句，里面的这个SELECT语句就是子查询。执行的时候，会先执行子查询。</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SELECT concat((SELECT database()));</span><br></pre></td></tr></table></figure>
+
+<p>先执行<code>SELECT database()</code>这个语句就会把当前的数据库查出来，然后把结果传入到concat函数，然后再执行外面的查询。</p>
+<h3 id="报错原理"><a href="#报错原理" class="headerlink" title="报错原理"></a>报错原理</h3><p>把造成报错的核心语句取出：</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>),<span class="built_in">FLOOR</span>(RAND(<span class="number">0</span>)<span class="operator">*</span><span class="number">2</span>) x <span class="keyword">FROM</span> information_schema.tables <span class="keyword">GROUP</span> <span class="keyword">BY</span> x</span><br></pre></td></tr></table></figure>
+
+<p><code>FLOOR(RAND(0)*2)</code>返回的序列上文已提及</p>
+<p><img data-src="/2021/12/14/%E9%94%AE%E5%86%B2%E7%AA%81%E6%8A%A5%E9%94%99%E6%B3%A8%E5%85%A5%E8%AF%A6%E8%A7%A3/image-20211114001725708-16394634484961.png" alt="FLOOR(RAND(0)*2)"></p>
+<p>这里我们一步步分析</p>
+<blockquote>
+<p>待会依次调用<code>FLOOR(RAND(0)*2)</code>，会按顺序返回 [0,1,1,0,1]，请记住这个序列。</p>
+</blockquote>
+<h4 id="1-GROUP-BY创建了一个临时表"><a href="#1-GROUP-BY创建了一个临时表" class="headerlink" title="1. GROUP BY创建了一个临时表"></a>1. <code>GROUP BY</code>创建了一个临时表</h4><p><code>x</code>是<code>FLOOR(RAND(0)*2)</code>的别名</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>COUNT(*)</th>
+</tr>
+</thead>
+</table>
+<h4 id="2-读取了第一行数据"><a href="#2-读取了第一行数据" class="headerlink" title="2. 读取了第一行数据"></a>2. 读取了第一行数据</h4><p>操作</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取出第一条数据</td>
+<td>得到 x, COUNT(*) = 0, 1</td>
+</tr>
+<tr>
+<td>判断临时表是否存在对应键</td>
+<td>没有</td>
+</tr>
+<tr>
+<td>向临时表插入键值</td>
+<td>插入 x, COUNT(*) = 1, 1</td>
+</tr>
+</tbody></table>
+<p>临时表</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>COUNT(*)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody></table>
+<h4 id="3-读取第二行数据"><a href="#3-读取第二行数据" class="headerlink" title="3. 读取第二行数据"></a>3. 读取第二行数据</h4><p>操作</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取出第二条数据</td>
+<td>得到 x, COUNT(*) = 1, 1</td>
+</tr>
+<tr>
+<td>判断临时表是否存在对应键</td>
+<td>存在</td>
+</tr>
+<tr>
+<td>向临时表更新键值</td>
+<td>x=1, COUNT(*)+1</td>
+</tr>
+</tbody></table>
+<p>临时表</p>
+<table>
+<thead>
+<tr>
+<th>x</th>
+<th>COUNT(*)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody></table>
+<h4 id="4-读取第三行数据"><a href="#4-读取第三行数据" class="headerlink" title="4. 读取第三行数据"></a>4. 读取第三行数据</h4><p>操作</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>取出第三条数据</td>
+<td>得到 x, COUNT(*) = 0, 1</td>
+</tr>
+<tr>
+<td>判断临时表是否存在对应键</td>
+<td>没有</td>
+</tr>
+<tr>
+<td>向临时表插入键值</td>
+<td>插入 x, COUNT(*) = 1, 1  =&gt; 主键冲突报错</td>
+</tr>
+</tbody></table>
+<p>因为插入时重新生成了另一个 x 值，而此时的 x 为已存在的键，插入造成了主键冲突，产生了报错</p>
+<h2 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h2><ul>
+<li>sqli-labs less-5</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>主键冲突报错注入的原理至此已经阐明。为了不造成读者疑惑，本文中的注入公式采用的是网上流行的版本加以精简，随机数种子也沿用了传统的 0 ，该种子要求<strong>所查表中至少要存在三条记录</strong>才能报错。</p>
+<p>实际上，可以更优化该公式实现<strong>两条以上记录就完成报错</strong>。具体实现只要找到随机数种子使公式产生 [0,1,0,1] 或 [1,0,1,0] 的序列即可，这里笔者找到<strong>随机数种子为 14</strong> 时，可以产生 [1,0,1,0] 的序列。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://www.freebuf.com/column/235496.html">Mysql报错注入之floor(rand(0)*2)报错原理探究</a></li>
+<li><a href="https://www.jianshu.com/p/8c2343705100">【转载】SQL注入之报错型注入</a></li>
+<li><a href="https://blog.csdn.net/Leep0rt/article/details/78556440">【转载】详细讲解双查询注入</a></li>
+<li><a href="https://www.w3school.com.cn/sql/sql_func_count.asp">SQL COUNT() 函数</a></li>
+</ol>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.2.7/raphael.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.6.5/flowchart.min.js"></script><textarea id="flowchart-0-code" style="display: none">st=>start: 开始
+create_tmp_table=>operation: 创建用于存储分组结果的表，并将 key_name 设为主键
+read_key_value=>operation: 读取数据集中的一条记录
+execute_sub_query=>subroutine: 同时执行数据中的语句
+select_data=>operation: 取出所需数据
+isExist=>condition: 判断临时表中是否已存在该键值
+update_data=>operation: 更新临时表中对应的分组数据
+insert_key=>operation: 向临时表插入新组数据
+execute_sub_query_again=>subroutine: 重新执行数据中的语句
+isReadAll=>condition: 是否读取完毕
+ed=>end: 结束
+
+st->create_tmp_table->read_key_value->select_data->execute_sub_query->isExist
+isExist(yes)->update_data->isReadAll
+isExist(no)->execute_sub_query_again->insert_key->isReadAll
+isReadAll(yes)->ed
+isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style="display: none">{"scale":1,"line-width":2,"line-length":50,"text-margin":10,"font-size":12}</textarea><script>  var code = document.getElementById("flowchart-0-code").value;  var options = JSON.parse(decodeURIComponent(document.getElementById("flowchart-0-options").value));  var diagram = flowchart.parse(code);  diagram.drawSVG("flowchart-0", options);</script>]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>ctf</tag>
+        <tag>web</tag>
+        <tag>sqli</tag>
+        <tag>网络安全</tag>
       </tags>
   </entry>
 </search>
