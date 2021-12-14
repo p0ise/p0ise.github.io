@@ -337,6 +337,8 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 <p>重新生成一遍……然并卵</p>
 <h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>好像是hexo里面参数改了</p>
 <p>找到<code>node_modules/hexo-asset-image/index.js</code>，做点小改动：</p>
+<span id="more"></span>
+
 <ol>
 <li>把获取img的src属性的语句改为获取data-src属性</li>
 <li>修改截取绝对路径的语句</li>
