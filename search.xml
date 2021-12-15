@@ -403,12 +403,14 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
   <entry>
     <title>python tkinter事件</title>
     <url>/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<p>tkinter事件大概就这些内容，有空补充，可以先参考这篇文章：<a href="https://pythonguides.com/python-tkinter-events/">https://pythonguides.com/python-tkinter-events/</a></p>
+    <content><![CDATA[<p>tkinter事件大概就这些内容，本文尚未完篇，有空更新，可以先参考这篇文章：<a href="https://pythonguides.com/python-tkinter-events/">https://pythonguides.com/python-tkinter-events/</a></p>
 <h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><p>define</p>
 <h1 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h1><p>bind() 方法的语法：</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.bind(event,handler,add=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
 <p>example</p>
+<span id="more"></span>
+
 <h1 id="事件列表"><a href="#事件列表" class="headerlink" title="事件列表"></a>事件列表</h1><p>tkinter自带的事件：</p>
 <ul>
 <li><strong>Button</strong>– Button is used as an event handler when we click on the button the program execute</li>
