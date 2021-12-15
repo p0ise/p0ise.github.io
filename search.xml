@@ -376,7 +376,7 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 <p>所以本题就可以转化为农历和公历的对应关系。</p>
 <p>然而，农历和公历的关系是没有规律的，农历都是天文观测的结果，因此这里只需要下载农历公历对应关系的数据即可。</p>
 <p>这里网上其实有很多实现，可以直接借鉴。</p>
-<p>另外，可以推荐几个可用的库：sxtwl、zhdate</p>
+<p>另外，这里推荐几个可用的库：sxtwl、zhdate</p>
 <h3 id="sxtwl库使用"><a href="#sxtwl库使用" class="headerlink" title="sxtwl库使用"></a>sxtwl库使用</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sxtwl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 阳历（公历）日期 获取一天的日期对象</span></span><br><span class="line">day = sxtwl.fromSolar(<span class="number">2021</span>, <span class="number">12</span>, <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取对应的农历信息</span></span><br><span class="line">lunar_year = day.getLunarYear()</span><br><span class="line">lunar_month = day.getLunarMonth()</span><br><span class="line">lunar_day = day.getLunarDay()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否是闰月</span></span><br><span class="line">is_lunar_leap = day.isLunarLeap()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取农历月的天数</span></span><br><span class="line">day_cnt = sxtwl.getLunarMonthNum(lunar_year, lunar_month, is_lunar_leap)</span><br></pre></td></tr></table></figure>
 
 <p>详情请参考<a href="https://pypi.org/project/sxtwl/">https://pypi.org/project/sxtwl/</a></p>
@@ -398,6 +398,53 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>tkinter</tag>
         <tag>课程设计</tag>
         <tag>turtle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python tkinter事件</title>
+    <url>/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p>tkinter事件大概就这些内容，有空补充，可以先参考这篇文章：<a href="https://pythonguides.com/python-tkinter-events/">https://pythonguides.com/python-tkinter-events/</a></p>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><p>define</p>
+<h1 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h1><p>bind() 方法的语法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.bind(event,handler,add=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<p>example</p>
+<h1 id="事件列表"><a href="#事件列表" class="headerlink" title="事件列表"></a>事件列表</h1><p>tkinter自带的事件：</p>
+<ul>
+<li><strong>Button</strong>– Button is used as an event handler when we click on the button the program execute</li>
+<li><strong>Configure</strong>– configure is used to change the property of a widget.</li>
+<li><strong>Focus</strong>– completely focus on a particular widget.</li>
+<li><strong>Destroy</strong>-Terminate the particular widget.</li>
+<li><strong>Motion</strong>– Even where the mouse move entire on the widget.</li>
+</ul>
+<p>example</p>
+<h1 id="事件小部件"><a href="#事件小部件" class="headerlink" title="事件小部件"></a>事件小部件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">event.widget</span><br></pre></td></tr></table></figure>
+
+<p>example</p>
+<h1 id="事件属性"><a href="#事件属性" class="headerlink" title="事件属性"></a>事件属性</h1><p>这里代码中使用的一些事件属性是：</p>
+<ul>
+<li><strong>.char</strong>定义字母表的正常字符。</li>
+<li><strong>.height</strong>属性用于将小部件设置为新高度。</li>
+<li><strong>.keysym</strong>属性用于设置字符串中的键、数字、特殊字符。</li>
+</ul>
+<h1 id="事件生成"><a href="#事件生成" class="headerlink" title="事件生成"></a>事件生成</h1><p>以下语法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.event_generate(sequence,when=<span class="string">&#x27;tail&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><strong>event_geterate</strong>使用<strong>when</strong>属性<strong>when=’tail’ 产生</strong>。<strong>tail</strong>是在处理完任何事件后将其附加到事件队列中。</p>
+<p>example</p>
+<h1 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap_Text</span>():</span></span><br><span class="line">    lab[<span class="string">&#x27;text&#x27;</span>] = time.asctime()</span><br><span class="line"></span><br><span class="line">    ws.after(<span class="number">1000</span>, swap_Text)</span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>tkinter</tag>
+        <tag>gui</tag>
+        <tag>事件</tag>
       </tags>
   </entry>
 </search>
