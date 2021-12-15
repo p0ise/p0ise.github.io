@@ -462,4 +462,23 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>事件</tag>
       </tags>
   </entry>
+  <entry>
+    <title>tkinter手动代理窗口关闭事件</title>
+    <url>/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p>有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。</p>
+<p>这时就需要代理窗口关闭事件，下面的代码展示了如何代理窗口关闭事件。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">close_handler</span>():</span></span><br><span class="line">    beforeCloseOpr()</span><br><span class="line">    root.destory()</span><br><span class="line"></span><br><span class="line">root.protocol(<span class="string">&quot;WM_DELETE_WINDOW&quot;</span>, close_handler)</span><br></pre></td></tr></table></figure>
+
+<p>在关闭窗口事件触发时，调用 close_handler 函数代为处理，这里会先执行 beforeCloseOpr() 函数，然后再关闭窗口。</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>tkinter</tag>
+        <tag>gui</tag>
+        <tag>事件</tag>
+      </tags>
+  </entry>
 </search>

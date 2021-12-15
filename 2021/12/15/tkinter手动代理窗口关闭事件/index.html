@@ -22,18 +22,23 @@
     var CONFIG = {"hostname":"www.p0ise.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="p0ise&#39;s blog">
-<meta property="og:url" content="https://www.p0ise.com/categories/%E6%9D%82%E9%A1%B9/index.html">
+  <meta name="description" content="有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。 这时就需要代理窗口关闭事件，下面的代码展示了如何代理窗口关闭事件。 12345def close_handler():    beforeCloseOpr()    root.destory()root.protocol(&quot;WM_DELETE_WINDOW&quot;, close_handler)  在关闭窗口事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tkinter手动代理窗口关闭事件">
+<meta property="og:url" content="https://www.p0ise.com/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/index.html">
 <meta property="og:site_name" content="p0ise&#39;s blog">
-<meta property="og:description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+<meta property="og:description" content="有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。 这时就需要代理窗口关闭事件，下面的代码展示了如何代理窗口关闭事件。 12345def close_handler():    beforeCloseOpr()    root.destory()root.protocol(&quot;WM_DELETE_WINDOW&quot;, close_handler)  在关闭窗口事件">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-15T14:41:38.000Z">
+<meta property="article:modified_time" content="2021-12-15T14:49:34.950Z">
 <meta property="article:author" content="p0ise">
-<meta property="article:tag" content="technology,security,blockchain,CTF,SQL,Python">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="tkinter">
+<meta property="article:tag" content="gui">
+<meta property="article:tag" content="事件">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.p0ise.com/categories/%E6%9D%82%E9%A1%B9/">
+<link rel="canonical" href="https://www.p0ise.com/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/">
 
 
 <script id="page-configurations">
@@ -41,12 +46,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>分类: 杂项 | p0ise's blog</title>
+  <title>tkinter手动代理窗口关闭事件 | p0ise's blog</title>
   
 
 
@@ -199,157 +204,158 @@
         <div class="content-wrap">
           
 
-          <div class="content category">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="p0ise">
+      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0ise's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tkinter手动代理窗口关闭事件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-15 22:41:38 / 修改时间：22:49:34" itemprop="dateCreated datePublished" datetime="2021-12-15T22:41:38+08:00">2021-12-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="tkinter手动代理窗口关闭事件" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">杂项
-          <small>分类</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>245</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
+        <p>有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。</p>
+<p>这时就需要代理窗口关闭事件，下面的代码展示了如何代理窗口关闭事件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">close_handler</span>():</span></span><br><span class="line">    beforeCloseOpr()</span><br><span class="line">    root.destory()</span><br><span class="line"></span><br><span class="line">root.protocol(<span class="string">&quot;WM_DELETE_WINDOW&quot;</span>, close_handler)</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-15T22:41:38+08:00"
-              content="2021-12-15">
-          12-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">tkinter手动代理窗口关闭事件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-15T11:36:18+08:00"
-              content="2021-12-15">
-          12-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">python tkinter事件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-14T21:25:55+08:00"
-              content="2021-12-14">
-          12-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/" itemprop="url">
-            <span itemprop="name">Python月相设计思路</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-11T23:55:48+08:00"
-              content="2021-12-11">
-          12-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" itemprop="url">
-            <span itemprop="name">tkinter command传参问题解决</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-07T20:02:26+08:00"
-              content="2021-12-07">
-          12-07
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">windows右键新建菜单增加md文件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-11-30T21:48:44+08:00"
-              content="2021-11-30">
-          11-30
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" itemprop="url">
-            <span itemprop="name">os.urandom()编码问题</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<p>在关闭窗口事件触发时，调用 close_handler 函数代为处理，这里会先执行 beforeCloseOpr() 函数，然后再关闭窗口。</p>
 
     </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>创作不易，支持一下吧！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="p0ise 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="p0ise 支付宝">
+        <p>支付宝</p>
+      </div>
+
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/tkinter/" rel="tag"># tkinter</a>
+              <a href="/tags/gui/" rel="tag"># gui</a>
+              <a href="/tags/%E4%BA%8B%E4%BB%B6/" rel="tag"># 事件</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/" rel="prev" title="python tkinter事件">
+      <i class="fa fa-chevron-left"></i> python tkinter事件
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
