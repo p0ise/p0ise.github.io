@@ -22,27 +22,24 @@
     var CONFIG = {"hostname":"www.p0ise.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法  Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。 本文提供两种方式：脚本修改和手动修改。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。 准备工作 一个Markdown编辑器（本文用的是 Typora，其">
+  <meta name="description" content="不同的字体实现不同，有等宽和非等宽，非等宽字体不同字符宽度不同，宽高比也各不相同，而且字体尺寸和像素是无法直接转换的。因此，今天介绍的方法并非完美的解决方案，只是用于粗糙估算turtle中字符的长宽，用于在字符上绘图进行绘图操作，如圈画文本等。 背景知识write函数turtle中用于书写文本的函数为write 1turtle.write(arg, move&#x3D;False, align&#x3D;&quot;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows右键新建菜单增加md文件">
-<meta property="og:url" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:title" content="turtle字体粗糙定位">
+<meta property="og:url" content="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/index.html">
 <meta property="og:site_name" content="p0ise&#39;s blog">
-<meta property="og:description" content="因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法  Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。 本文提供两种方式：脚本修改和手动修改。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。 准备工作 一个Markdown编辑器（本文用的是 Typora，其">
+<meta property="og:description" content="不同的字体实现不同，有等宽和非等宽，非等宽字体不同字符宽度不同，宽高比也各不相同，而且字体尺寸和像素是无法直接转换的。因此，今天介绍的方法并非完美的解决方案，只是用于粗糙估算turtle中字符的长宽，用于在字符上绘图进行绘图操作，如圈画文本等。 背景知识write函数turtle中用于书写文本的函数为write 1turtle.write(arg, move&#x3D;False, align&#x3D;&quot;">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png">
-<meta property="og:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png">
-<meta property="article:published_time" content="2021-12-07T12:02:26.000Z">
-<meta property="article:modified_time" content="2021-12-13T16:27:05.184Z">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png">
+<meta property="article:published_time" content="2021-12-16T06:49:25.000Z">
+<meta property="article:modified_time" content="2021-12-16T15:45:12.543Z">
 <meta property="article:author" content="p0ise">
-<meta property="article:tag" content="markdown">
-<meta property="article:tag" content="windows">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="turtle">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png">
+<meta name="twitter:image" content="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png">
 
-<link rel="canonical" href="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/">
+<link rel="canonical" href="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/">
 
 
 <script id="page-configurations">
@@ -55,7 +52,7 @@
   };
 </script>
 
-  <title>windows右键新建菜单增加md文件 | p0ise's blog</title>
+  <title>turtle字体粗糙定位 | p0ise's blog</title>
   
 
 
@@ -215,7 +212,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -228,7 +225,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          windows右键新建菜单增加md文件
+          turtle字体粗糙定位
         </h1>
 
         <div class="post-meta">
@@ -237,16 +234,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2021-12-07 20:02:26" itemprop="dateCreated datePublished" datetime="2021-12-07T20:02:26+08:00">2021-12-07</time>
+              <time title="创建时间：2021-12-16 14:49:25 / 修改时间：23:45:12" itemprop="dateCreated datePublished" datetime="2021-12-16T14:49:25+08:00">2021-12-16</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-14 00:27:05" itemprop="dateModified" datetime="2021-12-14T00:27:05+08:00">2021-12-14</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -258,7 +249,7 @@
             </span>
 
           
-            <span id="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/" class="post-meta-item leancloud_visitors" data-flag-title="windows右键新建菜单增加md文件" title="阅读次数">
+            <span id="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/" class="post-meta-item leancloud_visitors" data-flag-title="turtle字体粗糙定位" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -273,8 +264,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/" itemprop="commentCount"></span>
+    <a title="valine" href="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -284,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>690</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -303,35 +294,40 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
-</blockquote>
-<p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
-<p>本文提供两种方式：<strong>脚本修改</strong>和<strong>手动修改</strong>。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>一个Markdown编辑器（本文用的是 Typora，其他的同理，如果用脚本需要相应作出更改）</li>
-</ul>
+        <p>不同的字体<strong>实现</strong>不同，有<strong>等宽</strong>和<strong>非等宽</strong>，非等宽字体<strong>不同字符宽度不同</strong>，<strong>宽高比</strong>也各不相同，而且<strong>字体尺寸</strong>和<strong>像素</strong>是无法直接转换的。因此，今天介绍的方法<strong>并非完美的解决方案</strong>，只是用于<strong>粗糙估算turtle中字符的长宽</strong>，用于在字符上绘图进行绘图操作，如<strong>圈画文本</strong>等。</p>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="write函数"><a href="#write函数" class="headerlink" title="write函数"></a>write函数</h2><p>turtle中用于书写文本的函数为write</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turtle.write(arg, move=<span class="literal">False</span>, align=<span class="string">&quot;left&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">8</span>, <span class="string">&quot;normal&quot;</span>))</span><br></pre></td></tr></table></figure>
+
 <span id="more"></span>
 
-<h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
-<h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
-<li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><p><strong>arg</strong> – 要书写到 TurtleScreen 的对象<br>如：”something”，123，(1,2)，[1,2,3]等</p>
+</li>
+<li><p><strong>move</strong> – True/False<br>如果 move 为 True，画笔会移动到文本的右下角，这样文字就不会叠在一块了。</p>
+</li>
+<li><p><strong>align</strong> – 字符串 “left”, “center” 或 “right”<br>align 指定对齐方式 (“left”, “center” 或 right”)</p>
+</li>
+<li><p><strong>font</strong> – 一个三元组 (fontname, fontsize, fonttype)<br>font 指定字体</p>
+</li>
+</ul>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>书写文本 arg 指定的字符串到当前海龟位置。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这里有两种思路，都不精确，第一种直接估算，第二种根据宽度估算，各有优劣，仅供参考：</p>
+<ol>
+<li><p>用<strong>fontsize近似代替宽度</strong>，然后用<strong>估测的纵横比</strong>近似估算高度，得到字符长宽参数，进而确定位置。</p>
+</li>
+<li><p>由于每个字宽度不同，所以可以单独绘制每个字符，将move设为True，这样在写每个字符时，画笔会跟着移动，可以<strong>记录其始末位置</strong>，作差得到<strong>每个字符的宽度</strong>。</p>
+</li>
 </ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
-<ol start="2">
-<li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
-<ol start="3">
-<li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
-<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>这里我们实现了在turtle中对文本部分子串进行圈画的功能，其中两种思路都有涉及。</p>
+<p>最后选用记录的宽度作为画圈的直径。另外，因为每个字符高度差不多，所以高度统一采用估算的高度。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br><span class="line">turtle.hideturtle()</span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ACTACGTCAGCTCGTCATCGGTACGTCTCVATGACGTCGT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选取字符串子串位置，闭区间[start_idx, end_idx]</span></span><br><span class="line">start_idx = <span class="number">33</span></span><br><span class="line">end_idx = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pos用于存储对应位置字符的始末x坐标</span></span><br><span class="line">pos = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字体设置</span></span><br><span class="line">font_setting = (<span class="string">&quot;Arial&quot;</span>, <span class="number">16</span>, <span class="string">&quot;normal&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同字体实现不同，且不同字符长宽又不同</span></span><br><span class="line"><span class="comment"># 这里假设字符像素宽度近似fontsize，宽高比为1.5倍</span></span><br><span class="line"><span class="comment"># 如果想更精确，请自己根据特定字体精调参数</span></span><br><span class="line">aspect_ratio = <span class="number">1.5</span></span><br><span class="line">font_width = font_setting[<span class="number">1</span>]</span><br><span class="line">font_height = font_width*aspect_ratio</span><br><span class="line"></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> text:</span><br><span class="line">    <span class="comment"># 单独绘制每个字符</span></span><br><span class="line">    start = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    turtle.write(ch, move=<span class="literal">True</span>, font=font_setting)</span><br><span class="line">    end = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    pos.append((start, end))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算直径半径</span></span><br><span class="line">d = pos[end_idx][<span class="number">1</span>] - pos[start_idx][<span class="number">0</span>]</span><br><span class="line">r = d/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算circle函数绘制起点坐标</span></span><br><span class="line">center_x = (pos[end_idx][<span class="number">1</span>] + pos[start_idx][<span class="number">0</span>])/<span class="number">2</span></span><br><span class="line">center_y = font_height/<span class="number">2</span> - r + <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置画笔</span></span><br><span class="line">turtle.pencolor(<span class="string">&quot;red&quot;</span>)</span><br><span class="line">turtle.pensize(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">turtle.setposition(center_x, center_y)</span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.circle(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>双击以管理员权限运行。</p>
-<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png" alt="demo-1"></p>
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png" alt="image-20211216233747578"></p>
+<blockquote>
+<p>Note</p>
+<p>这里仅用于演示，因此圈画功能简单使用了circle函数，绘制的是圆形，在圈画较长或较短字符串时并不美观，实际使用时可以根据需求自己调整，比如绘制椭圆或方框等其他圈画方式。</p>
+</blockquote>
 
     </div>
 
@@ -361,8 +357,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/markdown/" rel="tag"># markdown</a>
-              <a href="/tags/windows/" rel="tag"># windows</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/turtle/" rel="tag"># turtle</a>
           </div>
 
         
@@ -371,13 +367,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" rel="prev" title="os.urandom()编码问题">
-      <i class="fa fa-chevron-left"></i> os.urandom()编码问题
+    <a href="/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/" rel="prev" title="turtle绘图速度">
+      <i class="fa fa-chevron-left"></i> turtle绘图速度
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" rel="next" title="tkinter command传参问题解决">
-      tkinter command传参问题解决 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -437,7 +430,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="nav-number">2.</span> <span class="nav-text">修改注册表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E4%BF%AE%E6%94%B9"><span class="nav-number">2.1.</span> <span class="nav-text">手动修改</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-1-%E6%89%93%E5%BC%80%E6%B3%A8%E5%86%8C%E8%A1%A8%E7%BC%96%E8%BE%91%E5%99%A8"><span class="nav-number">2.1.1.</span> <span class="nav-text">Step-1 打开注册表编辑器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Step-2-%E4%BF%AE%E6%94%B9%E6%B3%A8%E5%86%8C%E8%A1%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">Step-2 修改注册表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E4%BF%AE%E6%94%B9"><span class="nav-number">2.2.</span> <span class="nav-text">脚本修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number">3.</span> <span class="nav-text">效果图</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">背景知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#write%E5%87%BD%E6%95%B0"><span class="nav-number">1.1.</span> <span class="nav-text">write函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="nav-number">1.1.1.</span> <span class="nav-text">参数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="nav-number">1.1.2.</span> <span class="nav-text">作用：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

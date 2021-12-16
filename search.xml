@@ -414,11 +414,26 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 
 <h1 id="事件列表"><a href="#事件列表" class="headerlink" title="事件列表"></a>事件列表</h1><p>tkinter自带的事件：</p>
 <ul>
-<li><strong>Button</strong>– Button is used as an event handler when we click on the button the program execute</li>
-<li><strong>Configure</strong>– configure is used to change the property of a widget.</li>
-<li><strong>Focus</strong>– completely focus on a particular widget.</li>
-<li><strong>Destroy</strong>-Terminate the particular widget.</li>
-<li><strong>Motion</strong>– Even where the mouse move entire on the widget.</li>
+<li><strong>Button</strong> – 点击按钮时触发Button事件，回调参数中event包含x,y属性返回点击时的坐标<ul>
+<li><Button-1>：鼠标左击事件</Button-1></li>
+<li><Button-2>：鼠标中击事件</Button-2></li>
+<li><Button-3>：鼠标右击事件</Button-3></li>
+<li><Double-Button-1>：双击事件</Double-Button-1></li>
+<li><Triple-Button-1>：三击事件</Triple-Button-1></li>
+<li><Bx-Motion>：鼠标移动事件,x=[1,2,3]分别表示左、中、右鼠标操作</Bx-Motion></li>
+<li><ButtonRelease-x>鼠标释放事件,x=[1,2,3],分别表示鼠标的左、中、右键操作</ButtonRelease-x></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Configure</strong>– configure is used to change the property of a widget.</p>
+</li>
+<li><p><strong>Focus</strong>– completely focus on a particular widget.</p>
+</li>
+<li><p><strong>Destroy</strong>-Terminate the particular widget.</p>
+</li>
+<li><p><strong>Motion</strong>– Even where the mouse move entire on the widget.</p>
+</li>
 </ul>
 <p>example</p>
 <h1 id="事件小部件"><a href="#事件小部件" class="headerlink" title="事件小部件"></a>事件小部件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">event.widget</span><br></pre></td></tr></table></figure>
@@ -499,6 +514,8 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 </ul>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.tracer(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 
+<span id="more"></span>
+
 <h1 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h1><h2 id="speed"><a href="#speed" class="headerlink" title="speed"></a>speed</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(speed=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
 <h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
@@ -560,6 +577,52 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 </ul>
 <h3 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a>作用：</h3><p>启用/禁用海龟动画并设置刷新图形的延迟时间。</p>
 <p>文末推荐一篇详细的学习 turtle 的文章：<a href="https://blog.csdn.net/sandalphon4869/article/details/99443949">https://blog.csdn.net/sandalphon4869/article/details/99443949</a></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>turtle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>turtle字体粗糙定位</title>
+    <url>/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/</url>
+    <content><![CDATA[<p>不同的字体<strong>实现</strong>不同，有<strong>等宽</strong>和<strong>非等宽</strong>，非等宽字体<strong>不同字符宽度不同</strong>，<strong>宽高比</strong>也各不相同，而且<strong>字体尺寸</strong>和<strong>像素</strong>是无法直接转换的。因此，今天介绍的方法<strong>并非完美的解决方案</strong>，只是用于<strong>粗糙估算turtle中字符的长宽</strong>，用于在字符上绘图进行绘图操作，如<strong>圈画文本</strong>等。</p>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="write函数"><a href="#write函数" class="headerlink" title="write函数"></a>write函数</h2><p>turtle中用于书写文本的函数为write</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.write(arg, move=<span class="literal">False</span>, align=<span class="string">&quot;left&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">8</span>, <span class="string">&quot;normal&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><p><strong>arg</strong> – 要书写到 TurtleScreen 的对象<br>如：”something”，123，(1,2)，[1,2,3]等</p>
+</li>
+<li><p><strong>move</strong> – True/False<br>如果 move 为 True，画笔会移动到文本的右下角，这样文字就不会叠在一块了。</p>
+</li>
+<li><p><strong>align</strong> – 字符串 “left”, “center” 或 “right”<br>align 指定对齐方式 (“left”, “center” 或 right”)</p>
+</li>
+<li><p><strong>font</strong> – 一个三元组 (fontname, fontsize, fonttype)<br>font 指定字体</p>
+</li>
+</ul>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>书写文本 arg 指定的字符串到当前海龟位置。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这里有两种思路，都不精确，第一种直接估算，第二种根据宽度估算，各有优劣，仅供参考：</p>
+<ol>
+<li><p>用<strong>fontsize近似代替宽度</strong>，然后用<strong>估测的纵横比</strong>近似估算高度，得到字符长宽参数，进而确定位置。</p>
+</li>
+<li><p>由于每个字宽度不同，所以可以单独绘制每个字符，将move设为True，这样在写每个字符时，画笔会跟着移动，可以<strong>记录其始末位置</strong>，作差得到<strong>每个字符的宽度</strong>。</p>
+</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>这里我们实现了在turtle中对文本部分子串进行圈画的功能，其中两种思路都有涉及。</p>
+<p>最后选用记录的宽度作为画圈的直径。另外，因为每个字符高度差不多，所以高度统一采用估算的高度。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br><span class="line">turtle.hideturtle()</span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ACTACGTCAGCTCGTCATCGGTACGTCTCVATGACGTCGT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选取字符串子串位置，闭区间[start_idx, end_idx]</span></span><br><span class="line">start_idx = <span class="number">33</span></span><br><span class="line">end_idx = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pos用于存储对应位置字符的始末x坐标</span></span><br><span class="line">pos = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字体设置</span></span><br><span class="line">font_setting = (<span class="string">&quot;Arial&quot;</span>, <span class="number">16</span>, <span class="string">&quot;normal&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同字体实现不同，且不同字符长宽又不同</span></span><br><span class="line"><span class="comment"># 这里假设字符像素宽度近似fontsize，宽高比为1.5倍</span></span><br><span class="line"><span class="comment"># 如果想更精确，请自己根据特定字体精调参数</span></span><br><span class="line">aspect_ratio = <span class="number">1.5</span></span><br><span class="line">font_width = font_setting[<span class="number">1</span>]</span><br><span class="line">font_height = font_width*aspect_ratio</span><br><span class="line"></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> text:</span><br><span class="line">    <span class="comment"># 单独绘制每个字符</span></span><br><span class="line">    start = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    turtle.write(ch, move=<span class="literal">True</span>, font=font_setting)</span><br><span class="line">    end = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    pos.append((start, end))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算直径半径</span></span><br><span class="line">d = pos[end_idx][<span class="number">1</span>] - pos[start_idx][<span class="number">0</span>]</span><br><span class="line">r = d/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算circle函数绘制起点坐标</span></span><br><span class="line">center_x = (pos[end_idx][<span class="number">1</span>] + pos[start_idx][<span class="number">0</span>])/<span class="number">2</span></span><br><span class="line">center_y = font_height/<span class="number">2</span> - r + <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置画笔</span></span><br><span class="line">turtle.pencolor(<span class="string">&quot;red&quot;</span>)</span><br><span class="line">turtle.pensize(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">turtle.setposition(center_x, center_y)</span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.circle(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png" alt="demo-1"></p>
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png" alt="image-20211216233747578"></p>
+<blockquote>
+<p>Note</p>
+<p>这里仅用于演示，因此圈画功能简单使用了circle函数，绘制的是圆形，在圈画较长或较短字符串时并不美观，实际使用时可以根据需求自己调整，比如绘制椭圆或方框等其他圈画方式。</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>杂项</category>
