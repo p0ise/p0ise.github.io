@@ -205,6 +205,184 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="p0ise">
+      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0ise's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/" class="post-title-link" itemprop="url">turtle绘图速度</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-12-16 12:05:21 / 修改时间：12:25:04" itemprop="dateCreated datePublished" datetime="2021-12-16T12:05:21+08:00">2021-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/" class="post-meta-item leancloud_visitors" data-flag-title="turtle绘图速度" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>687</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ul>
+<li>最快的画笔移动速度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turtle.speed(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最快的画笔移动速度+取消绘画过程的延迟</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>跳过绘制过程（直接成像）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turtle.tracer(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<h1 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h1><h2 id="speed"><a href="#speed" class="headerlink" title="speed"></a>speed</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turtle.speed(speed=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><p>speed：一个 0到10 范围内的整型数或速度字符串（如果输入数值大于 10 或小于 0.5 则速度设为 0）</p>
+</li>
+<li><p>不传入参数：返回当前海龟的速度</p>
+<p>speed关键字对应表：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">字符串</th>
+<th align="center">数字</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">“fastest”</td>
+<td align="center">0</td>
+<td align="center">最快</td>
+</tr>
+<tr>
+<td align="center">“fast”</td>
+<td align="center">10</td>
+<td align="center">快</td>
+</tr>
+<tr>
+<td align="center">“normal”</td>
+<td align="center">6</td>
+<td align="center">正常</td>
+</tr>
+<tr>
+<td align="center">“slow”</td>
+<td align="center">3</td>
+<td align="center">慢</td>
+</tr>
+<tr>
+<td align="center">“slowest”</td>
+<td align="center">1</td>
+<td align="center">最慢</td>
+</tr>
+</tbody></table>
+<p>速度值从 1 到 10，画线和海龟转向的动画效果逐级加快。speed = 0 表示没有动画效果（转向），但绘制还是需要时间，最快。</p>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>设置海龟移动的速度或返回当前海龟的速度。</p>
+<h2 id="delay"><a href="#delay" class="headerlink" title="delay"></a>delay</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turtle.delay(delay=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数：-1"><a href="#参数：-1" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li>delay：正整型数</li>
+<li>不传参：返回以毫秒数表示的延迟值 delay</li>
+</ul>
+<h3 id="作用：-1"><a href="#作用：-1" class="headerlink" title="作用："></a>作用：</h3><p>设置或返回以毫秒数表示的延迟值 delay（约等于连续两次画布刷新的间隔时间）。 绘图延迟越长，动画速度越慢。</p>
+<h2 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">turtle.tracer(n=<span class="literal">None</span>, delay=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数：-2"><a href="#参数：-2" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li>n：非负整型数（0/False 表示不启用动画）</li>
+<li>delay：非负整型数（等同于上文delay函数）</li>
+<li>不传参：返回当前的 n 值</li>
+</ul>
+<h3 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a>作用：</h3><p>启用/禁用海龟动画并设置刷新图形的延迟时间。</p>
+<p>文末推荐一篇详细的学习 turtle 的文章：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sandalphon4869/article/details/99443949">https://blog.csdn.net/sandalphon4869/article/details/99443949</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1332,7 +1510,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-count">10</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1389,12 +1567,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">12k</span>
+    <span title="站点总字数">13k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">12 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
