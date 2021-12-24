@@ -22,12 +22,12 @@
     var CONFIG = {"hostname":"www.p0ise.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="添加菜单项Win+R唤出运行对话框输入regedit打开注册表编辑器，进入目录HKEY_CLASSES_ROOT\Directory\Background\shell新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是example：  点击进入刚创建的项example，双击默认值：  修改为菜单项中要显示的名字：   然后右键唤出菜单，可以看到已经多了该项">
+  <meta name="description" content="添加菜单项Win+R唤出运行对话框输入regedit打开注册表编辑器，进入目录HKEY_CLASSES_ROOT\Directory\Background\shell新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是example：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Windows注册右键打开菜单（上下文菜单）">
 <meta property="og:url" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/index.html">
 <meta property="og:site_name" content="p0ise&#39;s blog">
-<meta property="og:description" content="添加菜单项Win+R唤出运行对话框输入regedit打开注册表编辑器，进入目录HKEY_CLASSES_ROOT\Directory\Background\shell新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是example：  点击进入刚创建的项example，双击默认值：  修改为菜单项中要显示的名字：   然后右键唤出菜单，可以看到已经多了该项">
+<meta property="og:description" content="添加菜单项Win+R唤出运行对话框输入regedit打开注册表编辑器，进入目录HKEY_CLASSES_ROOT\Directory\Background\shell新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是example：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png">
 <meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png">
@@ -41,7 +41,7 @@
 <meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png">
 <meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png">
 <meta property="article:published_time" content="2021-12-23T08:37:49.000Z">
-<meta property="article:modified_time" content="2021-12-24T10:25:43.934Z">
+<meta property="article:modified_time" content="2021-12-24T10:27:45.645Z">
 <meta property="article:author" content="p0ise">
 <meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
@@ -250,7 +250,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-24 18:25:43" itemprop="dateModified" datetime="2021-12-24T18:25:43+08:00">2021-12-24</time>
+                <time title="修改时间：2021-12-24 18:27:45" itemprop="dateModified" datetime="2021-12-24T18:27:45+08:00">2021-12-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -310,6 +310,8 @@
       
         <h1 id="添加菜单项"><a href="#添加菜单项" class="headerlink" title="添加菜单项"></a>添加菜单项</h1><p><code>Win+R</code>唤出运行对话框输入<code>regedit</code>打开注册表编辑器，进入目录<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code>新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是<code>example</code>：</p>
 <p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png" alt="创建项example"></p>
+<span id="more"></span>
+
 <p>点击进入刚创建的项<code>example</code>，双击默认值：</p>
 <p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png" alt="image-20211224173933587"></p>
 <p>修改为菜单项中要显示的名字：</p>
