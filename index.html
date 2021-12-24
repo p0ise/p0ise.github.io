@@ -205,6 +205,139 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="p0ise">
+      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0ise's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/" class="post-title-link" itemprop="url">Windows注册右键打开菜单（上下文菜单）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-23 16:37:49" itemprop="dateCreated datePublished" datetime="2021-12-23T16:37:49+08:00">2021-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-24 18:25:43" itemprop="dateModified" datetime="2021-12-24T18:25:43+08:00">2021-12-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/" class="post-meta-item leancloud_visitors" data-flag-title="Windows注册右键打开菜单（上下文菜单）" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>620</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="添加菜单项"><a href="#添加菜单项" class="headerlink" title="添加菜单项"></a>添加菜单项</h1><p><code>Win+R</code>唤出运行对话框输入<code>regedit</code>打开注册表编辑器，进入目录<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code>新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是<code>example</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png" alt="创建项example"></p>
+<p>点击进入刚创建的项<code>example</code>，双击默认值：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png" alt="image-20211224173933587"></p>
+<p>修改为菜单项中要显示的名字：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174027061.png" alt="设置菜单名称"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174148263.png" alt="修改后注册表"></p>
+<p>然后右键唤出菜单，可以看到已经多了该项：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174055568.png" alt="无图标菜单效果"></p>
+<h1 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h1><p>在<code>example</code>下创建<code>command</code>项，修改默认值为要执行的命令，这是点击对应菜单要执行的命令：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174435927.png" alt="创建command项"></p>
+<p>这里设置为<code>powershell echo &#39;Hello world!&#39;</code>，点击菜单会唤出<code>powershell</code>打印<code>Hello world!</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175349430.png" alt="设置command"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224180026343.png" alt="打印hello world"></p>
+<h1 id="添加图标"><a href="#添加图标" class="headerlink" title="添加图标"></a>添加图标</h1><p>在<code>example</code>项下创建可扩充字符串<code>Icon</code>，设置值为<code>ico</code>文件路径或者<code>exe</code>文件路径，这里设为<code>E:\favicon.ico</code>，我在这里放了以下图标：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175612961.png" alt="E:\favicon.ico"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png" alt="添加图标路径"></p>
+<p>效果如下：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png" alt="最终效果"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>[Windows自定义右键菜单]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25166683/article/details/81352868">https://blog.csdn.net/qq_25166683/article/details/81352868</a>    “详解”</p>
+</li>
+<li><p>[为上下文菜单编写]: <a target="_blank" rel="noopener" href="https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context">https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context</a>    “命令拓展阅读”</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1265,129 +1398,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="p0ise">
-      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="p0ise's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">os.urandom()编码问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-11-30 21:48:44" itemprop="dateCreated datePublished" datetime="2021-11-30T21:48:44+08:00">2021-11-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-12-14 00:26:04" itemprop="dateModified" datetime="2021-12-14T00:26:04+08:00">2021-12-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" class="post-meta-item leancloud_visitors" data-flag-title="os.urandom()编码问题" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>370</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
-
-<p>处理后得到正常的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1457,7 +1467,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">12</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1519,7 +1529,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">13 分钟</span>
+    <span title="站点阅读时长">14 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

@@ -22,18 +22,32 @@
     var CONFIG = {"hostname":"www.p0ise.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="p0ise&#39;s blog">
-<meta property="og:url" content="https://www.p0ise.com/tags/crypto/index.html">
+  <meta name="description" content="添加菜单项Win+R唤出运行对话框输入regedit打开注册表编辑器，进入目录HKEY_CLASSES_ROOT\Directory\Background\shell新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是example：  点击进入刚创建的项example，双击默认值：  修改为菜单项中要显示的名字：   然后右键唤出菜单，可以看到已经多了该项">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows注册右键打开菜单（上下文菜单）">
+<meta property="og:url" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/index.html">
 <meta property="og:site_name" content="p0ise&#39;s blog">
-<meta property="og:description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+<meta property="og:description" content="添加菜单项Win+R唤出运行对话框输入regedit打开注册表编辑器，进入目录HKEY_CLASSES_ROOT\Directory\Background\shell新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是example：  点击进入刚创建的项example，双击默认值：  修改为菜单项中要显示的名字：   然后右键唤出菜单，可以看到已经多了该项">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174027061.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174148263.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174055568.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174435927.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175349430.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224180026343.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175612961.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png">
+<meta property="og:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png">
+<meta property="article:published_time" content="2021-12-23T08:37:49.000Z">
+<meta property="article:modified_time" content="2021-12-24T10:25:43.934Z">
 <meta property="article:author" content="p0ise">
-<meta property="article:tag" content="technology,security,blockchain,CTF,SQL,Python">
+<meta property="article:tag" content="windows">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png">
 
-<link rel="canonical" href="https://www.p0ise.com/tags/crypto/">
+<link rel="canonical" href="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/">
 
 
 <script id="page-configurations">
@@ -41,12 +55,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: crypto | p0ise's blog</title>
+  <title>Windows注册右键打开菜单（上下文菜单） | p0ise's blog</title>
   
 
 
@@ -199,57 +213,181 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="p0ise">
+      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0ise's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Windows注册右键打开菜单（上下文菜单）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-12-23 16:37:49" itemprop="dateCreated datePublished" datetime="2021-12-23T16:37:49+08:00">2021-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-12-24 18:25:43" itemprop="dateModified" datetime="2021-12-24T18:25:43+08:00">2021-12-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/" class="post-meta-item leancloud_visitors" data-flag-title="Windows注册右键打开菜单（上下文菜单）" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">crypto
-          <small>标签</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>620</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
+        <h1 id="添加菜单项"><a href="#添加菜单项" class="headerlink" title="添加菜单项"></a>添加菜单项</h1><p><code>Win+R</code>唤出运行对话框输入<code>regedit</code>打开注册表编辑器，进入目录<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code>新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是<code>example</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png" alt="创建项example"></p>
+<p>点击进入刚创建的项<code>example</code>，双击默认值：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png" alt="image-20211224173933587"></p>
+<p>修改为菜单项中要显示的名字：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174027061.png" alt="设置菜单名称"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174148263.png" alt="修改后注册表"></p>
+<p>然后右键唤出菜单，可以看到已经多了该项：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174055568.png" alt="无图标菜单效果"></p>
+<h1 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h1><p>在<code>example</code>下创建<code>command</code>项，修改默认值为要执行的命令，这是点击对应菜单要执行的命令：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174435927.png" alt="创建command项"></p>
+<p>这里设置为<code>powershell echo &#39;Hello world!&#39;</code>，点击菜单会唤出<code>powershell</code>打印<code>Hello world!</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175349430.png" alt="设置command"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224180026343.png" alt="打印hello world"></p>
+<h1 id="添加图标"><a href="#添加图标" class="headerlink" title="添加图标"></a>添加图标</h1><p>在<code>example</code>项下创建可扩充字符串<code>Icon</code>，设置值为<code>ico</code>文件路径或者<code>exe</code>文件路径，这里设为<code>E:\favicon.ico</code>，我在这里放了以下图标：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175612961.png" alt="E:\favicon.ico"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png" alt="添加图标路径"></p>
+<p>效果如下：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png" alt="最终效果"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>[Windows自定义右键菜单]: <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25166683/article/details/81352868">https://blog.csdn.net/qq_25166683/article/details/81352868</a>    “详解”</p>
+</li>
+<li><p>[为上下文菜单编写]: <a target="_blank" rel="noopener" href="https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context">https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context</a>    “命令拓展阅读”</p>
+</li>
+</ul>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-11-30T21:48:44+08:00"
-              content="2021-11-30">
-          11-30
-        </time>
+    
+    
+    
+        <div class="reward-container">
+  <div>创作不易，支持一下吧！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="p0ise 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="p0ise 支付宝">
+        <p>支付宝</p>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/" itemprop="url">
-            <span itemprop="name">os.urandom()编码问题</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/windows/" rel="tag"># windows</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/" rel="prev" title="turtle字体粗糙定位">
+      <i class="fa fa-chevron-left"></i> turtle字体粗糙定位
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -296,6 +434,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E8%8F%9C%E5%8D%95%E9%A1%B9"><span class="nav-number">1.</span> <span class="nav-text">添加菜单项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%91%BD%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">添加命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E5%9B%BE%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">添加图标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">参考</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

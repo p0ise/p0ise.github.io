@@ -632,4 +632,40 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>turtle</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Windows注册右键打开菜单（上下文菜单）</title>
+    <url>/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/</url>
+    <content><![CDATA[<h1 id="添加菜单项"><a href="#添加菜单项" class="headerlink" title="添加菜单项"></a>添加菜单项</h1><p><code>Win+R</code>唤出运行对话框输入<code>regedit</code>打开注册表编辑器，进入目录<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code>新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是<code>example</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png" alt="创建项example"></p>
+<p>点击进入刚创建的项<code>example</code>，双击默认值：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png" alt="image-20211224173933587"></p>
+<p>修改为菜单项中要显示的名字：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174027061.png" alt="设置菜单名称"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174148263.png" alt="修改后注册表"></p>
+<p>然后右键唤出菜单，可以看到已经多了该项：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174055568.png" alt="无图标菜单效果"></p>
+<h1 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h1><p>在<code>example</code>下创建<code>command</code>项，修改默认值为要执行的命令，这是点击对应菜单要执行的命令：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174435927.png" alt="创建command项"></p>
+<p>这里设置为<code>powershell echo &#39;Hello world!&#39;</code>，点击菜单会唤出<code>powershell</code>打印<code>Hello world!</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175349430.png" alt="设置command"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224180026343.png" alt="打印hello world"></p>
+<h1 id="添加图标"><a href="#添加图标" class="headerlink" title="添加图标"></a>添加图标</h1><p>在<code>example</code>项下创建可扩充字符串<code>Icon</code>，设置值为<code>ico</code>文件路径或者<code>exe</code>文件路径，这里设为<code>E:\favicon.ico</code>，我在这里放了以下图标：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175612961.png" alt="E:\favicon.ico"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png" alt="添加图标路径"></p>
+<p>效果如下：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png" alt="最终效果"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>[Windows自定义右键菜单]: <a href="https://blog.csdn.net/qq_25166683/article/details/81352868">https://blog.csdn.net/qq_25166683/article/details/81352868</a>    “详解”</p>
+</li>
+<li><p>[为上下文菜单编写]: <a href="https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context">https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context</a>    “命令拓展阅读”</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
 </search>
