@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Python月相设计思路</title>
+    <url>/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/</url>
+    <content><![CDATA[<p>要求可以展示任一月份月相，并单击日期实现绘图。本文浅析一下该题设计思路。</p>
+<p>本题关键：</p>
+<ol>
+<li>月历中每日对应星期</li>
+<li>月相与日期对应关系</li>
+<li>turtle绘制月相</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="月历每日对应星期"><a href="#月历每日对应星期" class="headerlink" title="月历每日对应星期"></a>月历每日对应星期</h2><p>日历相关问题可以直接用 calendar 标准库</p>
+<p>月历里面有对应实现：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> calendar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>year = <span class="number">2021</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>month = <span class="number">12</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>calendar.monthcalendar(year, month)</span><br><span class="line">[[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>], [<span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>], [<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">24</span>, <span class="number">25</span>, <span class="number">26</span>], [<span class="number">27</span>, <span class="number">28</span>, <span class="number">29</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">0</span>, <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
+
+<p>看到该函数返回一个二维数组，表示月历中每一行（每一周）对应的日期，没有则为 0</p>
+<p>应用到本题，只需要读取用户选择的年月，然后得到该函数对应的数据，用循环显示出控件即可</p>
+<h2 id="月相与日期对应关系"><a href="#月相与日期对应关系" class="headerlink" title="月相与日期对应关系"></a>月相与日期对应关系</h2><p>做了点研究，月相与农历大致能一一对应，可以从这里切入。</p>
+<p><img data-src="/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/8cfb7e8a8902ceecf9ad1eaca5eb0631.jpeg" alt="农历月相对照图"></p>
+<p>所以本题就可以转化为农历和公历的对应关系。</p>
+<p>然而，农历和公历的关系是没有规律的，农历都是天文观测的结果，因此这里只需要下载农历公历对应关系的数据即可。</p>
+<p>这里网上其实有很多实现，可以直接借鉴。</p>
+<p>另外，这里推荐几个可用的库：sxtwl、zhdate</p>
+<h3 id="sxtwl库使用"><a href="#sxtwl库使用" class="headerlink" title="sxtwl库使用"></a>sxtwl库使用</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sxtwl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 阳历（公历）日期 获取一天的日期对象</span></span><br><span class="line">day = sxtwl.fromSolar(<span class="number">2021</span>, <span class="number">12</span>, <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取对应的农历信息</span></span><br><span class="line">lunar_year = day.getLunarYear()</span><br><span class="line">lunar_month = day.getLunarMonth()</span><br><span class="line">lunar_day = day.getLunarDay()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否是闰月</span></span><br><span class="line">is_lunar_leap = day.isLunarLeap()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取农历月的天数</span></span><br><span class="line">day_cnt = sxtwl.getLunarMonthNum(lunar_year, lunar_month, is_lunar_leap)</span><br></pre></td></tr></table></figure>
+
+<p>详情请参考<a href="https://pypi.org/project/sxtwl/">https://pypi.org/project/sxtwl/</a></p>
+<h2 id="turtle绘制月相"><a href="#turtle绘制月相" class="headerlink" title="turtle绘制月相"></a>turtle绘制月相</h2><p>思路是根据当前农历日与对应的农历月的总天数之比绘制月相。</p>
+<p>月相可以通过类比球体投影的方式绘制。</p>
+<p>把月亮想象成一个球体，则月相的变化可以看作是与其旋转轴与球面相交的两点所在的弧在旋转形成的一个投影。</p>
+<p>绘制该图的关键在于绘制将月相分为明暗两面的弧。</p>
+<p>想象球体的一个鸟瞰图，一半是明面，一半是暗面，明暗交界的线按农历作周期性旋转，然后月相展示的是一个正面的一个投影。</p>
+<p>（此处应有图片配合，但是可惜没有…）</p>
+<p>这里之前计算明暗交界线的代码有个错误，感谢qq1337361309纠正，我顺便把填充亮面的代码补全了，大家可以直接套用相关代码：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="comment"># orgin 为圆心坐标，此处假设为原点(0,0)，请根据实际修改</span></span><br><span class="line"><span class="comment"># radius 为球体半径</span></span><br><span class="line">radius = <span class="number">100</span></span><br><span class="line"><span class="comment"># step 为绘制弧的精度，建议画圆的时候也用类似的逻辑，这样整体样式统一一点</span></span><br><span class="line">step = <span class="number">1</span></span><br><span class="line"><span class="comment"># lunar_day 为农历日</span></span><br><span class="line">lunar_day = <span class="number">3</span></span><br><span class="line"><span class="comment"># day_cnt 为农历当月的天数</span></span><br><span class="line">day_cnt = <span class="number">29</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算偏转角</span></span><br><span class="line"><span class="comment"># fix: 农历初一偏转角应该为 0, 感谢qq1337361309纠正</span></span><br><span class="line">angle = angle = (lunar_day - <span class="number">1</span>) / day_cnt * <span class="number">360</span></span><br><span class="line"><span class="comment"># 是否从右边填充，此处填充为填充亮面</span></span><br><span class="line">fromRight = angle &gt;= <span class="number">180</span></span><br><span class="line">degree = angle % <span class="number">180</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 填充</span></span><br><span class="line">turtle.penup()</span><br><span class="line">turtle.goto(<span class="number">0</span>, radius)</span><br><span class="line">turtle.fillcolor(<span class="string">&quot;yellow&quot;</span>)</span><br><span class="line">turtle.begin_fill()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 描边</span></span><br><span class="line"><span class="keyword">if</span> fromRight:</span><br><span class="line">    signal = <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    signal = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(radius, -(radius+step), -step):</span><br><span class="line">    x = signal*(radius**<span class="number">2</span> - y**<span class="number">2</span>)**<span class="number">0.5</span></span><br><span class="line">    turtle.goto(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画弧</span></span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(-radius, radius+step, step):</span><br><span class="line">    x = -(radius**<span class="number">2</span> - y**<span class="number">2</span>)**<span class="number">0.5</span> * math.cos(math.radians(degree))</span><br><span class="line">    turtle.goto(x, y)</span><br><span class="line"></span><br><span class="line">turtle.end_fill()</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/image-20211215170856110.png" alt="demo"></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>课程设计</tag>
+        <tag>tkinter</tag>
+        <tag>turtle</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>windows右键新建菜单增加md文件</title>
     <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
     <content><![CDATA[<blockquote>
@@ -42,6 +90,99 @@
       </tags>
   </entry>
   <entry>
+    <title>hexo插入本地图片</title>
+    <url>/2021/12/14/hexo%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<blockquote>
+<p>这篇文章随便记录一下，讲的不是很清楚，如果有需要评论区留言，我再重新写一写</p>
+</blockquote>
+<p>网上查的说用hexo-asset-image插件</p>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+
+<p>修改_config.yml：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>重新生成一遍……然并卵</p>
+<h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>好像是hexo里面参数改了</p>
+<p>找到<code>node_modules/hexo-asset-image/index.js</code>，做点小改动：</p>
+<span id="more"></span>
+
+<ol>
+<li>把获取img的src属性的语句改为获取data-src属性</li>
+<li>修改截取绝对路径的语句</li>
+</ol>
+<h1 id="成品"><a href="#成品" class="headerlink" title="成品"></a>成品</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">    <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> appendLink = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">    <span class="comment">// if not with index.html endpos = link.lastIndexOf(&#x27;.&#x27;) + 1 support hexo-abbrlink</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="regexp">/.*\/index\.html$/</span>.test(link)) &#123;</span><br><span class="line">      <span class="comment">// when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html</span></span><br><span class="line">      <span class="comment">// image in xxtitle/ will go to xxtitle/index/</span></span><br><span class="line">      appendLink = <span class="string">&#x27;index/&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    link = link.substring(beginPos, endPos) + <span class="string">&#x27;/&#x27;</span> + appendLink;</span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>))&#123;</span><br><span class="line">          <span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">          <span class="keyword">var</span> src = $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">          <span class="keyword">if</span>(!(<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s+\//</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s*\/uploads|images\//</span>.test(src))) &#123;</span><br><span class="line">            <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">            <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">            <span class="keyword">var</span> linkArray = link.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">var</span> srcArray = src.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">            srcArray.shift();</span><br><span class="line">            src = srcArray.join(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>, config.root + link + src);</span><br><span class="line">            <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.root + link + src);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="built_in">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>博客建设</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Windows注册右键打开菜单（上下文菜单）</title>
+    <url>/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/</url>
+    <content><![CDATA[<h1 id="添加菜单项"><a href="#添加菜单项" class="headerlink" title="添加菜单项"></a>添加菜单项</h1><p><code>Win+R</code>唤出运行对话框输入<code>regedit</code>打开注册表编辑器，进入目录<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code>新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是<code>example</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png" alt="创建项example"></p>
+<span id="more"></span>
+
+<p>点击进入刚创建的项<code>example</code>，双击默认值：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png" alt="image-20211224173933587"></p>
+<p>修改为菜单项中要显示的名字：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174027061.png" alt="设置菜单名称"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174148263.png" alt="修改后注册表"></p>
+<p>然后右键唤出菜单，可以看到已经多了该项：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174055568.png" alt="无图标菜单效果"></p>
+<h1 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h1><p>在<code>example</code>下创建<code>command</code>项，修改默认值为要执行的命令，这是点击对应菜单要执行的命令：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174435927.png" alt="创建command项"></p>
+<p>这里设置为<code>powershell echo &#39;Hello world!&#39;</code>，点击菜单会唤出<code>powershell</code>打印<code>Hello world!</code>：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175349430.png" alt="设置command"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224180026343.png" alt="打印hello world"></p>
+<h1 id="添加图标"><a href="#添加图标" class="headerlink" title="添加图标"></a>添加图标</h1><p>在<code>example</code>项下创建可扩充字符串<code>Icon</code>，设置值为<code>ico</code>文件路径或者<code>exe</code>文件路径，这里设为<code>E:\favicon.ico</code>，我在这里放了以下图标：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175612961.png" alt="E:\favicon.ico"></p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png" alt="添加图标路径"></p>
+<p>效果如下：</p>
+<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png" alt="最终效果"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>[Windows自定义右键菜单]: <a href="https://blog.csdn.net/qq_25166683/article/details/81352868">https://blog.csdn.net/qq_25166683/article/details/81352868</a>    “详解”</p>
+</li>
+<li><p>[为上下文菜单编写]: <a href="https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context">https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context</a>    “命令拓展阅读”</p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>windows</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Hello Hexo - 博客搭建全教程</title>
+    <url>/2021/11/30/hello-hexo/</url>
+    <content><![CDATA[<p>本文将包含本站搭建及配置全过程，长期更新。</p>
+<p>本人非专业建站人员，如有错误，欢迎指正。</p>
+<h1 id="Hexo简介"><a href="#Hexo简介" class="headerlink" title="Hexo简介"></a>Hexo简介</h1><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 <a href="http://daringfireball.net/projects/markdown/">Markdown</a>（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成<strong>静态网页</strong>。</p>
+<p>这里注意，hexo是基于<strong>Node.js</strong>的一款博客框架，因此和一些<strong>PHP</strong>的博客系统是有显著区别的。</p>
+<p>之前玩过 emlog, typecho, wordpress 等一些PHP的博客系统的都知道，这类博客内容是动态生成的，各种数据保存在数据库里，会有一个管理后台能直接完成交互。</p>
+<p>这些hexo里面都是没有的，它完全根据你的<strong>配置文件和源文件</strong>生成对应的<strong>静态网页</strong>，就是说，你每写一篇文章，就要生成一个对应的静态网页。</p>
+<p>用惯了PHP博客系统的朋友们一开始用Hexo可能不太适应，确实PHP博客系统玩起来要方便很多，但谁叫咱爱折腾呢。</p>
+<h1 id="基础搭建"><a href="#基础搭建" class="headerlink" title="基础搭建"></a>基础搭建</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li><a href="http://nodejs.org/">Node.js</a> - Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本</li>
+<li><a href="http://git-scm.com/">Git</a></li>
+</ul>
+<h1 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h1><p>待完善…</p>
+]]></content>
+      <categories>
+        <category>博客建设</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>os.urandom()编码问题</title>
     <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
     <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
@@ -66,29 +207,144 @@
       </tags>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2021/11/30/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>python tkinter事件</title>
+    <url>/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p>tkinter事件大概就这些内容，本文尚未完篇，有空更新，可以先参考这篇文章：<a href="https://pythonguides.com/python-tkinter-events/">https://pythonguides.com/python-tkinter-events/</a></p>
+<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><p>define</p>
+<h1 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h1><p>bind() 方法的语法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.bind(event,handler,add=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<p>example</p>
 <span id="more"></span>
 
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h1 id="事件列表"><a href="#事件列表" class="headerlink" title="事件列表"></a>事件列表</h1><p>tkinter自带的事件：</p>
+<ul>
+<li><strong>Button</strong> – 点击按钮时触发Button事件，回调参数中event包含x,y属性返回点击时的坐标<ul>
+<li><Button-1>：鼠标左击事件</Button-1></li>
+<li><Button-2>：鼠标中击事件</Button-2></li>
+<li><Button-3>：鼠标右击事件</Button-3></li>
+<li><Double-Button-1>：双击事件</Double-Button-1></li>
+<li><Triple-Button-1>：三击事件</Triple-Button-1></li>
+<li><Bx-Motion>：鼠标移动事件,x=[1,2,3]分别表示左、中、右鼠标操作</Bx-Motion></li>
+<li><ButtonRelease-x>鼠标释放事件,x=[1,2,3],分别表示鼠标的左、中、右键操作</ButtonRelease-x></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>Configure</strong>– configure is used to change the property of a widget.</p>
+</li>
+<li><p><strong>Focus</strong>– completely focus on a particular widget.</p>
+</li>
+<li><p><strong>Destroy</strong>-Terminate the particular widget.</p>
+</li>
+<li><p><strong>Motion</strong>– Even where the mouse move entire on the widget.</p>
+</li>
+</ul>
+<p>example</p>
+<h1 id="事件小部件"><a href="#事件小部件" class="headerlink" title="事件小部件"></a>事件小部件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">event.widget</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>example</p>
+<h1 id="事件属性"><a href="#事件属性" class="headerlink" title="事件属性"></a>事件属性</h1><p>这里代码中使用的一些事件属性是：</p>
+<ul>
+<li><strong>.char</strong>定义字母表的正常字符。</li>
+<li><strong>.height</strong>属性用于将小部件设置为新高度。</li>
+<li><strong>.keysym</strong>属性用于设置字符串中的键、数字、特殊字符。</li>
+</ul>
+<h1 id="事件生成"><a href="#事件生成" class="headerlink" title="事件生成"></a>事件生成</h1><p>以下语法：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.event_generate(sequence,when=<span class="string">&#x27;tail&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p><strong>event_geterate</strong>使用<strong>when</strong>属性<strong>when=’tail’ 产生</strong>。<strong>tail</strong>是在处理完任何事件后将其附加到事件队列中。</p>
+<p>example</p>
+<h1 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap_Text</span>():</span></span><br><span class="line">    lab[<span class="string">&#x27;text&#x27;</span>] = time.asctime()</span><br><span class="line"></span><br><span class="line">    ws.after(<span class="number">1000</span>, swap_Text)</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+
+<h1 id="事件侦听"><a href="#事件侦听" class="headerlink" title="事件侦听"></a>事件侦听</h1><p>事件侦听器有两种使用方式：</p>
+<ul>
+<li>使用新消息调用侦听器。</li>
+<li>通过调用 on_message_received 方法。</li>
+</ul>
+<p>在下面的代码中，我们通过设置预定义的值来创建一个小部件和一个事件侦听器，当我们在后台删除时，它会调用事件侦听器。</p>
+<ul>
+<li>**event_listener.set()**用于设置预定义值。</li>
+<li>**event_listener.trace()**用于修改预定义值。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">event_listener = StringVar()</span><br><span class="line">event_listener.set(&quot;DELETE ME&quot;)</span><br><span class="line">event_listener.trace(&quot;w&quot;, modify)</span><br><span class="line"></span><br><span class="line">entry_widget = Entry(ws, textvariable = event_listener)</span><br><span class="line">entry_widget.pack()</span><br><span class="line"></span><br><span class="line">ws.mainloop()</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
-        <category>博客建设</category>
+        <category>杂项</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>python</tag>
+        <tag>tkinter</tag>
+        <tag>gui</tag>
+        <tag>事件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>tkinter手动代理窗口关闭事件</title>
+    <url>/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/</url>
+    <content><![CDATA[<p>有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。</p>
+<p>这时就需要代理窗口关闭事件，下面的代码展示了如何代理窗口关闭事件。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">close_handler</span>():</span></span><br><span class="line">    beforeCloseOpr()</span><br><span class="line">    root.destory()</span><br><span class="line"></span><br><span class="line">root.protocol(<span class="string">&quot;WM_DELETE_WINDOW&quot;</span>, close_handler)</span><br></pre></td></tr></table></figure>
+
+<p>在关闭窗口事件触发时，调用 close_handler 函数代为处理，这里会先执行 beforeCloseOpr() 函数，然后再关闭窗口。</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>tkinter</tag>
+        <tag>gui</tag>
+        <tag>事件</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>turtle字体粗糙定位</title>
+    <url>/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/</url>
+    <content><![CDATA[<p>不同的字体<strong>实现</strong>不同，有<strong>等宽</strong>和<strong>非等宽</strong>，非等宽字体<strong>不同字符宽度不同</strong>，<strong>宽高比</strong>也各不相同，而且<strong>字体尺寸</strong>和<strong>像素</strong>是无法直接转换的。因此，今天介绍的方法<strong>并非完美的解决方案</strong>，只是用于<strong>粗糙估算turtle中字符的长宽</strong>，用于在字符上绘图进行绘图操作，如<strong>圈画文本</strong>等。</p>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="write函数"><a href="#write函数" class="headerlink" title="write函数"></a>write函数</h2><p>turtle中用于书写文本的函数为write</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.write(arg, move=<span class="literal">False</span>, align=<span class="string">&quot;left&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">8</span>, <span class="string">&quot;normal&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><p><strong>arg</strong> – 要书写到 TurtleScreen 的对象<br>如：”something”，123，(1,2)，[1,2,3]等</p>
+</li>
+<li><p><strong>move</strong> – True/False<br>如果 move 为 True，画笔会移动到文本的右下角，这样文字就不会叠在一块了。</p>
+</li>
+<li><p><strong>align</strong> – 字符串 “left”, “center” 或 “right”<br>align 指定对齐方式 (“left”, “center” 或 right”)</p>
+</li>
+<li><p><strong>font</strong> – 一个三元组 (fontname, fontsize, fonttype)<br>font 指定字体</p>
+</li>
+</ul>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>书写文本 arg 指定的字符串到当前海龟位置。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这里有两种思路，都不精确，第一种直接估算，第二种根据宽度估算，各有优劣，仅供参考：</p>
+<ol>
+<li><p>用<strong>fontsize近似代替宽度</strong>，然后用<strong>估测的纵横比</strong>近似估算高度，得到字符长宽参数，进而确定位置。</p>
+</li>
+<li><p>由于每个字宽度不同，所以可以单独绘制每个字符，将move设为True，这样在写每个字符时，画笔会跟着移动，可以<strong>记录其始末位置</strong>，作差得到<strong>每个字符的宽度</strong>。</p>
+</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>这里我们实现了在turtle中对文本部分子串进行圈画的功能，其中两种思路都有涉及。</p>
+<p>最后选用记录的宽度作为画圈的直径。另外，因为每个字符高度差不多，所以高度统一采用估算的高度。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br><span class="line">turtle.hideturtle()</span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ACTACGTCAGCTCGTCATCGGTACGTCTCVATGACGTCGT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选取字符串子串位置，闭区间[start_idx, end_idx]</span></span><br><span class="line">start_idx = <span class="number">33</span></span><br><span class="line">end_idx = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pos用于存储对应位置字符的始末x坐标</span></span><br><span class="line">pos = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字体设置</span></span><br><span class="line">font_setting = (<span class="string">&quot;Arial&quot;</span>, <span class="number">16</span>, <span class="string">&quot;normal&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同字体实现不同，且不同字符长宽又不同</span></span><br><span class="line"><span class="comment"># 这里假设字符像素宽度近似fontsize，宽高比为1.5倍</span></span><br><span class="line"><span class="comment"># 如果想更精确，请自己根据特定字体精调参数</span></span><br><span class="line">aspect_ratio = <span class="number">1.5</span></span><br><span class="line">font_width = font_setting[<span class="number">1</span>]</span><br><span class="line">font_height = font_width*aspect_ratio</span><br><span class="line"></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> text:</span><br><span class="line">    <span class="comment"># 单独绘制每个字符</span></span><br><span class="line">    start = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    turtle.write(ch, move=<span class="literal">True</span>, font=font_setting)</span><br><span class="line">    end = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    pos.append((start, end))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算直径半径</span></span><br><span class="line">d = pos[end_idx][<span class="number">1</span>] - pos[start_idx][<span class="number">0</span>]</span><br><span class="line">r = d/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算circle函数绘制起点坐标</span></span><br><span class="line">center_x = (pos[end_idx][<span class="number">1</span>] + pos[start_idx][<span class="number">0</span>])/<span class="number">2</span></span><br><span class="line">center_y = font_height/<span class="number">2</span> - r + <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置画笔</span></span><br><span class="line">turtle.pencolor(<span class="string">&quot;red&quot;</span>)</span><br><span class="line">turtle.pensize(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">turtle.setposition(center_x, center_y)</span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.circle(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png" alt="demo-1"></p>
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png" alt="image-20211216233747578"></p>
+<blockquote>
+<p>Note</p>
+<p>这里仅用于演示，因此圈画功能简单使用了circle函数，绘制的是圆形，在圈画较长或较短字符串时并不美观，实际使用时可以根据需求自己调整，比如绘制椭圆或方框等其他圈画方式。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>turtle</tag>
       </tags>
   </entry>
   <entry>
@@ -130,6 +386,96 @@
       <tags>
         <tag>python</tag>
         <tag>tkinter</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>turtle绘图速度</title>
+    <url>/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/</url>
+    <content><![CDATA[<ul>
+<li>最快的画笔移动速度</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>最快的画笔移动速度+取消绘画过程的延迟</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>跳过绘制过程（直接成像）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.tracer(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h1 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h1><h2 id="speed"><a href="#speed" class="headerlink" title="speed"></a>speed</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(speed=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><p>speed：一个 0到10 范围内的整型数或速度字符串（如果输入数值大于 10 或小于 0.5 则速度设为 0）</p>
+</li>
+<li><p>不传入参数：返回当前海龟的速度</p>
+<p>speed关键字对应表：</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">字符串</th>
+<th align="center">数字</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">“fastest”</td>
+<td align="center">0</td>
+<td align="center">最快</td>
+</tr>
+<tr>
+<td align="center">“fast”</td>
+<td align="center">10</td>
+<td align="center">快</td>
+</tr>
+<tr>
+<td align="center">“normal”</td>
+<td align="center">6</td>
+<td align="center">正常</td>
+</tr>
+<tr>
+<td align="center">“slow”</td>
+<td align="center">3</td>
+<td align="center">慢</td>
+</tr>
+<tr>
+<td align="center">“slowest”</td>
+<td align="center">1</td>
+<td align="center">最慢</td>
+</tr>
+</tbody></table>
+<p>速度值从 1 到 10，画线和海龟转向的动画效果逐级加快。speed = 0 表示没有动画效果（转向），但绘制还是需要时间，最快。</p>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>设置海龟移动的速度或返回当前海龟的速度。</p>
+<h2 id="delay"><a href="#delay" class="headerlink" title="delay"></a>delay</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.delay(delay=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数：-1"><a href="#参数：-1" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li>delay：正整型数</li>
+<li>不传参：返回以毫秒数表示的延迟值 delay</li>
+</ul>
+<h3 id="作用：-1"><a href="#作用：-1" class="headerlink" title="作用："></a>作用：</h3><p>设置或返回以毫秒数表示的延迟值 delay（约等于连续两次画布刷新的间隔时间）。 绘图延迟越长，动画速度越慢。</p>
+<h2 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.tracer(n=<span class="literal">None</span>, delay=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数：-2"><a href="#参数：-2" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li>n：非负整型数（0/False 表示不启用动画）</li>
+<li>delay：非负整型数（等同于上文delay函数）</li>
+<li>不传参：返回当前的 n 值</li>
+</ul>
+<h3 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a>作用：</h3><p>启用/禁用海龟动画并设置刷新图形的延迟时间。</p>
+<p>文末推荐一篇详细的学习 turtle 的文章：<a href="https://blog.csdn.net/sandalphon4869/article/details/99443949">https://blog.csdn.net/sandalphon4869/article/details/99443949</a></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>turtle</tag>
       </tags>
   </entry>
   <entry>
@@ -319,355 +665,6 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>web</tag>
         <tag>sqli</tag>
         <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hexo插入本地图片</title>
-    <url>/2021/12/14/hexo%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<blockquote>
-<p>这篇文章随便记录一下，讲的不是很清楚，如果有需要评论区留言，我再重新写一写</p>
-</blockquote>
-<p>网上查的说用hexo-asset-image插件</p>
-<p>安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
-
-<p>修改_config.yml：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>重新生成一遍……然并卵</p>
-<h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>好像是hexo里面参数改了</p>
-<p>找到<code>node_modules/hexo-asset-image/index.js</code>，做点小改动：</p>
-<span id="more"></span>
-
-<ol>
-<li>把获取img的src属性的语句改为获取data-src属性</li>
-<li>修改截取绝对路径的语句</li>
-</ol>
-<h1 id="成品"><a href="#成品" class="headerlink" title="成品"></a>成品</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">    <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> appendLink = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">    <span class="comment">// if not with index.html endpos = link.lastIndexOf(&#x27;.&#x27;) + 1 support hexo-abbrlink</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="regexp">/.*\/index\.html$/</span>.test(link)) &#123;</span><br><span class="line">      <span class="comment">// when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html</span></span><br><span class="line">      <span class="comment">// image in xxtitle/ will go to xxtitle/index/</span></span><br><span class="line">      appendLink = <span class="string">&#x27;index/&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    link = link.substring(beginPos, endPos) + <span class="string">&#x27;/&#x27;</span> + appendLink;</span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>))&#123;</span><br><span class="line">          <span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">          <span class="keyword">var</span> src = $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">          <span class="keyword">if</span>(!(<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s+\//</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s*\/uploads|images\//</span>.test(src))) &#123;</span><br><span class="line">            <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">            <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">            <span class="keyword">var</span> linkArray = link.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">var</span> srcArray = src.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">            srcArray.shift();</span><br><span class="line">            src = srcArray.join(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>, config.root + link + src);</span><br><span class="line">            <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.root + link + src);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="built_in">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>博客建设</category>
-      </categories>
-      <tags>
-        <tag>hexo</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Python月相设计思路</title>
-    <url>/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/</url>
-    <content><![CDATA[<p>要求可以展示任一月份月相，并单击日期实现绘图。本文浅析一下该题设计思路。</p>
-<p>本题关键：</p>
-<ol>
-<li>月历中每日对应星期</li>
-<li>月相与日期对应关系</li>
-<li>turtle绘制月相</li>
-</ol>
-<span id="more"></span>
-
-<h2 id="月历每日对应星期"><a href="#月历每日对应星期" class="headerlink" title="月历每日对应星期"></a>月历每日对应星期</h2><p>日历相关问题可以直接用 calendar 标准库</p>
-<p>月历里面有对应实现：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> calendar</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>year = <span class="number">2021</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>month = <span class="number">12</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>calendar.monthcalendar(year, month)</span><br><span class="line">[[<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>], [<span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>], [<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">24</span>, <span class="number">25</span>, <span class="number">26</span>], [<span class="number">27</span>, <span class="number">28</span>, <span class="number">29</span>, <span class="number">30</span>, <span class="number">31</span>, <span class="number">0</span>, <span class="number">0</span>]]</span><br></pre></td></tr></table></figure>
-
-<p>看到该函数返回一个二维数组，表示月历中每一行（每一周）对应的日期，没有则为 0</p>
-<p>应用到本题，只需要读取用户选择的年月，然后得到该函数对应的数据，用循环显示出控件即可</p>
-<h2 id="月相与日期对应关系"><a href="#月相与日期对应关系" class="headerlink" title="月相与日期对应关系"></a>月相与日期对应关系</h2><p>做了点研究，月相与农历大致能一一对应，可以从这里切入。</p>
-<p><img data-src="/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/8cfb7e8a8902ceecf9ad1eaca5eb0631.jpeg" alt="农历月相对照图"></p>
-<p>所以本题就可以转化为农历和公历的对应关系。</p>
-<p>然而，农历和公历的关系是没有规律的，农历都是天文观测的结果，因此这里只需要下载农历公历对应关系的数据即可。</p>
-<p>这里网上其实有很多实现，可以直接借鉴。</p>
-<p>另外，这里推荐几个可用的库：sxtwl、zhdate</p>
-<h3 id="sxtwl库使用"><a href="#sxtwl库使用" class="headerlink" title="sxtwl库使用"></a>sxtwl库使用</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sxtwl</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 阳历（公历）日期 获取一天的日期对象</span></span><br><span class="line">day = sxtwl.fromSolar(<span class="number">2021</span>, <span class="number">12</span>, <span class="number">14</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取对应的农历信息</span></span><br><span class="line">lunar_year = day.getLunarYear()</span><br><span class="line">lunar_month = day.getLunarMonth()</span><br><span class="line">lunar_day = day.getLunarDay()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否是闰月</span></span><br><span class="line">is_lunar_leap = day.isLunarLeap()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取农历月的天数</span></span><br><span class="line">day_cnt = sxtwl.getLunarMonthNum(lunar_year, lunar_month, is_lunar_leap)</span><br></pre></td></tr></table></figure>
-
-<p>详情请参考<a href="https://pypi.org/project/sxtwl/">https://pypi.org/project/sxtwl/</a></p>
-<h2 id="turtle绘制月相"><a href="#turtle绘制月相" class="headerlink" title="turtle绘制月相"></a>turtle绘制月相</h2><p>思路是根据当前农历日与对应的农历月的总天数之比绘制月相。</p>
-<p>月相可以通过类比球体投影的方式绘制。</p>
-<p>把月亮想象成一个球体，则月相的变化可以看作是与其旋转轴与球面相交的两点所在的弧在旋转形成的一个投影。</p>
-<p>绘制该图的关键在于绘制将月相分为明暗两面的弧。</p>
-<p>想象球体的一个鸟瞰图，一半是明面，一半是暗面，明暗交界的线按农历作周期性旋转，然后月相展示的是一个正面的一个投影。</p>
-<p>（此处应有图片配合，但是可惜没有…）</p>
-<p>这里之前计算明暗交界线的代码有个错误，感谢qq1337361309纠正，我顺便把填充亮面的代码补全了，大家可以直接套用相关代码：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"></span><br><span class="line"><span class="comment"># orgin 为圆心坐标，此处假设为原点(0,0)，请根据实际修改</span></span><br><span class="line"><span class="comment"># radius 为球体半径</span></span><br><span class="line">radius = <span class="number">100</span></span><br><span class="line"><span class="comment"># step 为绘制弧的精度，建议画圆的时候也用类似的逻辑，这样整体样式统一一点</span></span><br><span class="line">step = <span class="number">1</span></span><br><span class="line"><span class="comment"># lunar_day 为农历日</span></span><br><span class="line">lunar_day = <span class="number">3</span></span><br><span class="line"><span class="comment"># day_cnt 为农历当月的天数</span></span><br><span class="line">day_cnt = <span class="number">29</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算偏转角</span></span><br><span class="line"><span class="comment"># fix: 农历初一偏转角应该为 0, 感谢qq1337361309纠正</span></span><br><span class="line">angle = angle = (lunar_day - <span class="number">1</span>) / day_cnt * <span class="number">360</span></span><br><span class="line"><span class="comment"># 是否从右边填充，此处填充为填充亮面</span></span><br><span class="line">fromRight = angle &gt;= <span class="number">180</span></span><br><span class="line">degree = angle % <span class="number">180</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 填充</span></span><br><span class="line">turtle.penup()</span><br><span class="line">turtle.goto(<span class="number">0</span>, radius)</span><br><span class="line">turtle.fillcolor(<span class="string">&quot;yellow&quot;</span>)</span><br><span class="line">turtle.begin_fill()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 描边</span></span><br><span class="line"><span class="keyword">if</span> fromRight:</span><br><span class="line">    signal = <span class="number">1</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    signal = -<span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(radius, -(radius+step), -step):</span><br><span class="line">    x = signal*(radius**<span class="number">2</span> - y**<span class="number">2</span>)**<span class="number">0.5</span></span><br><span class="line">    turtle.goto(x, y)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 画弧</span></span><br><span class="line"><span class="keyword">for</span> y <span class="keyword">in</span> <span class="built_in">range</span>(-radius, radius+step, step):</span><br><span class="line">    x = -(radius**<span class="number">2</span> - y**<span class="number">2</span>)**<span class="number">0.5</span> * math.cos(math.radians(degree))</span><br><span class="line">    turtle.goto(x, y)</span><br><span class="line"></span><br><span class="line">turtle.end_fill()</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/image-20211215170856110.png" alt="demo"></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>tkinter</tag>
-        <tag>课程设计</tag>
-        <tag>turtle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>python tkinter事件</title>
-    <url>/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<p>tkinter事件大概就这些内容，本文尚未完篇，有空更新，可以先参考这篇文章：<a href="https://pythonguides.com/python-tkinter-events/">https://pythonguides.com/python-tkinter-events/</a></p>
-<h1 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h1><p>define</p>
-<h1 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h1><p>bind() 方法的语法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.bind(event,handler,add=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<p>example</p>
-<span id="more"></span>
-
-<h1 id="事件列表"><a href="#事件列表" class="headerlink" title="事件列表"></a>事件列表</h1><p>tkinter自带的事件：</p>
-<ul>
-<li><strong>Button</strong> – 点击按钮时触发Button事件，回调参数中event包含x,y属性返回点击时的坐标<ul>
-<li><Button-1>：鼠标左击事件</Button-1></li>
-<li><Button-2>：鼠标中击事件</Button-2></li>
-<li><Button-3>：鼠标右击事件</Button-3></li>
-<li><Double-Button-1>：双击事件</Double-Button-1></li>
-<li><Triple-Button-1>：三击事件</Triple-Button-1></li>
-<li><Bx-Motion>：鼠标移动事件,x=[1,2,3]分别表示左、中、右鼠标操作</Bx-Motion></li>
-<li><ButtonRelease-x>鼠标释放事件,x=[1,2,3],分别表示鼠标的左、中、右键操作</ButtonRelease-x></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><strong>Configure</strong>– configure is used to change the property of a widget.</p>
-</li>
-<li><p><strong>Focus</strong>– completely focus on a particular widget.</p>
-</li>
-<li><p><strong>Destroy</strong>-Terminate the particular widget.</p>
-</li>
-<li><p><strong>Motion</strong>– Even where the mouse move entire on the widget.</p>
-</li>
-</ul>
-<p>example</p>
-<h1 id="事件小部件"><a href="#事件小部件" class="headerlink" title="事件小部件"></a>事件小部件</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">event.widget</span><br></pre></td></tr></table></figure>
-
-<p>example</p>
-<h1 id="事件属性"><a href="#事件属性" class="headerlink" title="事件属性"></a>事件属性</h1><p>这里代码中使用的一些事件属性是：</p>
-<ul>
-<li><strong>.char</strong>定义字母表的正常字符。</li>
-<li><strong>.height</strong>属性用于将小部件设置为新高度。</li>
-<li><strong>.keysym</strong>属性用于设置字符串中的键、数字、特殊字符。</li>
-</ul>
-<h1 id="事件生成"><a href="#事件生成" class="headerlink" title="事件生成"></a>事件生成</h1><p>以下语法：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">widget.event_generate(sequence,when=<span class="string">&#x27;tail&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><strong>event_geterate</strong>使用<strong>when</strong>属性<strong>when=’tail’ 产生</strong>。<strong>tail</strong>是在处理完任何事件后将其附加到事件队列中。</p>
-<p>example</p>
-<h1 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">swap_Text</span>():</span></span><br><span class="line">    lab[<span class="string">&#x27;text&#x27;</span>] = time.asctime()</span><br><span class="line"></span><br><span class="line">    ws.after(<span class="number">1000</span>, swap_Text)</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="事件侦听"><a href="#事件侦听" class="headerlink" title="事件侦听"></a>事件侦听</h1><p>事件侦听器有两种使用方式：</p>
-<ul>
-<li>使用新消息调用侦听器。</li>
-<li>通过调用 on_message_received 方法。</li>
-</ul>
-<p>在下面的代码中，我们通过设置预定义的值来创建一个小部件和一个事件侦听器，当我们在后台删除时，它会调用事件侦听器。</p>
-<ul>
-<li>**event_listener.set()**用于设置预定义值。</li>
-<li>**event_listener.trace()**用于修改预定义值。</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">event_listener = StringVar()</span><br><span class="line">event_listener.set(&quot;DELETE ME&quot;)</span><br><span class="line">event_listener.trace(&quot;w&quot;, modify)</span><br><span class="line"></span><br><span class="line">entry_widget = Entry(ws, textvariable = event_listener)</span><br><span class="line">entry_widget.pack()</span><br><span class="line"></span><br><span class="line">ws.mainloop()</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>tkinter</tag>
-        <tag>gui</tag>
-        <tag>事件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>tkinter手动代理窗口关闭事件</title>
-    <url>/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/</url>
-    <content><![CDATA[<p>有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。</p>
-<p>这时就需要代理窗口关闭事件，下面的代码展示了如何代理窗口关闭事件。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">close_handler</span>():</span></span><br><span class="line">    beforeCloseOpr()</span><br><span class="line">    root.destory()</span><br><span class="line"></span><br><span class="line">root.protocol(<span class="string">&quot;WM_DELETE_WINDOW&quot;</span>, close_handler)</span><br></pre></td></tr></table></figure>
-
-<p>在关闭窗口事件触发时，调用 close_handler 函数代为处理，这里会先执行 beforeCloseOpr() 函数，然后再关闭窗口。</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>tkinter</tag>
-        <tag>gui</tag>
-        <tag>事件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>turtle绘图速度</title>
-    <url>/2021/12/16/turtle%E7%BB%98%E5%9B%BE%E9%80%9F%E5%BA%A6/</url>
-    <content><![CDATA[<ul>
-<li>最快的画笔移动速度</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>最快的画笔移动速度+取消绘画过程的延迟</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>跳过绘制过程（直接成像）</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.tracer(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h1 id="函数介绍"><a href="#函数介绍" class="headerlink" title="函数介绍"></a>函数介绍</h1><h2 id="speed"><a href="#speed" class="headerlink" title="speed"></a>speed</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.speed(speed=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
-<li><p>speed：一个 0到10 范围内的整型数或速度字符串（如果输入数值大于 10 或小于 0.5 则速度设为 0）</p>
-</li>
-<li><p>不传入参数：返回当前海龟的速度</p>
-<p>speed关键字对应表：</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th align="center">字符串</th>
-<th align="center">数字</th>
-<th align="center">含义</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">“fastest”</td>
-<td align="center">0</td>
-<td align="center">最快</td>
-</tr>
-<tr>
-<td align="center">“fast”</td>
-<td align="center">10</td>
-<td align="center">快</td>
-</tr>
-<tr>
-<td align="center">“normal”</td>
-<td align="center">6</td>
-<td align="center">正常</td>
-</tr>
-<tr>
-<td align="center">“slow”</td>
-<td align="center">3</td>
-<td align="center">慢</td>
-</tr>
-<tr>
-<td align="center">“slowest”</td>
-<td align="center">1</td>
-<td align="center">最慢</td>
-</tr>
-</tbody></table>
-<p>速度值从 1 到 10，画线和海龟转向的动画效果逐级加快。speed = 0 表示没有动画效果（转向），但绘制还是需要时间，最快。</p>
-<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>设置海龟移动的速度或返回当前海龟的速度。</p>
-<h2 id="delay"><a href="#delay" class="headerlink" title="delay"></a>delay</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.delay(delay=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="参数：-1"><a href="#参数：-1" class="headerlink" title="参数："></a>参数：</h3><ul>
-<li>delay：正整型数</li>
-<li>不传参：返回以毫秒数表示的延迟值 delay</li>
-</ul>
-<h3 id="作用：-1"><a href="#作用：-1" class="headerlink" title="作用："></a>作用：</h3><p>设置或返回以毫秒数表示的延迟值 delay（约等于连续两次画布刷新的间隔时间）。 绘图延迟越长，动画速度越慢。</p>
-<h2 id="tracer"><a href="#tracer" class="headerlink" title="tracer"></a>tracer</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.tracer(n=<span class="literal">None</span>, delay=<span class="literal">None</span>)</span><br></pre></td></tr></table></figure>
-
-<h3 id="参数：-2"><a href="#参数：-2" class="headerlink" title="参数："></a>参数：</h3><ul>
-<li>n：非负整型数（0/False 表示不启用动画）</li>
-<li>delay：非负整型数（等同于上文delay函数）</li>
-<li>不传参：返回当前的 n 值</li>
-</ul>
-<h3 id="作用：-2"><a href="#作用：-2" class="headerlink" title="作用："></a>作用：</h3><p>启用/禁用海龟动画并设置刷新图形的延迟时间。</p>
-<p>文末推荐一篇详细的学习 turtle 的文章：<a href="https://blog.csdn.net/sandalphon4869/article/details/99443949">https://blog.csdn.net/sandalphon4869/article/details/99443949</a></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>turtle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>turtle字体粗糙定位</title>
-    <url>/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/</url>
-    <content><![CDATA[<p>不同的字体<strong>实现</strong>不同，有<strong>等宽</strong>和<strong>非等宽</strong>，非等宽字体<strong>不同字符宽度不同</strong>，<strong>宽高比</strong>也各不相同，而且<strong>字体尺寸</strong>和<strong>像素</strong>是无法直接转换的。因此，今天介绍的方法<strong>并非完美的解决方案</strong>，只是用于<strong>粗糙估算turtle中字符的长宽</strong>，用于在字符上绘图进行绘图操作，如<strong>圈画文本</strong>等。</p>
-<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="write函数"><a href="#write函数" class="headerlink" title="write函数"></a>write函数</h2><p>turtle中用于书写文本的函数为write</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.write(arg, move=<span class="literal">False</span>, align=<span class="string">&quot;left&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">8</span>, <span class="string">&quot;normal&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
-<li><p><strong>arg</strong> – 要书写到 TurtleScreen 的对象<br>如：”something”，123，(1,2)，[1,2,3]等</p>
-</li>
-<li><p><strong>move</strong> – True/False<br>如果 move 为 True，画笔会移动到文本的右下角，这样文字就不会叠在一块了。</p>
-</li>
-<li><p><strong>align</strong> – 字符串 “left”, “center” 或 “right”<br>align 指定对齐方式 (“left”, “center” 或 right”)</p>
-</li>
-<li><p><strong>font</strong> – 一个三元组 (fontname, fontsize, fonttype)<br>font 指定字体</p>
-</li>
-</ul>
-<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>书写文本 arg 指定的字符串到当前海龟位置。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这里有两种思路，都不精确，第一种直接估算，第二种根据宽度估算，各有优劣，仅供参考：</p>
-<ol>
-<li><p>用<strong>fontsize近似代替宽度</strong>，然后用<strong>估测的纵横比</strong>近似估算高度，得到字符长宽参数，进而确定位置。</p>
-</li>
-<li><p>由于每个字宽度不同，所以可以单独绘制每个字符，将move设为True，这样在写每个字符时，画笔会跟着移动，可以<strong>记录其始末位置</strong>，作差得到<strong>每个字符的宽度</strong>。</p>
-</li>
-</ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>这里我们实现了在turtle中对文本部分子串进行圈画的功能，其中两种思路都有涉及。</p>
-<p>最后选用记录的宽度作为画圈的直径。另外，因为每个字符高度差不多，所以高度统一采用估算的高度。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br><span class="line">turtle.hideturtle()</span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ACTACGTCAGCTCGTCATCGGTACGTCTCVATGACGTCGT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选取字符串子串位置，闭区间[start_idx, end_idx]</span></span><br><span class="line">start_idx = <span class="number">33</span></span><br><span class="line">end_idx = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pos用于存储对应位置字符的始末x坐标</span></span><br><span class="line">pos = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字体设置</span></span><br><span class="line">font_setting = (<span class="string">&quot;Arial&quot;</span>, <span class="number">16</span>, <span class="string">&quot;normal&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同字体实现不同，且不同字符长宽又不同</span></span><br><span class="line"><span class="comment"># 这里假设字符像素宽度近似fontsize，宽高比为1.5倍</span></span><br><span class="line"><span class="comment"># 如果想更精确，请自己根据特定字体精调参数</span></span><br><span class="line">aspect_ratio = <span class="number">1.5</span></span><br><span class="line">font_width = font_setting[<span class="number">1</span>]</span><br><span class="line">font_height = font_width*aspect_ratio</span><br><span class="line"></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> text:</span><br><span class="line">    <span class="comment"># 单独绘制每个字符</span></span><br><span class="line">    start = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    turtle.write(ch, move=<span class="literal">True</span>, font=font_setting)</span><br><span class="line">    end = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    pos.append((start, end))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算直径半径</span></span><br><span class="line">d = pos[end_idx][<span class="number">1</span>] - pos[start_idx][<span class="number">0</span>]</span><br><span class="line">r = d/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算circle函数绘制起点坐标</span></span><br><span class="line">center_x = (pos[end_idx][<span class="number">1</span>] + pos[start_idx][<span class="number">0</span>])/<span class="number">2</span></span><br><span class="line">center_y = font_height/<span class="number">2</span> - r + <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置画笔</span></span><br><span class="line">turtle.pencolor(<span class="string">&quot;red&quot;</span>)</span><br><span class="line">turtle.pensize(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">turtle.setposition(center_x, center_y)</span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.circle(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png" alt="demo-1"></p>
-<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png" alt="image-20211216233747578"></p>
-<blockquote>
-<p>Note</p>
-<p>这里仅用于演示，因此圈画功能简单使用了circle函数，绘制的是圆形，在圈画较长或较短字符串时并不美观，实际使用时可以根据需求自己调整，比如绘制椭圆或方框等其他圈画方式。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>turtle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Windows注册右键打开菜单（上下文菜单）</title>
-    <url>/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/</url>
-    <content><![CDATA[<h1 id="添加菜单项"><a href="#添加菜单项" class="headerlink" title="添加菜单项"></a>添加菜单项</h1><p><code>Win+R</code>唤出运行对话框输入<code>regedit</code>打开注册表编辑器，进入目录<code>HKEY_CLASSES_ROOT\Directory\Background\shell</code>新建项，起个自己和注册的菜单有关的有意义的名字（当然你也可以随便起一个）。这里示例起的名字是<code>example</code>：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173816393.png" alt="创建项example"></p>
-<span id="more"></span>
-
-<p>点击进入刚创建的项<code>example</code>，双击默认值：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224173933587.png" alt="image-20211224173933587"></p>
-<p>修改为菜单项中要显示的名字：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174027061.png" alt="设置菜单名称"></p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174148263.png" alt="修改后注册表"></p>
-<p>然后右键唤出菜单，可以看到已经多了该项：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174055568.png" alt="无图标菜单效果"></p>
-<h1 id="添加命令"><a href="#添加命令" class="headerlink" title="添加命令"></a>添加命令</h1><p>在<code>example</code>下创建<code>command</code>项，修改默认值为要执行的命令，这是点击对应菜单要执行的命令：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224174435927.png" alt="创建command项"></p>
-<p>这里设置为<code>powershell echo &#39;Hello world!&#39;</code>，点击菜单会唤出<code>powershell</code>打印<code>Hello world!</code>：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175349430.png" alt="设置command"></p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224180026343.png" alt="打印hello world"></p>
-<h1 id="添加图标"><a href="#添加图标" class="headerlink" title="添加图标"></a>添加图标</h1><p>在<code>example</code>项下创建可扩充字符串<code>Icon</code>，设置值为<code>ico</code>文件路径或者<code>exe</code>文件路径，这里设为<code>E:\favicon.ico</code>，我在这里放了以下图标：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175612961.png" alt="E:\favicon.ico"></p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175805501.png" alt="添加图标路径"></p>
-<p>效果如下：</p>
-<p><img data-src="/2021/12/23/Windows%E6%B3%A8%E5%86%8C%E5%8F%B3%E9%94%AE%E6%89%93%E5%BC%80%E8%8F%9C%E5%8D%95/image-20211224175835911.png" alt="最终效果"></p>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><p>[Windows自定义右键菜单]: <a href="https://blog.csdn.net/qq_25166683/article/details/81352868">https://blog.csdn.net/qq_25166683/article/details/81352868</a>    “详解”</p>
-</li>
-<li><p>[为上下文菜单编写]: <a href="https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context">https://superuser.com/questions/136838/which-special-variables-are-available-when-writing-a-shell-command-for-a-context</a>    “命令拓展阅读”</p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>windows</tag>
       </tags>
   </entry>
 </search>
