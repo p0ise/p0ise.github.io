@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://www.p0ise.com/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/</loc>
+    
+    <lastmod>2022-01-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://www.p0ise.com/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</loc>
     
     <lastmod>2022-01-26</lastmod>
@@ -259,6 +268,27 @@
   
   <url>
     <loc>https://www.p0ise.com/tags/pwn/</loc>
+    <lastmod>2022-01-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.p0ise.com/tags/%E6%8A%A5%E9%94%99/</loc>
+    <lastmod>2022-01-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.p0ise.com/tags/gcc/</loc>
+    <lastmod>2022-01-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.p0ise.com/tags/linux/</loc>
     <lastmod>2022-01-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

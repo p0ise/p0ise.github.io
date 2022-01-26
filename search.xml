@@ -693,4 +693,25 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>pwn</tag>
       </tags>
   </entry>
+  <entry>
+    <title>Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h</title>
+    <url>/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/</url>
+    <content><![CDATA[<h1 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h1><p>使用了<code>-m32</code>指令，而64位系统GCC默认安装环境无法直接编译生成32位程序</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>安装Multilib，顾名思义，就是多重的。用它可以替代原来单一的lib，这样就既能产生32位的代码，又能生成64位的代码。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>[linux ubuntu gcc编译 fatal error: bits/libc-header-start.h 错误解决]: <a href="https://blog.csdn.net/whatday/article/details/99161919">https://blog.csdn.net/whatday/article/details/99161919</a></li>
+<li>[In file included from /usr/include/stdio.h:27:0, from btest.c:16: /usr/include/feat出错的解决办法]: <a href="https://blog.csdn.net/shendezhuti/article/details/96477288">https://blog.csdn.net/shendezhuti/article/details/96477288</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>报错</tag>
+        <tag>gcc</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
 </search>
