@@ -667,4 +667,30 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>网络安全</tag>
       </tags>
   </entry>
+  <entry>
+    <title>checksec工具安装和使用</title>
+    <url>/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>学Pwn的时候要用到checksec工具，用于查看程序开启了哪些保护机制</p>
+<h1 id="Step1-git下载"><a href="#Step1-git下载" class="headerlink" title="Step1-git下载"></a>Step1-git下载</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/slimm609/checksec.sh.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Step2-建立符号链接"><a href="#Step2-建立符号链接" class="headerlink" title="Step2-建立符号链接"></a>Step2-建立符号链接</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s ~/checksec.sh/checksec /usr/local/bin/checksec</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Step3-使用"><a href="#Step3-使用" class="headerlink" title="Step3-使用"></a>Step3-使用</h1><p>详见<a href="https://github.com/slimm609/checksec.sh">https://github.com/slimm609/checksec.sh</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ checksec</span><br><span class="line">Usage: checksec [--format=&#123;cli,csv,xml,json&#125;] [OPTION]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line"></span><br><span class="line"> ## Checksec Options</span><br><span class="line">  --file=&#123;file&#125;</span><br><span class="line">  --dir=&#123;directory&#125;</span><br><span class="line">  --listfile=&#123;text file with one file per line&#125;</span><br><span class="line">  --proc=&#123;process name&#125;</span><br><span class="line">  --proc-all</span><br><span class="line">  --proc-libs=&#123;process ID&#125;</span><br><span class="line">  --kernel[=kconfig]</span><br><span class="line">  --fortify-file=&#123;executable-file&#125;</span><br><span class="line">  --fortify-proc=&#123;process ID&#125;</span><br><span class="line">  --version</span><br><span class="line">  --help</span><br><span class="line">  --update or --upgrade</span><br><span class="line"></span><br><span class="line"> ## Modifiers</span><br><span class="line">  --debug</span><br><span class="line">  --verbose</span><br><span class="line">  --format=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --output=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --extended</span><br><span class="line"></span><br><span class="line">For more information, see:</span><br><span class="line">  http://github.com/slimm609/checksec.sh</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>工具</tag>
+        <tag>CTF</tag>
+        <tag>pwn</tag>
+      </tags>
+  </entry>
 </search>
