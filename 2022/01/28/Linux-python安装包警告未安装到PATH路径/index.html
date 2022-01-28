@@ -22,18 +22,21 @@
     var CONFIG = {"hostname":"www.p0ise.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="p0ise&#39;s blog">
-<meta property="og:url" content="https://www.p0ise.com/tags/tkinter/index.html">
+  <meta name="description" content="问题用pip安装包时警告： 12WARNING: The script script_name is installed in &amp;#x27;&#x2F;home&#x2F;user_name&#x2F;.local&#x2F;bin&amp;#x27; which is not on PATH. Consider adding this directory to PATH or, if you prefer to suppress this w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux python安装包警告未安装到PATH路径">
+<meta property="og:url" content="https://www.p0ise.com/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/index.html">
 <meta property="og:site_name" content="p0ise&#39;s blog">
-<meta property="og:description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+<meta property="og:description" content="问题用pip安装包时警告： 12WARNING: The script script_name is installed in &amp;#x27;&#x2F;home&#x2F;user_name&#x2F;.local&#x2F;bin&amp;#x27; which is not on PATH. Consider adding this directory to PATH or, if you prefer to suppress this w">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-28T06:50:26.000Z">
+<meta property="article:modified_time" content="2022-01-28T07:12:17.392Z">
 <meta property="article:author" content="p0ise">
-<meta property="article:tag" content="technology,security,blockchain,CTF,SQL,Python">
+<meta property="article:tag" content="python">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.p0ise.com/tags/tkinter/">
+<link rel="canonical" href="https://www.p0ise.com/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/">
 
 
 <script id="page-configurations">
@@ -41,12 +44,12 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>标签: tkinter | p0ise's blog</title>
+  <title>Linux python安装包警告未安装到PATH路径 | p0ise's blog</title>
   
 
 
@@ -199,117 +202,166 @@
         <div class="content-wrap">
           
 
-          <div class="content tag">
+          <div class="content post posts-expand">
             
 
+    
   
   
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="p0ise">
+      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0ise's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux python安装包警告未安装到PATH路径
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-01-28 14:50:26 / 修改时间：15:12:17" itemprop="dateCreated datePublished" datetime="2022-01-28T14:50:26+08:00">2022-01-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9D%82%E9%A1%B9/" itemprop="url" rel="index"><span itemprop="name">杂项</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/" class="post-meta-item leancloud_visitors" data-flag-title="Linux python安装包警告未安装到PATH路径" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
   
-  <div class="post-block">
-    <div class="posts-collapse">
-      <div class="collection-title">
-        <h2 class="collection-header">tkinter
-          <small>标签</small>
-        </h2>
-      </div>
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>673</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    <div class="collection-year">
-      <span class="collection-header">2021</span>
-    </div>
+        <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用pip安装包时警告：</p>
+<figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">WARNING: The script script_name <span class="keyword">is</span> installed <span class="keyword">in</span> <span class="string">&#x27;/home/user_name/.local/bin&#x27;</span> which <span class="keyword">is</span> <span class="keyword">not</span> on PATH.</span><br><span class="line"> Consider adding this directory to PATH <span class="keyword">or</span>, <span class="keyword">if</span> you prefer to suppress this warning, use --no-warn-script-location.</span><br></pre></td></tr></table></figure>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+<p>意思是你安装的路径<code>&#39;/home/user_name/.local/bin&#39;</code>不是PATH路径</p>
+<p>这样的话你就不能在命令行里直接使用库相关的命令</p>
+<p>例如我刚安装了pwntools库，如果我安装在PATH路径下，我就可以直接在命令行输入<code>pwn</code>来执行相关命令，而不是通过<code>python -m pwn</code>的方式执行相关命令</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>给出两个消除警告的方法，请根据需要选择</p>
+<h2 id="法一：添加库到PATH路径"><a href="#法一：添加库到PATH路径" class="headerlink" title="法一：添加库到PATH路径"></a>法一：添加库到PATH路径</h2><p>这样配置的作用在于你可以把安装的库作为独立的命令执行，而不是通过<code>python -m</code>的方式</p>
+<p>使用以下命令在<code>~/.bashrc</code>文件后追加<code>export PATH=&quot;$PATH:$HOME/.local/bin&quot;</code>这一行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &#x27;export PATH=&quot;$PATH:$HOME/.local/bin&quot;&#x27; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
 
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-15T22:41:38+08:00"
-              content="2021-12-15">
-          12-15
-        </time>
-      </div>
+<p>然后用以下命令使刚才的配置生效</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">tkinter手动代理窗口关闭事件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-15T11:36:18+08:00"
-              content="2021-12-15">
-          12-15
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/15/python-tkinter%E4%BA%8B%E4%BB%B6/" itemprop="url">
-            <span itemprop="name">python tkinter事件</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-14T21:25:55+08:00"
-              content="2021-12-14">
-          12-14
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/" itemprop="url">
-            <span itemprop="name">Python月相设计思路</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <div class="post-meta">
-        <time itemprop="dateCreated"
-              datetime="2021-12-11T23:55:48+08:00"
-              content="2021-12-11">
-          12-11
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" itemprop="url">
-            <span itemprop="name">tkinter command传参问题解决</span>
-          </a>
-      </div>
-
-    </header>
-  </article>
+<h2 id="法二：忽略警告"><a href="#法二：忽略警告" class="headerlink" title="法二：忽略警告"></a>法二：忽略警告</h2><p>按照提示，如果您希望禁止显示此警告，请使用 <code>--no-warn-script-location</code></p>
 
     </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>创作不易，支持一下吧！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="p0ise 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="p0ise 支付宝">
+        <p>支付宝</p>
+      </div>
+
   </div>
-  
-  
-  
+</div>
 
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"># python</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/" rel="prev" title="Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h">
+      <i class="fa fa-chevron-left"></i> Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -356,6 +408,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3"><span class="nav-number">2.</span> <span class="nav-text">解决</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E4%B8%80%EF%BC%9A%E6%B7%BB%E5%8A%A0%E5%BA%93%E5%88%B0PATH%E8%B7%AF%E5%BE%84"><span class="nav-number">2.1.</span> <span class="nav-text">法一：添加库到PATH路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%95%E4%BA%8C%EF%BC%9A%E5%BF%BD%E7%95%A5%E8%AD%A6%E5%91%8A"><span class="nav-number">2.2.</span> <span class="nav-text">法二：忽略警告</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
