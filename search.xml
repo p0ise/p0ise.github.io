@@ -741,4 +741,25 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>linux</tag>
       </tags>
   </entry>
+  <entry>
+    <title>C语言中用预处理指令“注释掉”代码</title>
+    <url>/2022/03/13/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%94%A8%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E2%80%9C%E6%B3%A8%E9%87%8A%E6%8E%89%E2%80%9D%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C语言中，为什么要用预处理指令而不是直接用注释来去除代码？</p>
+<p>考虑代码中可能原先就存在注释的情况，直接在首尾加上<code>/*</code>和<code>*/</code>就可能存在前后注释符号匹配错误问题。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">    statements</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这样，即使原先存在注释，也能有效”注释掉“该段代码了。</p>
+<blockquote>
+<p>Note: 在<code>#if</code>和<code>#endif</code>指令之间的代码，只有当<code>#if</code>后的条件成立时才会被编译</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>注释</tag>
+        <tag>预处理指令</tag>
+      </tags>
+  </entry>
 </search>
