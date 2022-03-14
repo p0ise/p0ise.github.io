@@ -1,6 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h</title>
+    <url>/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/</url>
+    <content><![CDATA[<h1 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h1><p>使用了<code>-m32</code>指令，而64位系统GCC默认安装环境无法直接编译生成32位程序</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>安装Multilib，顾名思义，就是多重的。用它可以替代原来单一的lib，这样就既能产生32位的代码，又能生成64位的代码。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>[linux ubuntu gcc编译 fatal error: bits/libc-header-start.h 错误解决]: <a href="https://blog.csdn.net/whatday/article/details/99161919">https://blog.csdn.net/whatday/article/details/99161919</a></li>
+<li>[In file included from /usr/include/stdio.h:27:0, from btest.c:16: /usr/include/feat出错的解决办法]: <a href="https://blog.csdn.net/shendezhuti/article/details/96477288">https://blog.csdn.net/shendezhuti/article/details/96477288</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>报错</tag>
+        <tag>gcc</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言中用预处理指令“注释掉”代码</title>
+    <url>/2022/03/13/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%94%A8%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E2%80%9C%E6%B3%A8%E9%87%8A%E6%8E%89%E2%80%9D%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C语言中，为什么要用预处理指令而不是直接用注释来去除代码？</p>
+<p>考虑代码中可能原先就存在注释的情况，直接在首尾加上<code>/*</code>和<code>*/</code>就可能存在前后注释符号匹配错误问题。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">    statements</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这样，即使原先存在注释，也能有效”注释掉“该段代码了。</p>
+<blockquote>
+<p>Note: 在<code>#if</code>和<code>#endif</code>指令之间的代码，只有当<code>#if</code>后的条件成立时才会被编译</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>注释</tag>
+        <tag>预处理指令</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python月相设计思路</title>
     <url>/2021/12/14/Python%E6%9C%88%E7%9B%B8%E8%AE%BE%E8%AE%A1%E6%80%9D%E8%B7%AF/</url>
     <content><![CDATA[<p>要求可以展示任一月份月相，并单击日期实现绘图。本文浅析一下该题设计思路。</p>
@@ -90,35 +132,30 @@
       </tags>
   </entry>
   <entry>
-    <title>hexo插入本地图片</title>
-    <url>/2021/12/14/hexo%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
-    <content><![CDATA[<blockquote>
-<p>这篇文章随便记录一下，讲的不是很清楚，如果有需要评论区留言，我再重新写一写</p>
-</blockquote>
-<p>网上查的说用hexo-asset-image插件</p>
-<p>安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+    <title>Linux python安装包警告未安装到PATH路径</title>
+    <url>/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/</url>
+    <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用pip安装包时警告：</p>
+<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">WARNING: The script script_name <span class="keyword">is</span> installed <span class="keyword">in</span> <span class="string">&#x27;/home/user_name/.local/bin&#x27;</span> which <span class="keyword">is</span> <span class="keyword">not</span> on PATH.</span><br><span class="line"> Consider adding this directory to PATH <span class="keyword">or</span>, <span class="keyword">if</span> you prefer to suppress this warning, use --no-warn-script-location.</span><br></pre></td></tr></table></figure>
 
-<p>修改_config.yml：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>意思是你安装的路径<code>&#39;/home/user_name/.local/bin&#39;</code>不是PATH路径</p>
+<p>这样的话你就不能在命令行里直接使用库相关的命令</p>
+<p>例如我刚安装了pwntools库，如果我安装在PATH路径下，我就可以直接在命令行输入<code>pwn</code>来执行相关命令，而不是通过<code>python -m pwn</code>的方式执行相关命令</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>给出两个消除警告的方法，请根据需要选择</p>
+<h2 id="法一：添加库到PATH路径"><a href="#法一：添加库到PATH路径" class="headerlink" title="法一：添加库到PATH路径"></a>法一：添加库到PATH路径</h2><p>这样配置的作用在于你可以把安装的库作为独立的命令执行，而不是通过<code>python -m</code>的方式</p>
+<p>使用以下命令在<code>~/.bashrc</code>文件后追加<code>export PATH=&quot;$PATH:$HOME/.local/bin&quot;</code>这一行</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;export PATH=&quot;$PATH:$HOME/.local/bin&quot;&#x27; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
 
-<p>重新生成一遍……然并卵</p>
-<h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>好像是hexo里面参数改了</p>
-<p>找到<code>node_modules/hexo-asset-image/index.js</code>，做点小改动：</p>
-<span id="more"></span>
+<p>然后用以下命令使刚才的配置生效</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
 
-<ol>
-<li>把获取img的src属性的语句改为获取data-src属性</li>
-<li>修改截取绝对路径的语句</li>
-</ol>
-<h1 id="成品"><a href="#成品" class="headerlink" title="成品"></a>成品</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">    <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> appendLink = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">    <span class="comment">// if not with index.html endpos = link.lastIndexOf(&#x27;.&#x27;) + 1 support hexo-abbrlink</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="regexp">/.*\/index\.html$/</span>.test(link)) &#123;</span><br><span class="line">      <span class="comment">// when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html</span></span><br><span class="line">      <span class="comment">// image in xxtitle/ will go to xxtitle/index/</span></span><br><span class="line">      appendLink = <span class="string">&#x27;index/&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    link = link.substring(beginPos, endPos) + <span class="string">&#x27;/&#x27;</span> + appendLink;</span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>))&#123;</span><br><span class="line">          <span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">          <span class="keyword">var</span> src = $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">          <span class="keyword">if</span>(!(<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s+\//</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s*\/uploads|images\//</span>.test(src))) &#123;</span><br><span class="line">            <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">            <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">            <span class="keyword">var</span> linkArray = link.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">var</span> srcArray = src.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">            srcArray.shift();</span><br><span class="line">            src = srcArray.join(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>, config.root + link + src);</span><br><span class="line">            <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.root + link + src);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="built_in">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
+<h2 id="法二：忽略警告"><a href="#法二：忽略警告" class="headerlink" title="法二：忽略警告"></a>法二：忽略警告</h2><p>按照提示，如果您希望禁止显示此警告，请使用 <code>--no-warn-script-location</code></p>
 ]]></content>
       <categories>
-        <category>博客建设</category>
+        <category>杂项</category>
       </categories>
       <tags>
-        <tag>hexo</tag>
+        <tag>linux</tag>
+        <tag>python</tag>
       </tags>
   </entry>
   <entry>
@@ -160,6 +197,32 @@
       </tags>
   </entry>
   <entry>
+    <title>checksec工具安装和使用</title>
+    <url>/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<p>学Pwn的时候要用到checksec工具，用于查看程序开启了哪些保护机制</p>
+<h1 id="Step1-git下载"><a href="#Step1-git下载" class="headerlink" title="Step1-git下载"></a>Step1-git下载</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/slimm609/checksec.sh.git</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Step2-建立符号链接"><a href="#Step2-建立符号链接" class="headerlink" title="Step2-建立符号链接"></a>Step2-建立符号链接</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s ~/checksec.sh/checksec /usr/local/bin/checksec</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="Step3-使用"><a href="#Step3-使用" class="headerlink" title="Step3-使用"></a>Step3-使用</h1><p>详见<a href="https://github.com/slimm609/checksec.sh">https://github.com/slimm609/checksec.sh</a></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ checksec</span><br><span class="line">Usage: checksec [--format=&#123;cli,csv,xml,json&#125;] [OPTION]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line"></span><br><span class="line"> ## Checksec Options</span><br><span class="line">  --file=&#123;file&#125;</span><br><span class="line">  --dir=&#123;directory&#125;</span><br><span class="line">  --listfile=&#123;text file with one file per line&#125;</span><br><span class="line">  --proc=&#123;process name&#125;</span><br><span class="line">  --proc-all</span><br><span class="line">  --proc-libs=&#123;process ID&#125;</span><br><span class="line">  --kernel[=kconfig]</span><br><span class="line">  --fortify-file=&#123;executable-file&#125;</span><br><span class="line">  --fortify-proc=&#123;process ID&#125;</span><br><span class="line">  --version</span><br><span class="line">  --help</span><br><span class="line">  --update or --upgrade</span><br><span class="line"></span><br><span class="line"> ## Modifiers</span><br><span class="line">  --debug</span><br><span class="line">  --verbose</span><br><span class="line">  --format=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --output=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --extended</span><br><span class="line"></span><br><span class="line">For more information, see:</span><br><span class="line">  http://github.com/slimm609/checksec.sh</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>网络安全</category>
+      </categories>
+      <tags>
+        <tag>网络安全</tag>
+        <tag>工具</tag>
+        <tag>CTF</tag>
+        <tag>pwn</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Hexo - 博客搭建全教程</title>
     <url>/2021/11/30/hello-hexo/</url>
     <content><![CDATA[<p>本文将包含本站搭建及配置全过程，长期更新。</p>
@@ -174,6 +237,38 @@
 <li><a href="http://git-scm.com/">Git</a></li>
 </ul>
 <h1 id="主题配置"><a href="#主题配置" class="headerlink" title="主题配置"></a>主题配置</h1><p>待完善…</p>
+]]></content>
+      <categories>
+        <category>博客建设</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>hexo插入本地图片</title>
+    <url>/2021/12/14/hexo%E6%8F%92%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%9B%BE%E7%89%87/</url>
+    <content><![CDATA[<blockquote>
+<p>这篇文章随便记录一下，讲的不是很清楚，如果有需要评论区留言，我再重新写一写</p>
+</blockquote>
+<p>网上查的说用hexo-asset-image插件</p>
+<p>安装：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">npm install hexo-asset-image --save</span><br></pre></td></tr></table></figure>
+
+<p>修改_config.yml：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">post_asset_folder:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>重新生成一遍……然并卵</p>
+<h1 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h1><p>好像是hexo里面参数改了</p>
+<p>找到<code>node_modules/hexo-asset-image/index.js</code>，做点小改动：</p>
+<span id="more"></span>
+
+<ol>
+<li>把获取img的src属性的语句改为获取data-src属性</li>
+<li>修改截取绝对路径的语句</li>
+</ol>
+<h1 id="成品"><a href="#成品" class="headerlink" title="成品"></a>成品</h1><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> cheerio = <span class="built_in">require</span>(<span class="string">&#x27;cheerio&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// http://stackoverflow.com/questions/14480345/how-to-get-the-nth-occurrence-in-a-string</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosition</span>(<span class="params">str, m, i</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.split(m, i).join(m).length;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">hexo.extend.filter.register(<span class="string">&#x27;after_post_render&#x27;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> config = hexo.config;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">if</span>(config.post_asset_folder)&#123;</span><br><span class="line">    <span class="keyword">var</span> link = data.permalink;</span><br><span class="line">    <span class="keyword">var</span> beginPos = getPosition(link, <span class="string">&#x27;/&#x27;</span>, <span class="number">3</span>) + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">var</span> endPos = link.lastIndexOf(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    <span class="keyword">var</span> appendLink = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="comment">// In hexo 3.1.1, the permalink of &quot;about&quot; page is like &quot;.../about/index.html&quot;.</span></span><br><span class="line">    <span class="comment">// if not with index.html endpos = link.lastIndexOf(&#x27;.&#x27;) + 1 support hexo-abbrlink</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="regexp">/.*\/index\.html$/</span>.test(link)) &#123;</span><br><span class="line">      <span class="comment">// when permalink is end with index.html, for example 2019/02/20/xxtitle/index.html</span></span><br><span class="line">      <span class="comment">// image in xxtitle/ will go to xxtitle/index/</span></span><br><span class="line">      appendLink = <span class="string">&#x27;index/&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    link = link.substring(beginPos, endPos) + <span class="string">&#x27;/&#x27;</span> + appendLink;</span><br><span class="line">    <span class="keyword">var</span> toprocess = [<span class="string">&#x27;excerpt&#x27;</span>, <span class="string">&#x27;more&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; toprocess.length; i++)&#123;</span><br><span class="line">      <span class="keyword">var</span> key = toprocess[i];</span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> $ = cheerio.load(data[key], &#123;</span><br><span class="line">        <span class="attr">ignoreWhitespace</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">xmlMode</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">lowerCaseTags</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">decodeEntities</span>: <span class="literal">false</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      $(<span class="string">&#x27;img&#x27;</span>).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ($(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>))&#123;</span><br><span class="line">          <span class="comment">// For windows style path, we replace &#x27;\&#x27; to &#x27;/&#x27;.</span></span><br><span class="line">          <span class="keyword">var</span> src = $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>).replace(<span class="string">&#x27;\\&#x27;</span>, <span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">          <span class="keyword">if</span>(!(<span class="regexp">/http[s]*.*|\/\/.*/</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s+\//</span>.test(src)</span><br><span class="line">            || <span class="regexp">/^\s*\/uploads|images\//</span>.test(src))) &#123;</span><br><span class="line">            <span class="comment">// For &quot;about&quot; page, the first part of &quot;src&quot; can&#x27;t be removed.</span></span><br><span class="line">            <span class="comment">// In addition, to support multi-level local directory.</span></span><br><span class="line">            <span class="keyword">var</span> linkArray = link.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">var</span> srcArray = src.split(<span class="string">&#x27;/&#x27;</span>).filter(<span class="function"><span class="keyword">function</span>(<span class="params">elem</span>)</span>&#123;</span><br><span class="line">              <span class="keyword">return</span> elem != <span class="string">&#x27;&#x27;</span> &amp;&amp; elem != <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            &#125;);</span><br><span class="line">            <span class="keyword">if</span>(srcArray.length &gt; <span class="number">1</span>)</span><br><span class="line">            srcArray.shift();</span><br><span class="line">            src = srcArray.join(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line"></span><br><span class="line">            $(<span class="built_in">this</span>).attr(<span class="string">&#x27;data-src&#x27;</span>, config.root + link + src);</span><br><span class="line">            <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;update link as:--&gt;&quot;</span>+config.root + link + src);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info(<span class="string">&quot;no src attr, skipped...&quot;</span>);</span><br><span class="line">          <span class="built_in">console</span>.info&amp;&amp;<span class="built_in">console</span>.info($(<span class="built_in">this</span>));</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;);</span><br><span class="line">      data[key] = $.html();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>博客建设</category>
@@ -283,6 +378,47 @@
       </tags>
   </entry>
   <entry>
+    <title>tkinter command传参问题解决</title>
+    <url>/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
+<p>其实使用的都是封装的方法，只是有不同的实现。</p>
+<h2 id="方案一：lambda函数"><a href="#方案一：lambda函数" class="headerlink" title="方案一：lambda函数"></a>方案一：lambda函数</h2><p><strong>个人比较喜欢这个方法</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ttk.Button(frame, text=<span class="string">&#x27;button&#x27;</span>,command=<span class="keyword">lambda</span>:func(param))</span><br></pre></td></tr></table></figure>
+
+<p>值得注意的是，这里存在一个小细节，不了解lambda函数机制的同学要注意一下，否则可能产生与你预期不符的结果。lambda函数只会在<strong>调用时</strong>执行内部语句，也就是说，如果你传递的参数（这里是param）是一个变量，并且在之后这个变量的值发生了变化，调用时就会传入之后的值而不是你之前想要传入的值。</p>
+<span id="more"></span>
+
+<p>举个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你正好有动态传值的需要，那么这个恰能符合你的需求。如果你想要传入固定的参数值，则我们需要用到默认参数解决这一问题。</p>
+<p>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> p=param:func(p)</span><br></pre></td></tr></table></figure>
+
+<p>这样就能把参数固定下来了。</p>
+<h2 id="方案二：类封装"><a href="#方案二：类封装" class="headerlink" title="方案二：类封装"></a>方案二：类封装</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Callback</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args, **kwargs</span>):</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line">        self.kwargs = kwargs</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.func(*self.args, **self.kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default_callback</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button &#x27;&#123;&#125;&#x27; pressed.&quot;</span>.<span class="built_in">format</span>(t))</span><br><span class="line"></span><br><span class="line">root = tk.Tk()</span><br><span class="line"></span><br><span class="line">buttons = [<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(buttons):</span><br><span class="line">    tk.Button(root, text=b, command=Callback(default_callback, b)).grid(row=i, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">tk.mainloop()</span><br></pre></td></tr></table></figure>
+
+<p>这里不多做介绍了，调用的地方像这样实例化一个对象就行了。</p>
+<h2 id="方案三：functools的partial"><a href="#方案三：functools的partial" class="headerlink" title="方案三：functools的partial"></a>方案三：functools的partial</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line">button = Tk.Button(master=frame, text=<span class="string">&#x27;press&#x27;</span>, command=partial(func, arg))</span><br></pre></td></tr></table></figure>
+
+<p>partial用于创建一个类似原函数但有固定参数的偏函数，原型如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">functools.partial(func, *args, **keywords)</span><br></pre></td></tr></table></figure>
+
+<p>和方案二玩法差不多，具体不多介绍了。</p>
+<blockquote>
+<p>Note:</p>
+<p>有趣的是，python类绑定方法的实现与partial有异曲同工之妙，感兴趣的同学可以了解一下</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>tkinter</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>tkinter手动代理窗口关闭事件</title>
     <url>/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/</url>
     <content><![CDATA[<p>有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。</p>
@@ -345,47 +481,6 @@
       <tags>
         <tag>python</tag>
         <tag>turtle</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>tkinter command传参问题解决</title>
-    <url>/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
-<p>其实使用的都是封装的方法，只是有不同的实现。</p>
-<h2 id="方案一：lambda函数"><a href="#方案一：lambda函数" class="headerlink" title="方案一：lambda函数"></a>方案一：lambda函数</h2><p><strong>个人比较喜欢这个方法</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ttk.Button(frame, text=<span class="string">&#x27;button&#x27;</span>,command=<span class="keyword">lambda</span>:func(param))</span><br></pre></td></tr></table></figure>
-
-<p>值得注意的是，这里存在一个小细节，不了解lambda函数机制的同学要注意一下，否则可能产生与你预期不符的结果。lambda函数只会在<strong>调用时</strong>执行内部语句，也就是说，如果你传递的参数（这里是param）是一个变量，并且在之后这个变量的值发生了变化，调用时就会传入之后的值而不是你之前想要传入的值。</p>
-<span id="more"></span>
-
-<p>举个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
-
-<p>如果你正好有动态传值的需要，那么这个恰能符合你的需求。如果你想要传入固定的参数值，则我们需要用到默认参数解决这一问题。</p>
-<p>示例如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> p=param:func(p)</span><br></pre></td></tr></table></figure>
-
-<p>这样就能把参数固定下来了。</p>
-<h2 id="方案二：类封装"><a href="#方案二：类封装" class="headerlink" title="方案二：类封装"></a>方案二：类封装</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Callback</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args, **kwargs</span>):</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line">        self.kwargs = kwargs</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.func(*self.args, **self.kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default_callback</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button &#x27;&#123;&#125;&#x27; pressed.&quot;</span>.<span class="built_in">format</span>(t))</span><br><span class="line"></span><br><span class="line">root = tk.Tk()</span><br><span class="line"></span><br><span class="line">buttons = [<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(buttons):</span><br><span class="line">    tk.Button(root, text=b, command=Callback(default_callback, b)).grid(row=i, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">tk.mainloop()</span><br></pre></td></tr></table></figure>
-
-<p>这里不多做介绍了，调用的地方像这样实例化一个对象就行了。</p>
-<h2 id="方案三：functools的partial"><a href="#方案三：functools的partial" class="headerlink" title="方案三：functools的partial"></a>方案三：functools的partial</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line">button = Tk.Button(master=frame, text=<span class="string">&#x27;press&#x27;</span>, command=partial(func, arg))</span><br></pre></td></tr></table></figure>
-
-<p>partial用于创建一个类似原函数但有固定参数的偏函数，原型如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">functools.partial(func, *args, **keywords)</span><br></pre></td></tr></table></figure>
-
-<p>和方案二玩法差不多，具体不多介绍了。</p>
-<blockquote>
-<p>Note:</p>
-<p>有趣的是，python类绑定方法的实现与partial有异曲同工之妙，感兴趣的同学可以了解一下</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>tkinter</tag>
       </tags>
   </entry>
   <entry>
@@ -476,6 +571,26 @@
       <tags>
         <tag>python</tag>
         <tag>turtle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>终端中手动输入EOF</title>
+    <url>/2022/03/14/%E7%BB%88%E7%AB%AF%E4%B8%AD%E6%89%8B%E5%8A%A8%E8%BE%93%E5%85%A5EOF/</url>
+    <content><![CDATA[<h2 id="测试环境"><a href="#测试环境" class="headerlink" title="测试环境"></a>测试环境</h2><ul>
+<li>windows 10</li>
+<li>ubtuntu 20.04</li>
+</ul>
+<h2 id="操作方法"><a href="#操作方法" class="headerlink" title="操作方法"></a>操作方法</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>新起一行输入<code>Ctrl-Z</code>，然后回车</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><h4 id="法一"><a href="#法一" class="headerlink" title="法一"></a>法一</h4><p>新起一行输入<code>Ctrl-D</code></p>
+<h4 id="法二"><a href="#法二" class="headerlink" title="法二"></a>法二</h4><p>同一行中，连续输入两次<code>Ctrl-D</code></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>EOF</tag>
+        <tag>终端</tag>
+        <tag>操作系统</tag>
       </tags>
   </entry>
   <entry>
@@ -661,105 +776,10 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <category>网络安全</category>
       </categories>
       <tags>
+        <tag>网络安全</tag>
         <tag>ctf</tag>
         <tag>web</tag>
         <tag>sqli</tag>
-        <tag>网络安全</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>checksec工具安装和使用</title>
-    <url>/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<p>学Pwn的时候要用到checksec工具，用于查看程序开启了哪些保护机制</p>
-<h1 id="Step1-git下载"><a href="#Step1-git下载" class="headerlink" title="Step1-git下载"></a>Step1-git下载</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/slimm609/checksec.sh.git</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Step2-建立符号链接"><a href="#Step2-建立符号链接" class="headerlink" title="Step2-建立符号链接"></a>Step2-建立符号链接</h1><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo ln -s ~/checksec.sh/checksec /usr/local/bin/checksec</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Step3-使用"><a href="#Step3-使用" class="headerlink" title="Step3-使用"></a>Step3-使用</h1><p>详见<a href="https://github.com/slimm609/checksec.sh">https://github.com/slimm609/checksec.sh</a></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ checksec</span><br><span class="line">Usage: checksec [--format=&#123;cli,csv,xml,json&#125;] [OPTION]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line"></span><br><span class="line"> ## Checksec Options</span><br><span class="line">  --file=&#123;file&#125;</span><br><span class="line">  --dir=&#123;directory&#125;</span><br><span class="line">  --listfile=&#123;text file with one file per line&#125;</span><br><span class="line">  --proc=&#123;process name&#125;</span><br><span class="line">  --proc-all</span><br><span class="line">  --proc-libs=&#123;process ID&#125;</span><br><span class="line">  --kernel[=kconfig]</span><br><span class="line">  --fortify-file=&#123;executable-file&#125;</span><br><span class="line">  --fortify-proc=&#123;process ID&#125;</span><br><span class="line">  --version</span><br><span class="line">  --help</span><br><span class="line">  --update or --upgrade</span><br><span class="line"></span><br><span class="line"> ## Modifiers</span><br><span class="line">  --debug</span><br><span class="line">  --verbose</span><br><span class="line">  --format=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --output=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --extended</span><br><span class="line"></span><br><span class="line">For more information, see:</span><br><span class="line">  http://github.com/slimm609/checksec.sh</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>工具</tag>
-        <tag>CTF</tag>
-        <tag>pwn</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h</title>
-    <url>/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/</url>
-    <content><![CDATA[<h1 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h1><p>使用了<code>-m32</code>指令，而64位系统GCC默认安装环境无法直接编译生成32位程序</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>安装Multilib，顾名思义，就是多重的。用它可以替代原来单一的lib，这样就既能产生32位的代码，又能生成64位的代码。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li>[linux ubuntu gcc编译 fatal error: bits/libc-header-start.h 错误解决]: <a href="https://blog.csdn.net/whatday/article/details/99161919">https://blog.csdn.net/whatday/article/details/99161919</a></li>
-<li>[In file included from /usr/include/stdio.h:27:0, from btest.c:16: /usr/include/feat出错的解决办法]: <a href="https://blog.csdn.net/shendezhuti/article/details/96477288">https://blog.csdn.net/shendezhuti/article/details/96477288</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>报错</tag>
-        <tag>gcc</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux python安装包警告未安装到PATH路径</title>
-    <url>/2022/01/28/Linux-python%E5%AE%89%E8%A3%85%E5%8C%85%E8%AD%A6%E5%91%8A%E6%9C%AA%E5%AE%89%E8%A3%85%E5%88%B0PATH%E8%B7%AF%E5%BE%84/</url>
-    <content><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>用pip安装包时警告：</p>
-<figure class="highlight py"><table><tr><td class="code"><pre><span class="line">WARNING: The script script_name <span class="keyword">is</span> installed <span class="keyword">in</span> <span class="string">&#x27;/home/user_name/.local/bin&#x27;</span> which <span class="keyword">is</span> <span class="keyword">not</span> on PATH.</span><br><span class="line"> Consider adding this directory to PATH <span class="keyword">or</span>, <span class="keyword">if</span> you prefer to suppress this warning, use --no-warn-script-location.</span><br></pre></td></tr></table></figure>
-
-<p>意思是你安装的路径<code>&#39;/home/user_name/.local/bin&#39;</code>不是PATH路径</p>
-<p>这样的话你就不能在命令行里直接使用库相关的命令</p>
-<p>例如我刚安装了pwntools库，如果我安装在PATH路径下，我就可以直接在命令行输入<code>pwn</code>来执行相关命令，而不是通过<code>python -m pwn</code>的方式执行相关命令</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>给出两个消除警告的方法，请根据需要选择</p>
-<h2 id="法一：添加库到PATH路径"><a href="#法一：添加库到PATH路径" class="headerlink" title="法一：添加库到PATH路径"></a>法一：添加库到PATH路径</h2><p>这样配置的作用在于你可以把安装的库作为独立的命令执行，而不是通过<code>python -m</code>的方式</p>
-<p>使用以下命令在<code>~/.bashrc</code>文件后追加<code>export PATH=&quot;$PATH:$HOME/.local/bin&quot;</code>这一行</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;export PATH=&quot;$PATH:$HOME/.local/bin&quot;&#x27; &gt;&gt; ~/.bashrc</span><br></pre></td></tr></table></figure>
-
-<p>然后用以下命令使刚才的配置生效</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">source ~/.bashrc</span><br></pre></td></tr></table></figure>
-
-<h2 id="法二：忽略警告"><a href="#法二：忽略警告" class="headerlink" title="法二：忽略警告"></a>法二：忽略警告</h2><p>按照提示，如果您希望禁止显示此警告，请使用 <code>--no-warn-script-location</code></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C语言中用预处理指令“注释掉”代码</title>
-    <url>/2022/03/13/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%94%A8%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E2%80%9C%E6%B3%A8%E9%87%8A%E6%8E%89%E2%80%9D%E4%BB%A3%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C语言中，为什么要用预处理指令而不是直接用注释来去除代码？</p>
-<p>考虑代码中可能原先就存在注释的情况，直接在首尾加上<code>/*</code>和<code>*/</code>就可能存在前后注释符号匹配错误问题。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">    statements</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
-
-<p>这样，即使原先存在注释，也能有效”注释掉“该段代码了。</p>
-<blockquote>
-<p>Note: 在<code>#if</code>和<code>#endif</code>指令之间的代码，只有当<code>#if</code>后的条件成立时才会被编译</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>注释</tag>
-        <tag>预处理指令</tag>
       </tags>
   </entry>
 </search>
