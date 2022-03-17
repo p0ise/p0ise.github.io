@@ -893,7 +893,7 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 
 <blockquote>
 <p>以上仅为不完善的个人猜想，抛开隔绝外部链接这一点不谈，就内部链接这一名称而言，笔者对<strong>为什么要在同一个文件内部使用链接</strong>的设计仍然存疑，但目前该话题的答案超出了笔者的理解，因此更深入的讨论暂时留白。</p>
-<p><strong>拓展</strong>：感兴趣的同学可以尝试学习<strong>链接</strong>相关知识，或许会找到答案。</p>
+<p><strong>拓展</strong>：感兴趣的同学可以尝试学习<strong>链接</strong>相关知识，或许会找到更确定的答案。</p>
 </blockquote>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><p>《Pointers On C》</p>
