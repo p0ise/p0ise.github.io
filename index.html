@@ -230,7 +230,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-17 08:28:22 / 修改时间：10:24:18" itemprop="dateCreated datePublished" datetime="2022-03-17T08:28:22+08:00">2022-03-17</time>
+              <time title="创建时间：2022-03-17 08:28:22 / 修改时间：10:49:44" itemprop="dateCreated datePublished" datetime="2022-03-17T08:28:22+08:00">2022-03-17</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -319,9 +319,10 @@
 <p>再次提醒：只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal</p>
 </blockquote>
 <h1 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h1><ol>
-<li>对于external属性的标识符，你可以在多个不同源文件中声明，但是你只能在一处初始化。否则就会出现重复定义的问题：<code>multiple definition of </code>a’;`</li>
+<li>对于external属性的标识符，你可以在多个不同源文件中声明，但是你只能在一处初始化。否则就会出现重复定义的问题：<code>multiple definition of &#39;a&#39;;</code>。</li>
 <li>extern关键字声明的标识符用于访问其他文件中定义的同名的标识符，因此无法进行初始化。如果你对extern声明的变量进行初始化就会生成警告：<code>warning: ‘a’ initialized and declared ‘extern’</code>。</li>
 <li>如果在其他文件中不存在相应的标识符定义，却在当前文件中使用了extern声明，会报错：<code>undefined reference to &#39;a&#39;</code>，原理同2。</li>
+<li>external属性的标识符总是静态存储类型。</li>
 <li>static关键字还有改变存储类型的作用，因此，其作用与上下文环境有关，只有对于默认链接属性为external的标识符，才有改变链接属性的作用。</li>
 </ol>
 
