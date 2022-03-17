@@ -832,4 +832,51 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>语法</tag>
       </tags>
   </entry>
+  <entry>
+    <title>C语言链接属性</title>
+    <url>/2022/03/17/C%E8%AF%AD%E8%A8%80%E9%93%BE%E6%8E%A5%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>链接属性与C语言中各个目标文件及函数的链接过程有关，用于认定不同文件的标识符（程序中的各种名称，包括变量名、函数名）是否是同一个实体。更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
+<p>简单来说，链接属性的作用就是让你能在a文件中决定要不要访问b文件中的变量、函数。</p>
+<h1 id="链接属性的分类"><a href="#链接属性的分类" class="headerlink" title="链接属性的分类"></a>链接属性的分类</h1><p>链接属性有三种：</p>
+<ul>
+<li>external</li>
+<li>internal</li>
+<li>none</li>
+</ul>
+<p>对于external属性的标识符，不同文件中出现的多个同名称标识符指向同一个实体。在C语言中，用extern关键字在声明中指定<strong>以引用其他文件中定义的相同标识符</strong>。</p>
+<p>对于internal属性的标识符，仅在当前文件内该标识符指向同一个实体。在C语言中，用static关键字在声明中指定让标识符<strong>变为该文件私有</strong>（只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal）。</p>
+<p>对于none属性的标识符，在每个声明位置都是一个新的实体。C语言中，没有对应的关键字。</p>
+<h1 id="默认的链接属性"><a href="#默认的链接属性" class="headerlink" title="默认的链接属性"></a>默认的链接属性</h1><p>标识符的默认的链接属性与其出现的位置有关。</p>
+<ul>
+<li><p>程序的全局变量、所有函数默认的链接属性为external。</p>
+</li>
+<li><p>其余标识符的默认链接属性为none。</p>
+</li>
+</ul>
+<p>在以下例子中，b、c、f的链接属性就是external：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *a;</span><br><span class="line"><span class="keyword">int</span> b;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">c</span><span class="params">(<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> g)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实践应用"><a href="#实践应用" class="headerlink" title="实践应用"></a>实践应用</h1><h2 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h2><p>在a文件中想要使用b文件中定义的external属性标识符，可使用extern关键字在a文件中声明。</p>
+<blockquote>
+<p><strong>即使该标识符所在位置默认链接属性为external</strong>，也建议使用extern关键字显式说明，有利于增加程序可读性。</p>
+</blockquote>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>在a文件定义了一个全局标识符，但不想被其他文件访问，可以对该标识符加上static关键字。</p>
+<p>在a、b文件中定义了同样的标识符，通过static关键字可以避免多重定义问题。</p>
+<blockquote>
+<p>再次提醒：只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal</p>
+</blockquote>
+<h1 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h1><ol>
+<li>对于external属性的标识符，你可以在多个不同源文件中声明，但是你只能在一处初始化。否则就会出现重复定义的问题：<code>multiple definition of </code>a’;`</li>
+<li>extern关键字声明的标识符用于访问其他文件中定义的同名的标识符，因此无法进行初始化。如果你对extern声明的变量进行初始化就会生成警告：<code>warning: ‘a’ initialized and declared ‘extern’</code>。</li>
+<li>static关键字还有改变存储类型的作用，因此，其作用与上下文环境有关，只有对于默认链接属性为external的标识符，才有改变链接属性的作用。</li>
+</ol>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>链接属性</tag>
+      </tags>
+  </entry>
 </search>
