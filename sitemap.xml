@@ -418,6 +418,20 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://www.p0ise.com/tags/linkage/</loc>
+    <lastmod>2022-03-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.p0ise.com/tags/%E9%93%BE%E6%8E%A5/</loc>
+    <lastmod>2022-03-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
