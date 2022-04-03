@@ -938,4 +938,36 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>syntax</tag>
       </tags>
   </entry>
+  <entry>
+    <title>C语言可变参数</title>
+    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</url>
+    <content><![CDATA[<p>在C语言中想在函数参数列表中传入不固定数量和类型的参数，可以使用<code>stdarg.h</code>头文件，该头文件定义了一系列宏用以实现可变参数列表。</p>
+<p>实际上，最熟悉的<code>printf</code>、<code>scanf</code>函数就是这么实现的。</p>
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span>					<span class="comment">// 包含该头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n_elements, ...)</span>		<span class="comment">// 给出一个命名（有名称的）参数，一串省略号</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    va_list var_arg;				<span class="comment">// 声明一个va_list类型变量</span></span><br><span class="line">    </span><br><span class="line">    va_start(var_arg, n_elements);	<span class="comment">// 初始化该变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n_elements;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += va_arg(var_arg, <span class="keyword">int</span>);<span class="comment">// 访问参数</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    va_end(var_arg);				<span class="comment">// 结束访问</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在函数参数列表中，提供一或多个有名称的参数，最后跟上<code>...</code>提示此处传递数量和类型未知的参数。</li>
+<li>用<code>va_list</code>类型声明一个变量用于访问可变参数列表。</li>
+<li><code>va_start()</code>接受一个<code>va_list</code>变量和最后一个有名称参数用于初始化，将该<code>va_list</code>变量设置为指向第一个可变参数列表的参数（由给定的最后一个有名称的参数通过相对偏移来确定位置）。</li>
+<li><code>va_arg()</code>接受一个<code>va_list</code>变量和类型名称，按类型返回当前位置参数的值，并将<code>va_list</code>变量向后移动。</li>
+<li><code>va_end()</code>用于将<code>va_list</code>置空，并完成一些清理工作。</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
+<li>可变参数传递过程中会发生默认参数提升，也就是说没有char/short/float型，因为它们已经被提升了。（详见<a href="https://p0ise.github.io/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/"><strong>默认参数提升</strong></a>或见**<a href="#%E5%8F%82%E8%80%83">参考</a>**部分相关文章）现在编译器很智能，当你试图使用这些类型访问时会给出警告：<img data-src="/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/image-20220403155121744.png" alt="使用char/short/float访问va_arg"></li>
+<li> <code>va_end()</code>是必须的。有人认为<code>va_end()</code>是不必要的，因为其编译环境下该函数只作了对<code>va_list</code>置空操作。但不同编译环境下，有可能<code>va_start()</code><strong>可能</strong>以某种方式<strong>修改了堆栈</strong>，这种修改可能导致<strong>返回无法完成</strong>，<code>va_end()</code>会将其复原；当然也可能有其他实现。因此，基于可移植性的考虑，<code>va_end</code>当然是必须的。</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li>《Pointers On C》</li>
+<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/unacceptable_type_in_va_arg.html">可变长参数列表误区与陷阱——va_arg不可接受的类型</a></li>
+<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/is_va_end_necessary.html">可变长参数列表误区与陷阱——va_end是必须的吗？</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>syntax</tag>
+      </tags>
+  </entry>
 </search>
