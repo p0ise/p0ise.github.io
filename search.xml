@@ -835,7 +835,7 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
   <entry>
     <title>C语言链接属性</title>
     <url>/2022/03/17/C%E8%AF%AD%E8%A8%80%E9%93%BE%E6%8E%A5%E5%B1%9E%E6%80%A7/</url>
-    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>链接属性与C语言中各个目标文件及函数的链接过程有关，用于认定不同文件的标识符（程序中的各种名称，包括变量名、函数名）是否是同一个实体。更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
+    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>链接属性与C语言中各个目标文件及函数的链接过程有关，用于认定不同文件的标识符（即程序中定义的各种名称，包括变量名、函数名）是否是同一个实体。更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
 <p>简单来说，链接属性的作用就是让你能在a文件中决定要不要访问b文件中的变量、函数。</p>
 <h1 id="链接属性的分类"><a href="#链接属性的分类" class="headerlink" title="链接属性的分类"></a>链接属性的分类</h1><p>链接属性有三种：</p>
 <ul>
@@ -910,6 +910,32 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>链接属性</tag>
         <tag>linkage</tag>
         <tag>链接</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言默认参数提升(default argument promotion)</title>
+    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/</url>
+    <content><![CDATA[<h1 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h1><p>在参数传递过程中，</p>
+<p><code>char</code>和 <code>short</code>被提升为<code>int</code>/ <code>unsigned int</code></p>
+<p> <code>float</code>被提升为<code>double</code></p>
+<h1 id="发生情形"><a href="#发生情形" class="headerlink" title="发生情形"></a>发生情形</h1><p>在参数的<strong>预期类型未知</strong>时，发生<strong>默认参数提升</strong>。</p>
+<p>也就是说，当<strong>没有原型</strong>或<strong>参数是可变参数</strong>时。</p>
+<h1 id="背景-产生原因"><a href="#背景-产生原因" class="headerlink" title="背景/产生原因"></a>背景/产生原因</h1><p>在 1988 年之前的黑暗时代，经典的“K&amp;R”C 中没有函数原型之类的东西，并且设置了默认参数提升，因为：</p>
+<ul>
+<li> (a) 本质上“免费”，因为将一个字节放入寄存器并不比将一个字放入寄存器中花费更多。</li>
+<li>（b）减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://stackoverflow.com/questions/1255775/default-argument-promotions-in-c-function-calls">C 函数调用中的默认参数提升</a></li>
+<li>《Pointers On C》</li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>syntax</tag>
       </tags>
   </entry>
 </search>
