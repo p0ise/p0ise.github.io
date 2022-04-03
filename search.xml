@@ -923,7 +923,7 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
 <h1 id="背景-产生原因"><a href="#背景-产生原因" class="headerlink" title="背景/产生原因"></a>背景/产生原因</h1><p>在 1988 年之前的黑暗时代，经典的“K&amp;R”C 中没有函数原型之类的东西，并且设置了默认参数提升，因为：</p>
 <ul>
 <li> (a) 本质上“免费”，因为将一个字节放入寄存器并不比将一个字放入寄存器中花费更多。</li>
-<li>（b）减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
+<li>(b)减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
 </ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="https://stackoverflow.com/questions/1255775/default-argument-promotions-in-c-function-calls">C 函数调用中的默认参数提升</a></li>
