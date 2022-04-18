@@ -205,6 +205,112 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2022/04/18/%E5%89%8D%E7%AB%AF%E9%98%B2%E6%B3%A8%E5%85%A5JS%EF%BC%88%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="p0ise">
+      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="p0ise's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/04/18/%E5%89%8D%E7%AB%AF%E9%98%B2%E6%B3%A8%E5%85%A5JS%EF%BC%88%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%EF%BC%89/" class="post-title-link" itemprop="url">前端防注入JS（自动脚本）</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-04-18 20:10:44 / 修改时间：20:20:17" itemprop="dateCreated datePublished" datetime="2022-04-18T20:10:44+08:00">2022-04-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">网络安全</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2022/04/18/%E5%89%8D%E7%AB%AF%E9%98%B2%E6%B3%A8%E5%85%A5JS%EF%BC%88%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%EF%BC%89/" class="post-meta-item leancloud_visitors" data-flag-title="前端防注入JS（自动脚本）" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022/04/18/%E5%89%8D%E7%AB%AF%E9%98%B2%E6%B3%A8%E5%85%A5JS%EF%BC%88%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%EF%BC%89/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022/04/18/%E5%89%8D%E7%AB%AF%E9%98%B2%E6%B3%A8%E5%85%A5JS%EF%BC%88%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%EF%BC%89/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最近，很多超星学习通刷课脚本没用了啊，哈哈，去超星官网看了看，发现他们加了段防止JS插入的逻辑，没加密，变量命名、注释都留着，扒下来大家学习学习，说不定过段时间就混淆加密了呢。</p>
+<p>由于本人不做前端有一段时间了，就不分析了，有能力的可以看看，审计一下，有源码了都好过。</p>
+<p>代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">hookGeo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//&lt;![CDATA[</span></span><br><span class="line">  <span class="keyword">const</span> WAIT_TIME = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">const</span> hookedObj = &#123;</span><br><span class="line">    <span class="attr">getCurrentPosition</span>: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),</span><br><span class="line">    <span class="attr">watchPosition</span>: navigator.geolocation.watchPosition.bind(navigator.geolocation),</span><br><span class="line">    <span class="attr">fakeGeo</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">genLat</span>: <span class="number">38.883333</span>,</span><br><span class="line">    <span class="attr">genLon</span>: -<span class="number">77.000</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">waitGetCurrentPosition</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">typeof</span> hookedObj.fakeGeo !== <span class="string">&#x27;undefined&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hookedObj.fakeGeo === <span class="literal">true</span>) &#123;</span><br><span class="line">        hookedObj.tmp_successCallback(&#123;</span><br><span class="line">          <span class="attr">coords</span>: &#123;</span><br><span class="line">            <span class="attr">latitude</span>: hookedObj.genLat,</span><br><span class="line">            <span class="attr">longitude</span>: hookedObj.genLon,</span><br><span class="line">            <span class="attr">accuracy</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">altitude</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">altitudeAccuracy</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">heading</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">speed</span>: <span class="literal">null</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="attr">timestamp</span>: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(waitGetCurrentPosition, WAIT_TIME);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">waitWatchPosition</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">typeof</span> hookedObj.fakeGeo !== <span class="string">&#x27;undefined&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hookedObj.fakeGeo === <span class="literal">true</span>) &#123;</span><br><span class="line">        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10000</span>); <span class="comment">// random id</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(waitWatchPosition, WAIT_TIME);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Object</span>.getPrototypeOf(navigator.geolocation).getCurrentPosition = <span class="function"><span class="keyword">function</span> (<span class="params">successCallback, errorCallback, options</span>) </span>&#123;</span><br><span class="line">    hookedObj.tmp_successCallback = successCallback;</span><br><span class="line">    hookedObj.tmp_errorCallback = errorCallback;</span><br><span class="line">    hookedObj.tmp_options = options;</span><br><span class="line">    waitGetCurrentPosition();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">Object</span>.getPrototypeOf(navigator.geolocation).watchPosition = <span class="function"><span class="keyword">function</span> (<span class="params">successCallback, errorCallback, options</span>) </span>&#123;</span><br><span class="line">    hookedObj.tmp2_successCallback = successCallback;</span><br><span class="line">    hookedObj.tmp2_errorCallback = errorCallback;</span><br><span class="line">    hookedObj.tmp2_options = options;</span><br><span class="line">    waitWatchPosition();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> instantiate = <span class="function">(<span class="params">constructor, args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> bind = <span class="built_in">Function</span>.bind;</span><br><span class="line">    <span class="keyword">const</span> unbind = bind.bind(bind);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> (unbind(<span class="title">constructor</span>, <span class="title">null</span>).<span class="title">apply</span>(<span class="params"><span class="literal">null</span>, args</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Blob = <span class="function"><span class="keyword">function</span> (<span class="params">_Blob</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">secureBlob</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">const</span> injectableMimeTypes = [</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;text/html&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;application/xhtml+xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;text/xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;application/xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;image/svg+xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">      ];</span><br><span class="line">      <span class="keyword">let</span> typeEl = args.find(<span class="function"><span class="params">arg</span> =&gt;</span> (<span class="keyword">typeof</span> arg === <span class="string">&#x27;object&#x27;</span>) &amp;&amp; (<span class="keyword">typeof</span> arg.type === <span class="string">&#x27;string&#x27;</span>) &amp;&amp; (arg.type));</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> typeEl !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; (<span class="keyword">typeof</span> args[<span class="number">0</span>][<span class="number">0</span>] === <span class="string">&#x27;string&#x27;</span>)) &#123;</span><br><span class="line">        <span class="keyword">const</span> mimeTypeIndex = injectableMimeTypes.findIndex(<span class="function"><span class="params">mimeType</span> =&gt;</span> mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());</span><br><span class="line">        <span class="keyword">if</span> (mimeTypeIndex &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> mimeType = injectableMimeTypes[mimeTypeIndex];</span><br><span class="line">          <span class="keyword">let</span> injectedCode = <span class="string">`&lt;script&gt;(</span></span><br><span class="line"><span class="string">            <span class="subst">$&#123;hookGeo&#125;</span></span></span><br><span class="line"><span class="string">          )();&lt;\/script&gt;`</span>;</span><br><span class="line">    </span><br><span class="line">          <span class="keyword">let</span> parser = <span class="keyword">new</span> DOMParser();</span><br><span class="line">          <span class="keyword">let</span> xmlDoc;</span><br><span class="line">          <span class="keyword">if</span> (mimeType.useXMLparser === <span class="literal">true</span>) &#123;</span><br><span class="line">            xmlDoc = parser.parseFromString(args[<span class="number">0</span>].join(<span class="string">&#x27;&#x27;</span>), mimeType.mime); <span class="comment">// For XML documents we need to merge all items in order to not break the header when injecting</span></span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            xmlDoc = parser.parseFromString(args[<span class="number">0</span>][<span class="number">0</span>], mimeType.mime);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (xmlDoc.getElementsByTagName(<span class="string">&quot;parsererror&quot;</span>).length === <span class="number">0</span>) &#123; <span class="comment">// if no errors were found while parsing...</span></span><br><span class="line">            xmlDoc.documentElement.insertAdjacentHTML(<span class="string">&#x27;afterbegin&#x27;</span>, injectedCode);</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">if</span> (mimeType.useXMLparser === <span class="literal">true</span>) &#123;</span><br><span class="line">              args[<span class="number">0</span>] = [<span class="keyword">new</span> XMLSerializer().serializeToString(xmlDoc)];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              args[<span class="number">0</span>][<span class="number">0</span>] = xmlDoc.documentElement.outerHTML;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> instantiate(_Blob, args); <span class="comment">// arguments?</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Copy props and methods</span></span><br><span class="line">    <span class="keyword">let</span> propNames = <span class="built_in">Object</span>.getOwnPropertyNames(_Blob);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; propNames.length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> propName = propNames[i];</span><br><span class="line">      <span class="keyword">if</span> (propName <span class="keyword">in</span> secureBlob) &#123;</span><br><span class="line">        <span class="keyword">continue</span>; <span class="comment">// Skip already existing props</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">let</span> desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(_Blob, propName);</span><br><span class="line">      <span class="built_in">Object</span>.defineProperty(secureBlob, propName, desc);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    secureBlob.prototype = _Blob.prototype;</span><br><span class="line">    <span class="keyword">return</span> secureBlob;</span><br><span class="line">  &#125;(Blob);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event.source !== <span class="built_in">window</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> message = event.data;</span><br><span class="line">    <span class="keyword">switch</span> (message.method) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;updateLocation&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> ((<span class="keyword">typeof</span> message.info === <span class="string">&#x27;object&#x27;</span>) &amp;&amp; (<span class="keyword">typeof</span> message.info.coords === <span class="string">&#x27;object&#x27;</span>)) &#123;</span><br><span class="line">          hookedObj.genLat = message.info.coords.lat;</span><br><span class="line">          hookedObj.genLon = message.info.coords.lon;</span><br><span class="line">          hookedObj.fakeGeo = message.info.fakeIt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line">  <span class="comment">//]]&gt;</span></span><br><span class="line">&#125;hookGeo();&#125;)()</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1282,120 +1388,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.p0ise.com/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="p0ise">
-      <meta itemprop="description" content="平平无奇一个技术博客。记录学各种技术的过程，顺便分享一些整理过的资源。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="p0ise's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" class="post-title-link" itemprop="url">checksec工具安装和使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-01-26 13:19:45 / 修改时间：13:38:28" itemprop="dateCreated datePublished" datetime="2022-01-26T13:19:45+08:00">2022-01-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" itemprop="url" rel="index"><span itemprop="name">网络安全</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" class="post-meta-item leancloud_visitors" data-flag-title="checksec工具安装和使用" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2022/01/26/checksec%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>832</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>学Pwn的时候要用到checksec工具，用于查看程序开启了哪些保护机制</p>
-<h1 id="Step1-git下载"><a href="#Step1-git下载" class="headerlink" title="Step1-git下载"></a>Step1-git下载</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/slimm609/checksec.sh.git</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Step2-建立符号链接"><a href="#Step2-建立符号链接" class="headerlink" title="Step2-建立符号链接"></a>Step2-建立符号链接</h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s ~/checksec.sh/checksec /usr/local/bin/checksec</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="Step3-使用"><a href="#Step3-使用" class="headerlink" title="Step3-使用"></a>Step3-使用</h1><p>详见<a target="_blank" rel="noopener" href="https://github.com/slimm609/checksec.sh">https://github.com/slimm609/checksec.sh</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">$ checksec</span><br><span class="line">Usage: checksec [--format=&#123;cli,csv,xml,json&#125;] [OPTION]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Options:</span><br><span class="line"></span><br><span class="line"> ## Checksec Options</span><br><span class="line">  --file=&#123;file&#125;</span><br><span class="line">  --dir=&#123;directory&#125;</span><br><span class="line">  --listfile=&#123;text file with one file per line&#125;</span><br><span class="line">  --proc=&#123;process name&#125;</span><br><span class="line">  --proc-all</span><br><span class="line">  --proc-libs=&#123;process ID&#125;</span><br><span class="line">  --kernel[=kconfig]</span><br><span class="line">  --fortify-file=&#123;executable-file&#125;</span><br><span class="line">  --fortify-proc=&#123;process ID&#125;</span><br><span class="line">  --version</span><br><span class="line">  --help</span><br><span class="line">  --update or --upgrade</span><br><span class="line"></span><br><span class="line"> ## Modifiers</span><br><span class="line">  --debug</span><br><span class="line">  --verbose</span><br><span class="line">  --format=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --output=&#123;cli,csv,xml,json&#125;</span><br><span class="line">  --extended</span><br><span class="line"></span><br><span class="line">For more information, see:</span><br><span class="line">  http://github.com/slimm609/checksec.sh</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1465,7 +1457,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1478,7 +1470,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1522,12 +1514,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">22k</span>
+    <span title="站点总字数">27k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">20 分钟</span>
+    <span title="站点阅读时长">25 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
