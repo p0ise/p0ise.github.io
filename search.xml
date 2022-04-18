@@ -22,24 +22,31 @@
       </tags>
   </entry>
   <entry>
-    <title>C语言中用预处理指令“注释掉”代码</title>
-    <url>/2022/03/13/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%94%A8%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E2%80%9C%E6%B3%A8%E9%87%8A%E6%8E%89%E2%80%9D%E4%BB%A3%E7%A0%81/</url>
-    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C语言中，为什么要用预处理指令而不是直接用注释来去除代码？</p>
-<p>考虑代码中可能原先就存在注释的情况，直接在首尾加上<code>/*</code>和<code>*/</code>就可能存在前后注释符号匹配错误问题。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">    statements</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+    <title>C语言中const关键字的修饰对象</title>
+    <url>/2022/03/15/C%E8%AF%AD%E8%A8%80%E4%B8%ADconst%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1/</url>
+    <content><![CDATA[<h2 id="一般（非指针）变量"><a href="#一般（非指针）变量" class="headerlink" title="一般（非指针）变量"></a>一般（非指针）变量</h2><p>对于一般类型（指非指针）变量，<code>const</code>关键字表明该变量为常量，其值不能被修改，声明一个常量和声明一个变量的方法类似：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> a;</span><br></pre></td></tr></table></figure>
 
-<p>这样，即使原先存在注释，也能有效”注释掉“该段代码了。</p>
-<blockquote>
-<p>Note: 在<code>#if</code>和<code>#endif</code>指令之间的代码，只有当<code>#if</code>后的条件成立时才会被编译</p>
-</blockquote>
+<p>这两种方法等价。</p>
+<h2 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h2><p>对于指针变量，<code>const</code>可能修饰的对象就有指针和指针指向的实体两种了。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *pci;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> *pic;</span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> cpi;</span><br></pre></td></tr></table></figure>
+
+<p>第一种和第二种修饰的是指针指向的实体，第三种则修饰指针。</p>
+<p>简单小结一下，就是如果<code>const</code>在<code>*</code>（解引用/间接）运算符前，修饰的就是实体；在<code>*</code>后则修饰指针。</p>
+<h2 id="多个变量"><a href="#多个变量" class="headerlink" title="多个变量"></a>多个变量</h2><p>考虑更复杂的情况，当同时存在多个变量时，<code>const</code>对后续变量是否有效？</p>
+<p>利用下述测试代码，通过对<code>const</code>限定符的变量进行修改，可以得到编译器的错误信息，从而得知<code>const</code>的作用范围：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> a=<span class="number">1</span>, b=<span class="number">2</span>;</span><br><span class="line">    a = b;</span><br><span class="line">    b = a;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">const</span> c=<span class="number">3</span>, d=<span class="number">4</span>;</span><br><span class="line">    c = d;</span><br><span class="line">    d = c;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> e=<span class="number">5</span>,f=<span class="number">6</span>;</span><br><span class="line">    <span class="keyword">int</span> *<span class="keyword">const</span> pe=&amp;e, *pf=&amp;f;</span><br><span class="line">    pe = pf;</span><br><span class="line">    pf = pe;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> *pe2=&amp;e, *pf2=&amp;f;</span><br><span class="line">    *pe2 = f;</span><br><span class="line">    *pf2 = e;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2022/03/15/C%E8%AF%AD%E8%A8%80%E4%B8%ADconst%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1/image-20220315131946929.png" alt="result"></p>
+<p>可见，只有单独对指针进行修饰的<code>const</code>关键字是只作用于单个变量的，其余都是对后续声明生效的。</p>
 ]]></content>
       <categories>
         <category>杂项</category>
       </categories>
       <tags>
         <tag>C</tag>
-        <tag>注释</tag>
-        <tag>预处理指令</tag>
+        <tag>const</tag>
+        <tag>语法</tag>
       </tags>
   </entry>
   <entry>
@@ -62,6 +69,165 @@
       <tags>
         <tag>C</tag>
         <tag>字符串</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言中用预处理指令“注释掉”代码</title>
+    <url>/2022/03/13/C%E8%AF%AD%E8%A8%80%E4%B8%AD%E7%94%A8%E9%A2%84%E5%A4%84%E7%90%86%E6%8C%87%E4%BB%A4%E2%80%9C%E6%B3%A8%E9%87%8A%E6%8E%89%E2%80%9D%E4%BB%A3%E7%A0%81/</url>
+    <content><![CDATA[<h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><p>在C语言中，为什么要用预处理指令而不是直接用注释来去除代码？</p>
+<p>考虑代码中可能原先就存在注释的情况，直接在首尾加上<code>/*</code>和<code>*/</code>就可能存在前后注释符号匹配错误问题。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">if</span> 0</span></span><br><span class="line">    statements</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这样，即使原先存在注释，也能有效”注释掉“该段代码了。</p>
+<blockquote>
+<p>Note: 在<code>#if</code>和<code>#endif</code>指令之间的代码，只有当<code>#if</code>后的条件成立时才会被编译</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>注释</tag>
+        <tag>预处理指令</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言可变参数</title>
+    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</url>
+    <content><![CDATA[<p>在C语言中想在函数参数列表中传入不固定数量和类型的参数，可以使用<code>stdarg.h</code>头文件，该头文件定义了一系列宏用以实现可变参数列表。</p>
+<p>实际上，最熟悉的<code>printf</code>、<code>scanf</code>函数就是这么实现的。</p>
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span>					<span class="comment">// 包含该头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n_elements, ...)</span>		<span class="comment">// 给出一个命名（有名称的）参数，一串省略号</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    va_list var_arg;				<span class="comment">// 声明一个va_list类型变量</span></span><br><span class="line">    </span><br><span class="line">    va_start(var_arg, n_elements);	<span class="comment">// 初始化该变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n_elements;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += va_arg(var_arg, <span class="keyword">int</span>);<span class="comment">// 访问参数</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    va_end(var_arg);				<span class="comment">// 结束访问</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在函数参数列表中，提供一或多个有名称的参数，最后跟上<code>...</code>提示此处传递数量和类型未知的参数。</li>
+<li>用<code>va_list</code>类型声明一个变量用于访问可变参数列表。</li>
+<li><code>va_start()</code>接受一个<code>va_list</code>变量和最后一个有名称参数用于初始化，将该<code>va_list</code>变量设置为指向第一个可变参数列表的参数（由给定的最后一个有名称的参数通过相对偏移来确定位置）。</li>
+<li><code>va_arg()</code>接受一个<code>va_list</code>变量和类型名称，按类型返回当前位置参数的值，并将<code>va_list</code>变量向后移动。</li>
+<li><code>va_end()</code>用于将<code>va_list</code>置空，并完成一些清理工作。</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
+<li>可变参数传递过程中会发生默认参数提升，也就是说没有char/short/float型，因为它们已经被提升了。（详见<a href="https://p0ise.github.io/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/"><strong>默认参数提升</strong></a>或见**<a href="#%E5%8F%82%E8%80%83">参考</a>**部分相关文章）现在编译器很智能，当你试图使用这些类型访问时会给出警告：<img data-src="/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/image-20220403155121744.png" alt="使用char/short/float访问va_arg"></li>
+<li> <code>va_end()</code>是必须的。有人认为<code>va_end()</code>是不必要的，因为其编译环境下该函数只作了对<code>va_list</code>置空操作。但不同编译环境下，有可能<code>va_start()</code><strong>可能</strong>以某种方式<strong>修改了堆栈</strong>，这种修改可能导致<strong>返回无法完成</strong>，<code>va_end()</code>会将其复原；当然也可能有其他实现。因此，基于可移植性的考虑，<code>va_end</code>当然是必须的。</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li>《Pointers On C》</li>
+<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/unacceptable_type_in_va_arg.html">可变长参数列表误区与陷阱——va_arg不可接受的类型</a></li>
+<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/is_va_end_necessary.html">可变长参数列表误区与陷阱——va_end是必须的吗？</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>syntax</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言链接属性</title>
+    <url>/2022/03/17/C%E8%AF%AD%E8%A8%80%E9%93%BE%E6%8E%A5%E5%B1%9E%E6%80%A7/</url>
+    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>链接属性与C语言中各个目标文件及函数的链接过程有关，用于认定不同文件的标识符（即程序中定义的各种名称，包括变量名、函数名）是否是同一个实体。更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
+<p>简单来说，链接属性的作用就是让你能在a文件中决定要不要访问b文件中的变量、函数。</p>
+<h1 id="链接属性的分类"><a href="#链接属性的分类" class="headerlink" title="链接属性的分类"></a>链接属性的分类</h1><p>链接属性有三种：</p>
+<ul>
+<li>external - 外部链接</li>
+<li>internal - 内部链接</li>
+<li>none - 无链接</li>
+</ul>
+<p>对于external属性的标识符，不同文件中出现的多个同名称标识符指向同一个实体。在C语言中，用extern关键字在声明中指定<strong>以引用其他文件中定义的相同标识符</strong>。</p>
+<p>对于internal属性的标识符，仅在当前文件内该标识符指向同一个实体。在C语言中，用static关键字在声明中指定让标识符<strong>变为该文件私有</strong>（只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal）。</p>
+<p>对于none属性的标识符，在每个声明位置都是一个新的实体。C语言中，没有对应的关键字。</p>
+<h1 id="默认的链接属性"><a href="#默认的链接属性" class="headerlink" title="默认的链接属性"></a>默认的链接属性</h1><p>标识符的默认的链接属性与其出现的位置有关。</p>
+<ul>
+<li><p>程序的全局变量、所有函数默认的链接属性为external。</p>
+</li>
+<li><p>其余标识符的默认链接属性为none。</p>
+</li>
+</ul>
+<p>在以下例子中，b、c、f的链接属性就是external：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *a;</span><br><span class="line"><span class="keyword">int</span> b;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">c</span><span class="params">(<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> g)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="实践应用"><a href="#实践应用" class="headerlink" title="实践应用"></a>实践应用</h1><h2 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h2><p>在a文件中想要使用b文件中定义的external属性标识符，可使用extern关键字在a文件中声明。</p>
+<blockquote>
+<p><strong>即使该标识符所在位置默认链接属性为external</strong>，也建议使用extern关键字显式说明，有利于增加程序可读性。</p>
+</blockquote>
+<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>在a文件定义了一个全局标识符，但不想被其他文件访问，可以对该标识符加上static关键字。</p>
+<p>在a、b文件中定义了同样的标识符，通过static关键字可以避免多重定义问题。</p>
+<blockquote>
+<p>再次提醒：只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal</p>
+</blockquote>
+<h1 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h1><ol>
+<li>对于external属性的标识符，你可以在多个不同源文件中声明，但是你只能在一处初始化。否则就会出现重复定义的问题：<code>multiple definition of &#39;a&#39;;</code>。</li>
+<li>extern关键字声明的标识符用于访问其他文件中定义的同名的标识符，因此无法进行初始化。如果你对extern声明的变量进行初始化就会生成警告：<code>warning: ‘a’ initialized and declared ‘extern’</code>。</li>
+<li>如果在其他文件中不存在相应的标识符定义，却在当前文件中使用了extern声明，会报错：<code>undefined reference to &#39;a&#39;</code>，原理同2。</li>
+<li>external属性的标识符总是静态存储类型。</li>
+<li>static关键字还有改变存储类型的作用，因此，其作用与上下文环境有关，只有对于默认链接属性为external的标识符，才有改变链接属性的作用。</li>
+<li>C++中，const变量隐含的具有internal属性，C中并不具有这一性质。</li>
+</ol>
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h1><h2 id="internal和none属性除了作用域不同还有什么区别？"><a href="#internal和none属性除了作用域不同还有什么区别？" class="headerlink" title="internal和none属性除了作用域不同还有什么区别？"></a>internal和none属性除了作用域不同还有什么区别？</h2><p>以下代码一定程度上阐释了部分区别：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">              <span class="comment">// static storage</span></span><br><span class="line">              <span class="comment">// internal linkage</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> i; <span class="comment">// declaration</span></span><br><span class="line">                  <span class="comment">// refers to the static i at file scope</span></span><br><span class="line">                  <span class="comment">// note that even though the specifier is extern</span></span><br><span class="line">                  <span class="comment">// its linkage is intern (this is legal in both C/C++)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">               <span class="comment">// automatic storage</span></span><br><span class="line">               <span class="comment">// no linkage</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>实际上链接属性和作用域是两个概念。之所以产生以上问题，因为internal属性标识符出现的位置都是在文件作用域，而none往往在代码块作用域。此处想引起读者对内链接更深入的思考，见问题2。</p>
+</blockquote>
+<h2 id="文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪"><a href="#文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪" class="headerlink" title="文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪?"></a>文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪?</h2><p>同一个标识符在链接中只能存在一个，那么通过内部链接的方式可以隔绝同名外部链接，且限定了外部编译单元不能访问该文件全局标识符。</p>
+<p>a.c：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>, a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>b.c:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>编译后结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=3</span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p>以上仅为不完善的个人猜想，抛开隔绝外部链接这一点不谈，就内部链接这一名称而言，笔者对<strong>为什么要在同一个文件内部使用链接</strong>的设计仍然存疑，但目前该话题的答案超出了笔者的理解，因此更深入的讨论暂时留白。</p>
+<p><strong>拓展</strong>：感兴趣的同学可以尝试学习<strong>链接</strong>相关知识，或许会找到更确定的答案。</p>
+</blockquote>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><p>《Pointers On C》</p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/24864840/difference-between-internal-and-no-linkage">Difference between internal and no linkage</a></p>
+</li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>链接属性</tag>
+        <tag>linkage</tag>
+        <tag>链接</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言默认参数提升(default argument promotion)</title>
+    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/</url>
+    <content><![CDATA[<h1 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h1><p>在参数传递过程中，</p>
+<p><code>char</code>和 <code>short</code>被提升为<code>int</code>/ <code>unsigned int</code></p>
+<p> <code>float</code>被提升为<code>double</code></p>
+<h1 id="发生情形"><a href="#发生情形" class="headerlink" title="发生情形"></a>发生情形</h1><p>在参数的<strong>预期类型未知</strong>时，发生<strong>默认参数提升</strong>。</p>
+<p>也就是说，当<strong>没有原型</strong>或<strong>参数是可变参数</strong>时。</p>
+<h1 id="背景-产生原因"><a href="#背景-产生原因" class="headerlink" title="背景/产生原因"></a>背景/产生原因</h1><p>在 1988 年之前的黑暗时代，经典的“K&amp;R”C 中没有函数原型之类的东西，并且设置了默认参数提升，因为：</p>
+<ul>
+<li> (a) 本质上“免费”，因为将一个字节放入寄存器并不比将一个字放入寄存器中花费更多。</li>
+<li>(b)减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://stackoverflow.com/questions/1255775/default-argument-promotions-in-c-function-calls">C 函数调用中的默认参数提升</a></li>
+<li>《Pointers On C》</li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>syntax</tag>
       </tags>
   </entry>
   <entry>
@@ -89,47 +255,6 @@
       <tags>
         <tag>linux</tag>
         <tag>python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>windows右键新建菜单增加md文件</title>
-    <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<blockquote>
-<p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
-</blockquote>
-<p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
-<p>本文提供两种方式：<strong>脚本修改</strong>和<strong>手动修改</strong>。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>一个Markdown编辑器（本文用的是 Typora，其他的同理，如果用脚本需要相应作出更改）</li>
-</ul>
-<span id="more"></span>
-
-<h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
-<h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
-<li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
-<ol start="2">
-<li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
-<ol start="3">
-<li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
-<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
-
-<p>双击以管理员权限运行。</p>
-<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>markdown</tag>
-        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -178,6 +303,47 @@
         <tag>课程设计</tag>
         <tag>tkinter</tag>
         <tag>turtle</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows右键新建菜单增加md文件</title>
+    <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
+</blockquote>
+<p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
+<p>本文提供两种方式：<strong>脚本修改</strong>和<strong>手动修改</strong>。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>一个Markdown编辑器（本文用的是 Typora，其他的同理，如果用脚本需要相应作出更改）</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
+<h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
+<li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
+</ol>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
+<ol start="2">
+<li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
+</ol>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
+<ol start="3">
+<li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
+</ol>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
+<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
+
+<p>双击以管理员权限运行。</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -802,191 +968,6 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>ctf</tag>
         <tag>web</tag>
         <tag>sqli</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C语言中const关键字的修饰对象</title>
-    <url>/2022/03/15/C%E8%AF%AD%E8%A8%80%E4%B8%ADconst%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1/</url>
-    <content><![CDATA[<h2 id="一般（非指针）变量"><a href="#一般（非指针）变量" class="headerlink" title="一般（非指针）变量"></a>一般（非指针）变量</h2><p>对于一般类型（指非指针）变量，<code>const</code>关键字表明该变量为常量，其值不能被修改，声明一个常量和声明一个变量的方法类似：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> a;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> a;</span><br></pre></td></tr></table></figure>
-
-<p>这两种方法等价。</p>
-<h2 id="指针变量"><a href="#指针变量" class="headerlink" title="指针变量"></a>指针变量</h2><p>对于指针变量，<code>const</code>可能修饰的对象就有指针和指针指向的实体两种了。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *pci;</span><br><span class="line"><span class="keyword">int</span> <span class="keyword">const</span> *pic;</span><br><span class="line"><span class="keyword">int</span> * <span class="keyword">const</span> cpi;</span><br></pre></td></tr></table></figure>
-
-<p>第一种和第二种修饰的是指针指向的实体，第三种则修饰指针。</p>
-<p>简单小结一下，就是如果<code>const</code>在<code>*</code>（解引用/间接）运算符前，修饰的就是实体；在<code>*</code>后则修饰指针。</p>
-<h2 id="多个变量"><a href="#多个变量" class="headerlink" title="多个变量"></a>多个变量</h2><p>考虑更复杂的情况，当同时存在多个变量时，<code>const</code>对后续变量是否有效？</p>
-<p>利用下述测试代码，通过对<code>const</code>限定符的变量进行修改，可以得到编译器的错误信息，从而得知<code>const</code>的作用范围：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> a=<span class="number">1</span>, b=<span class="number">2</span>;</span><br><span class="line">    a = b;</span><br><span class="line">    b = a;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> <span class="keyword">const</span> c=<span class="number">3</span>, d=<span class="number">4</span>;</span><br><span class="line">    c = d;</span><br><span class="line">    d = c;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> e=<span class="number">5</span>,f=<span class="number">6</span>;</span><br><span class="line">    <span class="keyword">int</span> *<span class="keyword">const</span> pe=&amp;e, *pf=&amp;f;</span><br><span class="line">    pe = pf;</span><br><span class="line">    pf = pe;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> *pe2=&amp;e, *pf2=&amp;f;</span><br><span class="line">    *pe2 = f;</span><br><span class="line">    *pf2 = e;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/2022/03/15/C%E8%AF%AD%E8%A8%80%E4%B8%ADconst%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1/image-20220315131946929.png" alt="result"></p>
-<p>可见，只有单独对指针进行修饰的<code>const</code>关键字是只作用于单个变量的，其余都是对后续声明生效的。</p>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>const</tag>
-        <tag>语法</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C语言链接属性</title>
-    <url>/2022/03/17/C%E8%AF%AD%E8%A8%80%E9%93%BE%E6%8E%A5%E5%B1%9E%E6%80%A7/</url>
-    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>链接属性与C语言中各个目标文件及函数的链接过程有关，用于认定不同文件的标识符（即程序中定义的各种名称，包括变量名、函数名）是否是同一个实体。更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
-<p>简单来说，链接属性的作用就是让你能在a文件中决定要不要访问b文件中的变量、函数。</p>
-<h1 id="链接属性的分类"><a href="#链接属性的分类" class="headerlink" title="链接属性的分类"></a>链接属性的分类</h1><p>链接属性有三种：</p>
-<ul>
-<li>external - 外部链接</li>
-<li>internal - 内部链接</li>
-<li>none - 无链接</li>
-</ul>
-<p>对于external属性的标识符，不同文件中出现的多个同名称标识符指向同一个实体。在C语言中，用extern关键字在声明中指定<strong>以引用其他文件中定义的相同标识符</strong>。</p>
-<p>对于internal属性的标识符，仅在当前文件内该标识符指向同一个实体。在C语言中，用static关键字在声明中指定让标识符<strong>变为该文件私有</strong>（只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal）。</p>
-<p>对于none属性的标识符，在每个声明位置都是一个新的实体。C语言中，没有对应的关键字。</p>
-<h1 id="默认的链接属性"><a href="#默认的链接属性" class="headerlink" title="默认的链接属性"></a>默认的链接属性</h1><p>标识符的默认的链接属性与其出现的位置有关。</p>
-<ul>
-<li><p>程序的全局变量、所有函数默认的链接属性为external。</p>
-</li>
-<li><p>其余标识符的默认链接属性为none。</p>
-</li>
-</ul>
-<p>在以下例子中，b、c、f的链接属性就是external：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *a;</span><br><span class="line"><span class="keyword">int</span> b;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">c</span><span class="params">(<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> g)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="实践应用"><a href="#实践应用" class="headerlink" title="实践应用"></a>实践应用</h1><h2 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h2><p>在a文件中想要使用b文件中定义的external属性标识符，可使用extern关键字在a文件中声明。</p>
-<blockquote>
-<p><strong>即使该标识符所在位置默认链接属性为external</strong>，也建议使用extern关键字显式说明，有利于增加程序可读性。</p>
-</blockquote>
-<h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>在a文件定义了一个全局标识符，但不想被其他文件访问，可以对该标识符加上static关键字。</p>
-<p>在a、b文件中定义了同样的标识符，通过static关键字可以避免多重定义问题。</p>
-<blockquote>
-<p>再次提醒：只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal</p>
-</blockquote>
-<h1 id="一些细节"><a href="#一些细节" class="headerlink" title="一些细节"></a>一些细节</h1><ol>
-<li>对于external属性的标识符，你可以在多个不同源文件中声明，但是你只能在一处初始化。否则就会出现重复定义的问题：<code>multiple definition of &#39;a&#39;;</code>。</li>
-<li>extern关键字声明的标识符用于访问其他文件中定义的同名的标识符，因此无法进行初始化。如果你对extern声明的变量进行初始化就会生成警告：<code>warning: ‘a’ initialized and declared ‘extern’</code>。</li>
-<li>如果在其他文件中不存在相应的标识符定义，却在当前文件中使用了extern声明，会报错：<code>undefined reference to &#39;a&#39;</code>，原理同2。</li>
-<li>external属性的标识符总是静态存储类型。</li>
-<li>static关键字还有改变存储类型的作用，因此，其作用与上下文环境有关，只有对于默认链接属性为external的标识符，才有改变链接属性的作用。</li>
-<li>C++中，const变量隐含的具有internal属性，C中并不具有这一性质。</li>
-</ol>
-<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h1><h2 id="internal和none属性除了作用域不同还有什么区别？"><a href="#internal和none属性除了作用域不同还有什么区别？" class="headerlink" title="internal和none属性除了作用域不同还有什么区别？"></a>internal和none属性除了作用域不同还有什么区别？</h2><p>以下代码一定程度上阐释了部分区别：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">              <span class="comment">// static storage</span></span><br><span class="line">              <span class="comment">// internal linkage</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> i; <span class="comment">// declaration</span></span><br><span class="line">                  <span class="comment">// refers to the static i at file scope</span></span><br><span class="line">                  <span class="comment">// note that even though the specifier is extern</span></span><br><span class="line">                  <span class="comment">// its linkage is intern (this is legal in both C/C++)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">               <span class="comment">// automatic storage</span></span><br><span class="line">               <span class="comment">// no linkage</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>实际上链接属性和作用域是两个概念。之所以产生以上问题，因为internal属性标识符出现的位置都是在文件作用域，而none往往在代码块作用域。此处想引起读者对内链接更深入的思考，见问题2。</p>
-</blockquote>
-<h2 id="文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪"><a href="#文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪" class="headerlink" title="文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪?"></a>文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪?</h2><p>同一个标识符在链接中只能存在一个，那么通过内部链接的方式可以隔绝同名外部链接，且限定了外部编译单元不能访问该文件全局标识符。</p>
-<p>a.c：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>, a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>b.c:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-
-<p>编译后结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=3</span><br></pre></td></tr></table></figure>
-
-
-
-<blockquote>
-<p>以上仅为不完善的个人猜想，抛开隔绝外部链接这一点不谈，就内部链接这一名称而言，笔者对<strong>为什么要在同一个文件内部使用链接</strong>的设计仍然存疑，但目前该话题的答案超出了笔者的理解，因此更深入的讨论暂时留白。</p>
-<p><strong>拓展</strong>：感兴趣的同学可以尝试学习<strong>链接</strong>相关知识，或许会找到更确定的答案。</p>
-</blockquote>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><p>《Pointers On C》</p>
-</li>
-<li><p><a href="https://stackoverflow.com/questions/24864840/difference-between-internal-and-no-linkage">Difference between internal and no linkage</a></p>
-</li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>链接属性</tag>
-        <tag>linkage</tag>
-        <tag>链接</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C语言默认参数提升(default argument promotion)</title>
-    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/</url>
-    <content><![CDATA[<h1 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h1><p>在参数传递过程中，</p>
-<p><code>char</code>和 <code>short</code>被提升为<code>int</code>/ <code>unsigned int</code></p>
-<p> <code>float</code>被提升为<code>double</code></p>
-<h1 id="发生情形"><a href="#发生情形" class="headerlink" title="发生情形"></a>发生情形</h1><p>在参数的<strong>预期类型未知</strong>时，发生<strong>默认参数提升</strong>。</p>
-<p>也就是说，当<strong>没有原型</strong>或<strong>参数是可变参数</strong>时。</p>
-<h1 id="背景-产生原因"><a href="#背景-产生原因" class="headerlink" title="背景/产生原因"></a>背景/产生原因</h1><p>在 1988 年之前的黑暗时代，经典的“K&amp;R”C 中没有函数原型之类的东西，并且设置了默认参数提升，因为：</p>
-<ul>
-<li> (a) 本质上“免费”，因为将一个字节放入寄存器并不比将一个字放入寄存器中花费更多。</li>
-<li>(b)减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
-</ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://stackoverflow.com/questions/1255775/default-argument-promotions-in-c-function-calls">C 函数调用中的默认参数提升</a></li>
-<li>《Pointers On C》</li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>syntax</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C语言可变参数</title>
-    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</url>
-    <content><![CDATA[<p>在C语言中想在函数参数列表中传入不固定数量和类型的参数，可以使用<code>stdarg.h</code>头文件，该头文件定义了一系列宏用以实现可变参数列表。</p>
-<p>实际上，最熟悉的<code>printf</code>、<code>scanf</code>函数就是这么实现的。</p>
-<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span>					<span class="comment">// 包含该头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n_elements, ...)</span>		<span class="comment">// 给出一个命名（有名称的）参数，一串省略号</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    va_list var_arg;				<span class="comment">// 声明一个va_list类型变量</span></span><br><span class="line">    </span><br><span class="line">    va_start(var_arg, n_elements);	<span class="comment">// 初始化该变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n_elements;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += va_arg(var_arg, <span class="keyword">int</span>);<span class="comment">// 访问参数</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    va_end(var_arg);				<span class="comment">// 结束访问</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>在函数参数列表中，提供一或多个有名称的参数，最后跟上<code>...</code>提示此处传递数量和类型未知的参数。</li>
-<li>用<code>va_list</code>类型声明一个变量用于访问可变参数列表。</li>
-<li><code>va_start()</code>接受一个<code>va_list</code>变量和最后一个有名称参数用于初始化，将该<code>va_list</code>变量设置为指向第一个可变参数列表的参数（由给定的最后一个有名称的参数通过相对偏移来确定位置）。</li>
-<li><code>va_arg()</code>接受一个<code>va_list</code>变量和类型名称，按类型返回当前位置参数的值，并将<code>va_list</code>变量向后移动。</li>
-<li><code>va_end()</code>用于将<code>va_list</code>置空，并完成一些清理工作。</li>
-</ol>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
-<li>可变参数传递过程中会发生默认参数提升，也就是说没有char/short/float型，因为它们已经被提升了。（详见<a href="https://p0ise.github.io/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/"><strong>默认参数提升</strong></a>或见**<a href="#%E5%8F%82%E8%80%83">参考</a>**部分相关文章）现在编译器很智能，当你试图使用这些类型访问时会给出警告：<img data-src="/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/image-20220403155121744.png" alt="使用char/short/float访问va_arg"></li>
-<li> <code>va_end()</code>是必须的。有人认为<code>va_end()</code>是不必要的，因为其编译环境下该函数只作了对<code>va_list</code>置空操作。但不同编译环境下，有可能<code>va_start()</code><strong>可能</strong>以某种方式<strong>修改了堆栈</strong>，这种修改可能导致<strong>返回无法完成</strong>，<code>va_end()</code>会将其复原；当然也可能有其他实现。因此，基于可移植性的考虑，<code>va_end</code>当然是必须的。</li>
-</ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li>《Pointers On C》</li>
-<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/unacceptable_type_in_va_arg.html">可变长参数列表误区与陷阱——va_arg不可接受的类型</a></li>
-<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/is_va_end_necessary.html">可变长参数列表误区与陷阱——va_end是必须的吗？</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>syntax</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>前端防注入JS（自动脚本）</title>
-    <url>/2022/04/18/%E5%89%8D%E7%AB%AF%E9%98%B2%E6%B3%A8%E5%85%A5JS%EF%BC%88%E8%87%AA%E5%8A%A8%E8%84%9A%E6%9C%AC%EF%BC%89/</url>
-    <content><![CDATA[<p>最近，很多超星学习通刷课脚本没用了啊，哈哈，去超星官网看了看，发现他们加了段防止JS插入的逻辑，没加密，变量命名、注释都留着，扒下来大家学习学习，说不定过段时间就混淆加密了呢。</p>
-<p>由于本人不做前端有一段时间了，就不分析了，有能力的可以看看，审计一下，有源码了都好过。</p>
-<p>代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="function"><span class="keyword">function</span> <span class="title">hookGeo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">//&lt;![CDATA[</span></span><br><span class="line">  <span class="keyword">const</span> WAIT_TIME = <span class="number">100</span>;</span><br><span class="line">  <span class="keyword">const</span> hookedObj = &#123;</span><br><span class="line">    <span class="attr">getCurrentPosition</span>: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),</span><br><span class="line">    <span class="attr">watchPosition</span>: navigator.geolocation.watchPosition.bind(navigator.geolocation),</span><br><span class="line">    <span class="attr">fakeGeo</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">genLat</span>: <span class="number">38.883333</span>,</span><br><span class="line">    <span class="attr">genLon</span>: -<span class="number">77.000</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">waitGetCurrentPosition</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">typeof</span> hookedObj.fakeGeo !== <span class="string">&#x27;undefined&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hookedObj.fakeGeo === <span class="literal">true</span>) &#123;</span><br><span class="line">        hookedObj.tmp_successCallback(&#123;</span><br><span class="line">          <span class="attr">coords</span>: &#123;</span><br><span class="line">            <span class="attr">latitude</span>: hookedObj.genLat,</span><br><span class="line">            <span class="attr">longitude</span>: hookedObj.genLon,</span><br><span class="line">            <span class="attr">accuracy</span>: <span class="number">10</span>,</span><br><span class="line">            <span class="attr">altitude</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">altitudeAccuracy</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">heading</span>: <span class="literal">null</span>,</span><br><span class="line">            <span class="attr">speed</span>: <span class="literal">null</span>,</span><br><span class="line">          &#125;,</span><br><span class="line">          <span class="attr">timestamp</span>: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(waitGetCurrentPosition, WAIT_TIME);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">waitWatchPosition</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> ((<span class="keyword">typeof</span> hookedObj.fakeGeo !== <span class="string">&#x27;undefined&#x27;</span>)) &#123;</span><br><span class="line">      <span class="keyword">if</span> (hookedObj.fakeGeo === <span class="literal">true</span>) &#123;</span><br><span class="line">        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10000</span>); <span class="comment">// random id</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(waitWatchPosition, WAIT_TIME);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="built_in">Object</span>.getPrototypeOf(navigator.geolocation).getCurrentPosition = <span class="function"><span class="keyword">function</span> (<span class="params">successCallback, errorCallback, options</span>) </span>&#123;</span><br><span class="line">    hookedObj.tmp_successCallback = successCallback;</span><br><span class="line">    hookedObj.tmp_errorCallback = errorCallback;</span><br><span class="line">    hookedObj.tmp_options = options;</span><br><span class="line">    waitGetCurrentPosition();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">Object</span>.getPrototypeOf(navigator.geolocation).watchPosition = <span class="function"><span class="keyword">function</span> (<span class="params">successCallback, errorCallback, options</span>) </span>&#123;</span><br><span class="line">    hookedObj.tmp2_successCallback = successCallback;</span><br><span class="line">    hookedObj.tmp2_errorCallback = errorCallback;</span><br><span class="line">    hookedObj.tmp2_options = options;</span><br><span class="line">    waitWatchPosition();</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> instantiate = <span class="function">(<span class="params">constructor, args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> bind = <span class="built_in">Function</span>.bind;</span><br><span class="line">    <span class="keyword">const</span> unbind = bind.bind(bind);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> (unbind(<span class="title">constructor</span>, <span class="title">null</span>).<span class="title">apply</span>(<span class="params"><span class="literal">null</span>, args</span>));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Blob = <span class="function"><span class="keyword">function</span> (<span class="params">_Blob</span>) </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">secureBlob</span>(<span class="params">...args</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">const</span> injectableMimeTypes = [</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;text/html&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;application/xhtml+xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;text/xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;application/xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">mime</span>: <span class="string">&#x27;image/svg+xml&#x27;</span>, <span class="attr">useXMLparser</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">      ];</span><br><span class="line">      <span class="keyword">let</span> typeEl = args.find(<span class="function"><span class="params">arg</span> =&gt;</span> (<span class="keyword">typeof</span> arg === <span class="string">&#x27;object&#x27;</span>) &amp;&amp; (<span class="keyword">typeof</span> arg.type === <span class="string">&#x27;string&#x27;</span>) &amp;&amp; (arg.type));</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">typeof</span> typeEl !== <span class="string">&#x27;undefined&#x27;</span> &amp;&amp; (<span class="keyword">typeof</span> args[<span class="number">0</span>][<span class="number">0</span>] === <span class="string">&#x27;string&#x27;</span>)) &#123;</span><br><span class="line">        <span class="keyword">const</span> mimeTypeIndex = injectableMimeTypes.findIndex(<span class="function"><span class="params">mimeType</span> =&gt;</span> mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());</span><br><span class="line">        <span class="keyword">if</span> (mimeTypeIndex &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> mimeType = injectableMimeTypes[mimeTypeIndex];</span><br><span class="line">          <span class="keyword">let</span> injectedCode = <span class="string">`&lt;script&gt;(</span></span><br><span class="line"><span class="string">            <span class="subst">$&#123;hookGeo&#125;</span></span></span><br><span class="line"><span class="string">          )();&lt;\/script&gt;`</span>;</span><br><span class="line">    </span><br><span class="line">          <span class="keyword">let</span> parser = <span class="keyword">new</span> DOMParser();</span><br><span class="line">          <span class="keyword">let</span> xmlDoc;</span><br><span class="line">          <span class="keyword">if</span> (mimeType.useXMLparser === <span class="literal">true</span>) &#123;</span><br><span class="line">            xmlDoc = parser.parseFromString(args[<span class="number">0</span>].join(<span class="string">&#x27;&#x27;</span>), mimeType.mime); <span class="comment">// For XML documents we need to merge all items in order to not break the header when injecting</span></span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            xmlDoc = parser.parseFromString(args[<span class="number">0</span>][<span class="number">0</span>], mimeType.mime);</span><br><span class="line">          &#125;</span><br><span class="line"></span><br><span class="line">          <span class="keyword">if</span> (xmlDoc.getElementsByTagName(<span class="string">&quot;parsererror&quot;</span>).length === <span class="number">0</span>) &#123; <span class="comment">// if no errors were found while parsing...</span></span><br><span class="line">            xmlDoc.documentElement.insertAdjacentHTML(<span class="string">&#x27;afterbegin&#x27;</span>, injectedCode);</span><br><span class="line">    </span><br><span class="line">            <span class="keyword">if</span> (mimeType.useXMLparser === <span class="literal">true</span>) &#123;</span><br><span class="line">              args[<span class="number">0</span>] = [<span class="keyword">new</span> XMLSerializer().serializeToString(xmlDoc)];</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              args[<span class="number">0</span>][<span class="number">0</span>] = xmlDoc.documentElement.outerHTML;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> instantiate(_Blob, args); <span class="comment">// arguments?</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Copy props and methods</span></span><br><span class="line">    <span class="keyword">let</span> propNames = <span class="built_in">Object</span>.getOwnPropertyNames(_Blob);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; propNames.length; i++) &#123;</span><br><span class="line">      <span class="keyword">let</span> propName = propNames[i];</span><br><span class="line">      <span class="keyword">if</span> (propName <span class="keyword">in</span> secureBlob) &#123;</span><br><span class="line">        <span class="keyword">continue</span>; <span class="comment">// Skip already existing props</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">let</span> desc = <span class="built_in">Object</span>.getOwnPropertyDescriptor(_Blob, propName);</span><br><span class="line">      <span class="built_in">Object</span>.defineProperty(secureBlob, propName, desc);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    secureBlob.prototype = _Blob.prototype;</span><br><span class="line">    <span class="keyword">return</span> secureBlob;</span><br><span class="line">  &#125;(Blob);</span><br><span class="line"></span><br><span class="line">  <span class="built_in">window</span>.addEventListener(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (event.source !== <span class="built_in">window</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> message = event.data;</span><br><span class="line">    <span class="keyword">switch</span> (message.method) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&#x27;updateLocation&#x27;</span>:</span><br><span class="line">        <span class="keyword">if</span> ((<span class="keyword">typeof</span> message.info === <span class="string">&#x27;object&#x27;</span>) &amp;&amp; (<span class="keyword">typeof</span> message.info.coords === <span class="string">&#x27;object&#x27;</span>)) &#123;</span><br><span class="line">          hookedObj.genLat = message.info.coords.lat;</span><br><span class="line">          hookedObj.genLon = message.info.coords.lon;</span><br><span class="line">          hookedObj.fakeGeo = message.info.fakeIt;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;, <span class="literal">false</span>);</span><br><span class="line">  <span class="comment">//]]&gt;</span></span><br><span class="line">&#125;hookGeo();&#125;)()</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>网络安全</category>
-      </categories>
-      <tags>
-        <tag>网络安全</tag>
-        <tag>js</tag>
-        <tag>javascript</tag>
-        <tag>前端</tag>
-        <tag>攻防</tag>
       </tags>
   </entry>
 </search>
