@@ -1,27 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h</title>
-    <url>/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/</url>
-    <content><![CDATA[<h1 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h1><p>使用了<code>-m32</code>指令，而64位系统GCC默认安装环境无法直接编译生成32位程序</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>安装Multilib，顾名思义，就是多重的。用它可以替代原来单一的lib，这样就既能产生32位的代码，又能生成64位的代码。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
-
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li>[linux ubuntu gcc编译 fatal error: bits/libc-header-start.h 错误解决]: <a href="https://blog.csdn.net/whatday/article/details/99161919">https://blog.csdn.net/whatday/article/details/99161919</a></li>
-<li>[In file included from /usr/include/stdio.h:27:0, from btest.c:16: /usr/include/feat出错的解决办法]: <a href="https://blog.csdn.net/shendezhuti/article/details/96477288">https://blog.csdn.net/shendezhuti/article/details/96477288</a></li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>报错</tag>
-        <tag>gcc</tag>
-        <tag>linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C语言中const关键字的修饰对象</title>
     <url>/2022/03/15/C%E8%AF%AD%E8%A8%80%E4%B8%ADconst%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BF%AE%E9%A5%B0%E5%AF%B9%E8%B1%A1/</url>
     <content><![CDATA[<h2 id="一般（非指针）变量"><a href="#一般（非指针）变量" class="headerlink" title="一般（非指针）变量"></a>一般（非指针）变量</h2><p>对于一般类型（指非指针）变量，<code>const</code>关键字表明该变量为常量，其值不能被修改，声明一个常量和声明一个变量的方法类似：</p>
@@ -47,6 +26,59 @@
         <tag>C</tag>
         <tag>const</tag>
         <tag>语法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux 64位环境GCC编译生成32位程序报错fatal error: bits/libc-header-start.h</title>
+    <url>/2022/01/26/64%E4%BD%8D%E7%8E%AF%E5%A2%83GCC%E7%BC%96%E8%AF%91%E7%94%9F%E6%88%9032%E4%BD%8D%E7%A8%8B%E5%BA%8F%E6%8A%A5%E9%94%99fatal-error-bits-libc-header-start-h/</url>
+    <content><![CDATA[<h1 id="报错原因"><a href="#报错原因" class="headerlink" title="报错原因"></a>报错原因</h1><p>使用了<code>-m32</code>指令，而64位系统GCC默认安装环境无法直接编译生成32位程序</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>安装Multilib，顾名思义，就是多重的。用它可以替代原来单一的lib，这样就既能产生32位的代码，又能生成64位的代码。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">apt-get install gcc-multilib</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li>[linux ubuntu gcc编译 fatal error: bits/libc-header-start.h 错误解决]: <a href="https://blog.csdn.net/whatday/article/details/99161919">https://blog.csdn.net/whatday/article/details/99161919</a></li>
+<li>[In file included from /usr/include/stdio.h:27:0, from btest.c:16: /usr/include/feat出错的解决办法]: <a href="https://blog.csdn.net/shendezhuti/article/details/96477288">https://blog.csdn.net/shendezhuti/article/details/96477288</a></li>
+</ul>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>报错</tag>
+        <tag>gcc</tag>
+        <tag>linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>C语言可变参数</title>
+    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</url>
+    <content><![CDATA[<p>在C语言中想在函数参数列表中传入不固定数量和类型的参数，可以使用<code>stdarg.h</code>头文件，该头文件定义了一系列宏用以实现可变参数列表。</p>
+<p>实际上，最熟悉的<code>printf</code>、<code>scanf</code>函数就是这么实现的。</p>
+<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span>					<span class="comment">// 包含该头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n_elements, ...)</span>		<span class="comment">// 给出一个命名（有名称的）参数，一串省略号</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    va_list var_arg;				<span class="comment">// 声明一个va_list类型变量</span></span><br><span class="line">    </span><br><span class="line">    va_start(var_arg, n_elements);	<span class="comment">// 初始化该变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n_elements;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += va_arg(var_arg, <span class="keyword">int</span>);<span class="comment">// 访问参数</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    va_end(var_arg);				<span class="comment">// 结束访问</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>在函数参数列表中，提供一或多个有名称的参数，最后跟上<code>...</code>提示此处传递数量和类型未知的参数。</li>
+<li>用<code>va_list</code>类型声明一个变量用于访问可变参数列表。</li>
+<li><code>va_start()</code>接受一个<code>va_list</code>变量和最后一个有名称参数用于初始化，将该<code>va_list</code>变量设置为指向第一个可变参数列表的参数（由给定的最后一个有名称的参数通过相对偏移来确定位置）。</li>
+<li><code>va_arg()</code>接受一个<code>va_list</code>变量和类型名称，按类型返回当前位置参数的值，并将<code>va_list</code>变量向后移动。</li>
+<li><code>va_end()</code>用于将<code>va_list</code>置空，并完成一些清理工作。</li>
+</ol>
+<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
+<li>可变参数传递过程中会发生默认参数提升，也就是说没有char/short/float型，因为它们已经被提升了。（详见<a href="https://p0ise.github.io/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/"><strong>默认参数提升</strong></a>或见**<a href="#%E5%8F%82%E8%80%83">参考</a>**部分相关文章）现在编译器很智能，当你试图使用这些类型访问时会给出警告：<img data-src="/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/image-20220403155121744.png" alt="使用char/short/float访问va_arg"></li>
+<li> <code>va_end()</code>是必须的。有人认为<code>va_end()</code>是不必要的，因为其编译环境下该函数只作了对<code>va_list</code>置空操作。但不同编译环境下，有可能<code>va_start()</code><strong>可能</strong>以某种方式<strong>修改了堆栈</strong>，这种修改可能导致<strong>返回无法完成</strong>，<code>va_end()</code>会将其复原；当然也可能有其他实现。因此，基于可移植性的考虑，<code>va_end</code>当然是必须的。</li>
+</ol>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li>《Pointers On C》</li>
+<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/unacceptable_type_in_va_arg.html">可变长参数列表误区与陷阱——va_arg不可接受的类型</a></li>
+<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/is_va_end_necessary.html">可变长参数列表误区与陷阱——va_end是必须的吗？</a></li>
+</ol>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>syntax</tag>
       </tags>
   </entry>
   <entry>
@@ -93,51 +125,20 @@
       </tags>
   </entry>
   <entry>
-    <title>C语言可变参数</title>
-    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/</url>
-    <content><![CDATA[<p>在C语言中想在函数参数列表中传入不固定数量和类型的参数，可以使用<code>stdarg.h</code>头文件，该头文件定义了一系列宏用以实现可变参数列表。</p>
-<p>实际上，最熟悉的<code>printf</code>、<code>scanf</code>函数就是这么实现的。</p>
-<h1 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h1><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdarg.h&gt;</span>					<span class="comment">// 包含该头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">sum</span><span class="params">(<span class="keyword">int</span> n_elements, ...)</span>		<span class="comment">// 给出一个命名（有名称的）参数，一串省略号</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    va_list var_arg;				<span class="comment">// 声明一个va_list类型变量</span></span><br><span class="line">    </span><br><span class="line">    va_start(var_arg, n_elements);	<span class="comment">// 初始化该变量</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n_elements;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        sum += va_arg(var_arg, <span class="keyword">int</span>);<span class="comment">// 访问参数</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    va_end(var_arg);				<span class="comment">// 结束访问</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>在函数参数列表中，提供一或多个有名称的参数，最后跟上<code>...</code>提示此处传递数量和类型未知的参数。</li>
-<li>用<code>va_list</code>类型声明一个变量用于访问可变参数列表。</li>
-<li><code>va_start()</code>接受一个<code>va_list</code>变量和最后一个有名称参数用于初始化，将该<code>va_list</code>变量设置为指向第一个可变参数列表的参数（由给定的最后一个有名称的参数通过相对偏移来确定位置）。</li>
-<li><code>va_arg()</code>接受一个<code>va_list</code>变量和类型名称，按类型返回当前位置参数的值，并将<code>va_list</code>变量向后移动。</li>
-<li><code>va_end()</code>用于将<code>va_list</code>置空，并完成一些清理工作。</li>
-</ol>
-<h1 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h1><ol>
-<li>可变参数传递过程中会发生默认参数提升，也就是说没有char/short/float型，因为它们已经被提升了。（详见<a href="https://p0ise.github.io/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/"><strong>默认参数提升</strong></a>或见**<a href="#%E5%8F%82%E8%80%83">参考</a>**部分相关文章）现在编译器很智能，当你试图使用这些类型访问时会给出警告：<img data-src="/2022/04/03/C%E8%AF%AD%E8%A8%80%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0/image-20220403155121744.png" alt="使用char/short/float访问va_arg"></li>
-<li> <code>va_end()</code>是必须的。有人认为<code>va_end()</code>是不必要的，因为其编译环境下该函数只作了对<code>va_list</code>置空操作。但不同编译环境下，有可能<code>va_start()</code><strong>可能</strong>以某种方式<strong>修改了堆栈</strong>，这种修改可能导致<strong>返回无法完成</strong>，<code>va_end()</code>会将其复原；当然也可能有其他实现。因此，基于可移植性的考虑，<code>va_end</code>当然是必须的。</li>
-</ol>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
-<li>《Pointers On C》</li>
-<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/unacceptable_type_in_va_arg.html">可变长参数列表误区与陷阱——va_arg不可接受的类型</a></li>
-<li><a href="http://www.cppblog.com/ownwaterloo/archive/2009/04/21/is_va_end_necessary.html">可变长参数列表误区与陷阱——va_end是必须的吗？</a></li>
-</ol>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>syntax</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>C语言链接属性</title>
     <url>/2022/03/17/C%E8%AF%AD%E8%A8%80%E9%93%BE%E6%8E%A5%E5%B1%9E%E6%80%A7/</url>
-    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>链接属性与C语言中各个目标文件及函数的链接过程有关，用于认定不同文件的标识符（即程序中定义的各种名称，包括变量名、函数名）是否是同一个实体。更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
-<p>简单来说，链接属性的作用就是让你能在a文件中决定要不要访问b文件中的变量、函数。</p>
+    <content><![CDATA[<h1 id="什么是链接属性"><a href="#什么是链接属性" class="headerlink" title="什么是链接属性"></a>什么是链接属性</h1><p>我们编译C程序时通常不止一个源文件，不同源文件中可能有相同的标识符，链接就决定了不同源文件中标识符的关系，即相同标识符是否指向同一个实体。</p>
+<p>更通俗地说，就是在两个不同文件中的变量、函数声明是否指向同一个实体。比如：a、b文件同时声明了变量c，链接属性就指定了这两处变量c是否是同一个c。</p>
+<p><strong>链接属性</strong>指定了这一关系。通过改变标识符链接属性，你能决定在a文件中的标识符要不要指向b文件中相同标识符的声明。</p>
 <h1 id="链接属性的分类"><a href="#链接属性的分类" class="headerlink" title="链接属性的分类"></a>链接属性的分类</h1><p>链接属性有三种：</p>
 <ul>
 <li>external - 外部链接</li>
 <li>internal - 内部链接</li>
 <li>none - 无链接</li>
 </ul>
-<p>对于external属性的标识符，不同文件中出现的多个同名称标识符指向同一个实体。在C语言中，用extern关键字在声明中指定<strong>以引用其他文件中定义的相同标识符</strong>。</p>
-<p>对于internal属性的标识符，仅在当前文件内该标识符指向同一个实体。在C语言中，用static关键字在声明中指定让标识符<strong>变为该文件私有</strong>（只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal）。</p>
-<p>对于none属性的标识符，在每个声明位置都是一个新的实体。C语言中，没有对应的关键字。</p>
+<p>对于<strong>external属性</strong>的标识符，不同文件中出现的多个同名称标识符指向同一个实体。在C语言中，用extern关键字在声明中指定<strong>以引用其他文件中定义的相同标识符</strong>。</p>
+<p>对于<strong>internal属性</strong>的标识符，仅在当前文件内该标识符指向同一个实体。在C语言中，用static关键字在声明中指定让标识符<strong>变为该文件私有</strong>（只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal）。</p>
+<p>对于<strong>none属性</strong>的标识符，在每个声明位置都是一个新的实体。C语言中，没有对应的关键字，由上下文确定。</p>
 <h1 id="默认的链接属性"><a href="#默认的链接属性" class="headerlink" title="默认的链接属性"></a>默认的链接属性</h1><p>标识符的默认的链接属性与其出现的位置有关。</p>
 <ul>
 <li><p>程序的全局变量、所有函数默认的链接属性为external。</p>
@@ -148,12 +149,13 @@
 <p>在以下例子中，b、c、f的链接属性就是external：</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span> *a;</span><br><span class="line"><span class="keyword">int</span> b;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">c</span><span class="params">(<span class="keyword">int</span> d)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> e;</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">(<span class="keyword">int</span> g)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="实践应用"><a href="#实践应用" class="headerlink" title="实践应用"></a>实践应用</h1><h2 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h2><p>在a文件中想要使用b文件中定义的external属性标识符，可使用extern关键字在a文件中声明。</p>
+<h1 id="具体用法"><a href="#具体用法" class="headerlink" title="具体用法"></a>具体用法</h1><h2 id="extern"><a href="#extern" class="headerlink" title="extern"></a>extern</h2><p>在a文件中想要使用b文件中定义的external属性标识符，可使用extern关键字在a文件中声明。</p>
 <blockquote>
-<p><strong>即使该标识符所在位置默认链接属性为external</strong>，也建议使用extern关键字显式说明，有利于增加程序可读性。</p>
+<p>即使该标识符所在上下文下<strong>默认链接属性为external</strong>，也<strong>建议使用extern关键字显式说明</strong>，有利于增加<strong>程序可读性</strong>。</p>
 </blockquote>
 <h2 id="static"><a href="#static" class="headerlink" title="static"></a>static</h2><p>在a文件定义了一个全局标识符，但不想被其他文件访问，可以对该标识符加上static关键字。</p>
 <p>在a、b文件中定义了同样的标识符，通过static关键字可以避免多重定义问题。</p>
+<p>同一个标识符在链接中只能存在一个，那么通过内部链接的方式可以隔绝同名外部链接，且限定了外部编译单元不能访问该文件全局标识符。</p>
 <blockquote>
 <p>再次提醒：只有对<strong>原本缺省的链接属性为external</strong>的标识符，才能用static关键字改变其链接属性为internal</p>
 </blockquote>
@@ -165,28 +167,31 @@
 <li>static关键字还有改变存储类型的作用，因此，其作用与上下文环境有关，只有对于默认链接属性为external的标识符，才有改变链接属性的作用。</li>
 <li>C++中，const变量隐含的具有internal属性，C中并不具有这一性质。</li>
 </ol>
-<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a>思考题</h1><h2 id="internal和none属性除了作用域不同还有什么区别？"><a href="#internal和none属性除了作用域不同还有什么区别？" class="headerlink" title="internal和none属性除了作用域不同还有什么区别？"></a>internal和none属性除了作用域不同还有什么区别？</h2><p>以下代码一定程度上阐释了部分区别：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">              <span class="comment">// static storage</span></span><br><span class="line">              <span class="comment">// internal linkage</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> i; <span class="comment">// declaration</span></span><br><span class="line">                  <span class="comment">// refers to the static i at file scope</span></span><br><span class="line">                  <span class="comment">// note that even though the specifier is extern</span></span><br><span class="line">                  <span class="comment">// its linkage is intern (this is legal in both C/C++)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">               <span class="comment">// automatic storage</span></span><br><span class="line">               <span class="comment">// no linkage</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="实例分析"><a href="#实例分析" class="headerlink" title="实例分析"></a>实例分析</h1><h2 id="external链接重复定义"><a href="#external链接重复定义" class="headerlink" title="external链接重复定义"></a>external链接重复定义</h2><p>a.c：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d\n&quot;</span>, a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>实际上链接属性和作用域是两个概念。之所以产生以上问题，因为internal属性标识符出现的位置都是在文件作用域，而none往往在代码块作用域。此处想引起读者对内链接更深入的思考，见问题2。</p>
-</blockquote>
-<h2 id="文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪"><a href="#文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪" class="headerlink" title="文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪?"></a>文件作用域已经能让程序访问同一文件变量，那么再进行内部链接的意义在哪?</h2><p>同一个标识符在链接中只能存在一个，那么通过内部链接的方式可以隔绝同名外部链接，且限定了外部编译单元不能访问该文件全局标识符。</p>
-<p>a.c：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a=<span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>, a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>b.c：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>编译运行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gcc a.c b.c</span></span><br><span class="line">/usr/bin/ld: /tmp/ccoNPRr3.o:(.data+0x0): multiple definition of `a&#x27;; /tmp/cc8qHzR5.o:(.data+0x0): first defined here</span><br><span class="line">collect2: error: ld returned 1 exit status</span><br></pre></td></tr></table></figure>
+
+<p>a.c和b.c中的变量a在上下文中缺省为外部链接属性，两处都进行了声明，因此报错重复定义。</p>
+<h2 id="internal和none"><a href="#internal和none" class="headerlink" title="internal和none"></a>internal和none</h2><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">              <span class="comment">// static storage</span></span><br><span class="line">              <span class="comment">// internal linkage</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> i; <span class="comment">// declaration</span></span><br><span class="line">                  <span class="comment">// refers to the static i at file scope</span></span><br><span class="line">                  <span class="comment">// note that even though the specifier is extern</span></span><br><span class="line">                  <span class="comment">// its linkage is intern (this is legal in both C/C++)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> i; <span class="comment">// definition</span></span><br><span class="line">               <span class="comment">// automatic storage</span></span><br><span class="line">               <span class="comment">// no linkage</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>作用域不同。这个跟链接属性无关，不是由链接属性决定的，作用域只与其上下文位置有关。但不难看出，internal属性标识符出现的位置都是在文件作用域，而none往往在代码块作用域。</li>
+<li>参不参与链接。这段代码很好地说明了internal属性的变量在文件内部参与链接，因为你能够在内部通过extern声明显示得到。而没有链接属性的变量无法通过这一方式得到。</li>
+</ol>
+<h2 id="internal链接"><a href="#internal链接" class="headerlink" title="internal链接"></a>internal链接</h2><p>a.c：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">int</span> a = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="keyword">int</span> a;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a = %d\n&quot;</span>, a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>b.c:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a=<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 
-<p>编译后结果为：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">a=3</span><br></pre></td></tr></table></figure>
+<p>编译运行：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> gcc a.c b.c</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> ./a.out</span></span><br><span class="line">a = 3</span><br></pre></td></tr></table></figure>
 
-
-
-<blockquote>
-<p>以上仅为不完善的个人猜想，抛开隔绝外部链接这一点不谈，就内部链接这一名称而言，笔者对<strong>为什么要在同一个文件内部使用链接</strong>的设计仍然存疑，但目前该话题的答案超出了笔者的理解，因此更深入的讨论暂时留白。</p>
-<p><strong>拓展</strong>：感兴趣的同学可以尝试学习<strong>链接</strong>相关知识，或许会找到更确定的答案。</p>
-</blockquote>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><p>《Pointers On C》</p>
 </li>
@@ -202,32 +207,6 @@
         <tag>链接属性</tag>
         <tag>linkage</tag>
         <tag>链接</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>C语言默认参数提升(default argument promotion)</title>
-    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/</url>
-    <content><![CDATA[<h1 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h1><p>在参数传递过程中，</p>
-<p><code>char</code>和 <code>short</code>被提升为<code>int</code>/ <code>unsigned int</code></p>
-<p> <code>float</code>被提升为<code>double</code></p>
-<h1 id="发生情形"><a href="#发生情形" class="headerlink" title="发生情形"></a>发生情形</h1><p>在参数的<strong>预期类型未知</strong>时，发生<strong>默认参数提升</strong>。</p>
-<p>也就是说，当<strong>没有原型</strong>或<strong>参数是可变参数</strong>时。</p>
-<h1 id="背景-产生原因"><a href="#背景-产生原因" class="headerlink" title="背景/产生原因"></a>背景/产生原因</h1><p>在 1988 年之前的黑暗时代，经典的“K&amp;R”C 中没有函数原型之类的东西，并且设置了默认参数提升，因为：</p>
-<ul>
-<li> (a) 本质上“免费”，因为将一个字节放入寄存器并不比将一个字放入寄存器中花费更多。</li>
-<li>(b)减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
-</ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="https://stackoverflow.com/questions/1255775/default-argument-promotions-in-c-function-calls">C 函数调用中的默认参数提升</a></li>
-<li>《Pointers On C》</li>
-</ul>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>C</tag>
-        <tag>syntax</tag>
       </tags>
   </entry>
   <entry>
@@ -255,6 +234,47 @@
       <tags>
         <tag>linux</tag>
         <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>windows右键新建菜单增加md文件</title>
+    <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
+    <content><![CDATA[<blockquote>
+<p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
+</blockquote>
+<p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
+<p>本文提供两种方式：<strong>脚本修改</strong>和<strong>手动修改</strong>。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li>一个Markdown编辑器（本文用的是 Typora，其他的同理，如果用脚本需要相应作出更改）</li>
+</ul>
+<span id="more"></span>
+
+<h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
+<h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
+<li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
+</ol>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
+<ol start="2">
+<li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
+</ol>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
+<ol start="3">
+<li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
+</ol>
+<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
+<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
+
+<p>双击以管理员权限运行。</p>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>markdown</tag>
+        <tag>windows</tag>
       </tags>
   </entry>
   <entry>
@@ -306,44 +326,29 @@
       </tags>
   </entry>
   <entry>
-    <title>windows右键新建菜单增加md文件</title>
-    <url>/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/</url>
-    <content><![CDATA[<blockquote>
-<p>因为平时经常用markdown文件，所以想到在windows中如果能直接右键新键会方便很多，查了一些资料之后，得到如下方法</p>
-</blockquote>
-<p>Windows右键新建菜单添加新的文件类型的方法是修改注册表，本文以添加markdown文件为例，其他文件类型同理。</p>
-<p>本文提供两种方式：<strong>脚本修改</strong>和<strong>手动修改</strong>。嫌麻烦不想看那么多的可以直接用注册表脚本的方式。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
-<li>一个Markdown编辑器（本文用的是 Typora，其他的同理，如果用脚本需要相应作出更改）</li>
+    <title>C语言默认参数提升(default argument promotion)</title>
+    <url>/2022/04/03/C%E8%AF%AD%E8%A8%80%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E6%8F%90%E5%8D%87-default-argument-promotion/</url>
+    <content><![CDATA[<h1 id="行为"><a href="#行为" class="headerlink" title="行为"></a>行为</h1><p>在参数传递过程中，</p>
+<p><code>char</code>和 <code>short</code>被提升为<code>int</code>/ <code>unsigned int</code></p>
+<p> <code>float</code>被提升为<code>double</code></p>
+<h1 id="发生情形"><a href="#发生情形" class="headerlink" title="发生情形"></a>发生情形</h1><p>在参数的<strong>预期类型未知</strong>时，发生<strong>默认参数提升</strong>。</p>
+<p>也就是说，当<strong>没有原型</strong>或<strong>参数是可变参数</strong>时。</p>
+<h1 id="背景-产生原因"><a href="#背景-产生原因" class="headerlink" title="背景/产生原因"></a>背景/产生原因</h1><p>在 1988 年之前的黑暗时代，经典的“K&amp;R”C 中没有函数原型之类的东西，并且设置了默认参数提升，因为：</p>
+<ul>
+<li> (a) 本质上“免费”，因为将一个字节放入寄存器并不比将一个字放入寄存器中花费更多。</li>
+<li>(b)减少参数传递中的潜在错误。第二个原因从来没有完全解决它，这就是为什么在 ANSI C 中引入函数原型是 C 语言中最重要的变化。</li>
 </ul>
-<span id="more"></span>
-
-<h2 id="修改注册表"><a href="#修改注册表" class="headerlink" title="修改注册表"></a>修改注册表</h2><h3 id="手动修改"><a href="#手动修改" class="headerlink" title="手动修改"></a>手动修改</h3><h4 id="Step-1-打开注册表编辑器"><a href="#Step-1-打开注册表编辑器" class="headerlink" title="Step-1 打开注册表编辑器"></a>Step-1 打开注册表编辑器</h4><p><code>Win + R</code>快捷键唤出运行对话框，并输入<code>regedit</code>，确定，打开注册表编辑器</p>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193130622.png" alt="运行对话框"></p>
-<h4 id="Step-2-修改注册表"><a href="#Step-2-修改注册表" class="headerlink" title="Step-2 修改注册表"></a>Step-2 修改注册表</h4><ol>
-<li>定位到<code>HKEY_CLASSES_ROOT\.md</code></li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193525490.png" alt="定位到`HKEY_CLASSES_ROOT\.md`"></p>
-<ol start="2">
-<li>点击<code>.md</code>文件夹, 双击右侧<code>(默认)</code>项编辑字符串，将<code>数值数据</code>改为<code>Typora.exe</code>（其他编辑器同理）</li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207194022215.png" alt="修改数值数据"></p>
-<ol start="3">
-<li>右键<code>.md</code>文件夹 -&gt; 新建 -&gt; 项<code>ShellNew</code>，然后在<code>ShellNew</code>右键新建 -&gt; 字符串值<code>NullFile</code></li>
-</ol>
-<p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/image-20211207193601993.png" alt="新建`ShellNew\NullFile`"></p>
-<h3 id="脚本修改"><a href="#脚本修改" class="headerlink" title="脚本修改"></a>脚本修改</h3><p>脚本和手动修改采用的流程相同，只不过把它写成了脚本形式。新建<code>新建md文件.reg</code>文件写入以下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Windows Registry Editor Version 5.00</span><br><span class="line">[HKEY_CLASSES_ROOT\.md]</span><br><span class="line">@=&quot;Typora.exe&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\.md\ShellNew]</span><br><span class="line">&quot;NullFile&quot;=&quot;&quot;</span><br><span class="line">[HKEY_CLASSES_ROOT\Typora.exe]</span><br><span class="line">@=&quot;Markdown&quot;</span><br></pre></td></tr></table></figure>
-
-<p>双击以管理员权限运行。</p>
-<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img data-src="/2021/12/07/Windows%E5%8F%B3%E9%94%AE%E6%96%B0%E5%BB%BAmarkdown%E6%96%87%E4%BB%B6/2021-12-07.png" alt="效果图"></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://stackoverflow.com/questions/1255775/default-argument-promotions-in-c-function-calls">C 函数调用中的默认参数提升</a></li>
+<li>《Pointers On C》</li>
+</ul>
 ]]></content>
       <categories>
         <category>杂项</category>
       </categories>
       <tags>
-        <tag>markdown</tag>
-        <tag>windows</tag>
+        <tag>C</tag>
+        <tag>syntax</tag>
       </tags>
   </entry>
   <entry>
@@ -411,6 +416,30 @@
       </tags>
   </entry>
   <entry>
+    <title>os.urandom()编码问题</title>
+    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
+
+<p>处理后得到正常的内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>crypto</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Hello Hexo - 博客搭建全教程</title>
     <url>/2021/11/30/hello-hexo/</url>
     <content><![CDATA[<p>本文将包含本站搭建及配置全过程，长期更新。</p>
@@ -466,27 +495,44 @@
       </tags>
   </entry>
   <entry>
-    <title>os.urandom()编码问题</title>
-    <url>/2021/11/30/os-urandom-%E7%BC%96%E7%A0%81%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>用<code>os.urandom()</code>生成随机加密 key 的时候，出现了奇怪的结果，起初以为是编码问题，然后尝试对其解码，结果各种方式都不能正确解码</p>
-<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; python <span class="literal">-c</span> <span class="string">&#x27;import os;print(os.urandom(16))&#x27;</span></span><br><span class="line">b<span class="string">&#x27;@\\\x96|\x862Brv!y\xa9\x9fr#-&#x27;</span></span><br></pre></td></tr></table></figure>
+    <title>tkinter command传参问题解决</title>
+    <url>/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
+    <content><![CDATA[<p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
+<p>其实使用的都是封装的方法，只是有不同的实现。</p>
+<h2 id="方案一：lambda函数"><a href="#方案一：lambda函数" class="headerlink" title="方案一：lambda函数"></a>方案一：lambda函数</h2><p><strong>个人比较喜欢这个方法</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ttk.Button(frame, text=<span class="string">&#x27;button&#x27;</span>,command=<span class="keyword">lambda</span>:func(param))</span><br></pre></td></tr></table></figure>
 
-<h2 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h2><p>网上查类似的文章，最终得到如下解决方案：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line">binascii.hexlify(os.urandom(<span class="number">16</span>))</span><br></pre></td></tr></table></figure>
-
-<p>处理后得到正常的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">b&#x27;405c967c86324272762179a99f72232d&#x27;</span><br></pre></td></tr></table></figure>
-
+<p>值得注意的是，这里存在一个小细节，不了解lambda函数机制的同学要注意一下，否则可能产生与你预期不符的结果。lambda函数只会在<strong>调用时</strong>执行内部语句，也就是说，如果你传递的参数（这里是param）是一个变量，并且在之后这个变量的值发生了变化，调用时就会传入之后的值而不是你之前想要传入的值。</p>
 <span id="more"></span>
 
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>生成 16 位随机字节串的时候错误地对其进行了 hex 解码，导致出现奇怪的结果，因此需要得到正常的结果需要对其进行 hex 编码而不是解码。</p>
+<p>举个例子：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你正好有动态传值的需要，那么这个恰能符合你的需求。如果你想要传入固定的参数值，则我们需要用到默认参数解决这一问题。</p>
+<p>示例如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> p=param:func(p)</span><br></pre></td></tr></table></figure>
+
+<p>这样就能把参数固定下来了。</p>
+<h2 id="方案二：类封装"><a href="#方案二：类封装" class="headerlink" title="方案二：类封装"></a>方案二：类封装</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Callback</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args, **kwargs</span>):</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line">        self.kwargs = kwargs</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.func(*self.args, **self.kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default_callback</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button &#x27;&#123;&#125;&#x27; pressed.&quot;</span>.<span class="built_in">format</span>(t))</span><br><span class="line"></span><br><span class="line">root = tk.Tk()</span><br><span class="line"></span><br><span class="line">buttons = [<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(buttons):</span><br><span class="line">    tk.Button(root, text=b, command=Callback(default_callback, b)).grid(row=i, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">tk.mainloop()</span><br></pre></td></tr></table></figure>
+
+<p>这里不多做介绍了，调用的地方像这样实例化一个对象就行了。</p>
+<h2 id="方案三：functools的partial"><a href="#方案三：functools的partial" class="headerlink" title="方案三：functools的partial"></a>方案三：functools的partial</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line">button = Tk.Button(master=frame, text=<span class="string">&#x27;press&#x27;</span>, command=partial(func, arg))</span><br></pre></td></tr></table></figure>
+
+<p>partial用于创建一个类似原函数但有固定参数的偏函数，原型如下：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">functools.partial(func, *args, **keywords)</span><br></pre></td></tr></table></figure>
+
+<p>和方案二玩法差不多，具体不多介绍了。</p>
+<blockquote>
+<p>Note:</p>
+<p>有趣的是，python类绑定方法的实现与partial有异曲同工之妙，感兴趣的同学可以了解一下</p>
+</blockquote>
 ]]></content>
       <categories>
         <category>杂项</category>
       </categories>
       <tags>
         <tag>python</tag>
-        <tag>crypto</tag>
+        <tag>tkinter</tag>
       </tags>
   </entry>
   <entry>
@@ -566,47 +612,6 @@
       </tags>
   </entry>
   <entry>
-    <title>tkinter command传参问题解决</title>
-    <url>/2021/12/11/tkinter-command%E4%BC%A0%E5%8F%82%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/</url>
-    <content><![CDATA[<p>解决方案思路来自 <a href="https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter">https://stackoverflow.com/questions/6920302/how-to-pass-arguments-to-a-button-command-in-tkinter</a></p>
-<p>其实使用的都是封装的方法，只是有不同的实现。</p>
-<h2 id="方案一：lambda函数"><a href="#方案一：lambda函数" class="headerlink" title="方案一：lambda函数"></a>方案一：lambda函数</h2><p><strong>个人比较喜欢这个方法</strong></p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">ttk.Button(frame, text=<span class="string">&#x27;button&#x27;</span>,command=<span class="keyword">lambda</span>:func(param))</span><br></pre></td></tr></table></figure>
-
-<p>值得注意的是，这里存在一个小细节，不了解lambda函数机制的同学要注意一下，否则可能产生与你预期不符的结果。lambda函数只会在<strong>调用时</strong>执行内部语句，也就是说，如果你传递的参数（这里是param）是一个变量，并且在之后这个变量的值发生了变化，调用时就会传入之后的值而不是你之前想要传入的值。</p>
-<span id="more"></span>
-
-<p>举个例子：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_add_one</span>(<span class="params">a</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;这个函数对参数加一并打印&quot;&quot;&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(a+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">a = <span class="number">1</span></span><br><span class="line">button = ttk.Button(frame, text=<span class="string">&quot;press&quot;</span>,command=<span class="keyword">lambda</span>:print_add_one(a))</span><br><span class="line">a = <span class="number">5</span></span><br><span class="line"><span class="comment"># 点击这个按钮输出会是 6</span></span><br></pre></td></tr></table></figure>
-
-<p>如果你正好有动态传值的需要，那么这个恰能符合你的需求。如果你想要传入固定的参数值，则我们需要用到默认参数解决这一问题。</p>
-<p>示例如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">lambda</span> p=param:func(p)</span><br></pre></td></tr></table></figure>
-
-<p>这样就能把参数固定下来了。</p>
-<h2 id="方案二：类封装"><a href="#方案二：类封装" class="headerlink" title="方案二：类封装"></a>方案二：类封装</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tkinter <span class="keyword">as</span> tk</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Callback</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, func, *args, **kwargs</span>):</span></span><br><span class="line">        self.func = func</span><br><span class="line">        self.args = args</span><br><span class="line">        self.kwargs = kwargs</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.func(*self.args, **self.kwargs)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">default_callback</span>(<span class="params">t</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Button &#x27;&#123;&#125;&#x27; pressed.&quot;</span>.<span class="built_in">format</span>(t))</span><br><span class="line"></span><br><span class="line">root = tk.Tk()</span><br><span class="line"></span><br><span class="line">buttons = [<span class="string">&quot;A&quot;</span>, <span class="string">&quot;B&quot;</span>, <span class="string">&quot;C&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i, b <span class="keyword">in</span> <span class="built_in">enumerate</span>(buttons):</span><br><span class="line">    tk.Button(root, text=b, command=Callback(default_callback, b)).grid(row=i, column=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">tk.mainloop()</span><br></pre></td></tr></table></figure>
-
-<p>这里不多做介绍了，调用的地方像这样实例化一个对象就行了。</p>
-<h2 id="方案三：functools的partial"><a href="#方案三：functools的partial" class="headerlink" title="方案三：functools的partial"></a>方案三：functools的partial</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> partial</span><br><span class="line"></span><br><span class="line">button = Tk.Button(master=frame, text=<span class="string">&#x27;press&#x27;</span>, command=partial(func, arg))</span><br></pre></td></tr></table></figure>
-
-<p>partial用于创建一个类似原函数但有固定参数的偏函数，原型如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">functools.partial(func, *args, **keywords)</span><br></pre></td></tr></table></figure>
-
-<p>和方案二玩法差不多，具体不多介绍了。</p>
-<blockquote>
-<p>Note:</p>
-<p>有趣的是，python类绑定方法的实现与partial有异曲同工之妙，感兴趣的同学可以了解一下</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>tkinter</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>tkinter手动代理窗口关闭事件</title>
     <url>/2021/12/15/tkinter%E6%89%8B%E5%8A%A8%E4%BB%A3%E7%90%86%E7%AA%97%E5%8F%A3%E5%85%B3%E9%97%AD%E4%BA%8B%E4%BB%B6/</url>
     <content><![CDATA[<p>有时想在关闭窗口时做一些额外的处理，比如：保存数据、弹出确认对话框等。</p>
@@ -623,52 +628,6 @@
         <tag>tkinter</tag>
         <tag>gui</tag>
         <tag>事件</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>turtle字体粗糙定位</title>
-    <url>/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/</url>
-    <content><![CDATA[<p>不同的字体<strong>实现</strong>不同，有<strong>等宽</strong>和<strong>非等宽</strong>，非等宽字体<strong>不同字符宽度不同</strong>，<strong>宽高比</strong>也各不相同，而且<strong>字体尺寸</strong>和<strong>像素</strong>是无法直接转换的。因此，今天介绍的方法<strong>并非完美的解决方案</strong>，只是用于<strong>粗糙估算turtle中字符的长宽</strong>，用于在字符上绘图进行绘图操作，如<strong>圈画文本</strong>等。</p>
-<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="write函数"><a href="#write函数" class="headerlink" title="write函数"></a>write函数</h2><p>turtle中用于书写文本的函数为write</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.write(arg, move=<span class="literal">False</span>, align=<span class="string">&quot;left&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">8</span>, <span class="string">&quot;normal&quot;</span>))</span><br></pre></td></tr></table></figure>
-
-<span id="more"></span>
-
-<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
-<li><p><strong>arg</strong> – 要书写到 TurtleScreen 的对象<br>如：”something”，123，(1,2)，[1,2,3]等</p>
-</li>
-<li><p><strong>move</strong> – True/False<br>如果 move 为 True，画笔会移动到文本的右下角，这样文字就不会叠在一块了。</p>
-</li>
-<li><p><strong>align</strong> – 字符串 “left”, “center” 或 “right”<br>align 指定对齐方式 (“left”, “center” 或 right”)</p>
-</li>
-<li><p><strong>font</strong> – 一个三元组 (fontname, fontsize, fonttype)<br>font 指定字体</p>
-</li>
-</ul>
-<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>书写文本 arg 指定的字符串到当前海龟位置。</p>
-<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这里有两种思路，都不精确，第一种直接估算，第二种根据宽度估算，各有优劣，仅供参考：</p>
-<ol>
-<li><p>用<strong>fontsize近似代替宽度</strong>，然后用<strong>估测的纵横比</strong>近似估算高度，得到字符长宽参数，进而确定位置。</p>
-</li>
-<li><p>由于每个字宽度不同，所以可以单独绘制每个字符，将move设为True，这样在写每个字符时，画笔会跟着移动，可以<strong>记录其始末位置</strong>，作差得到<strong>每个字符的宽度</strong>。</p>
-</li>
-</ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>这里我们实现了在turtle中对文本部分子串进行圈画的功能，其中两种思路都有涉及。</p>
-<p>最后选用记录的宽度作为画圈的直径。另外，因为每个字符高度差不多，所以高度统一采用估算的高度。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br><span class="line">turtle.hideturtle()</span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ACTACGTCAGCTCGTCATCGGTACGTCTCVATGACGTCGT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选取字符串子串位置，闭区间[start_idx, end_idx]</span></span><br><span class="line">start_idx = <span class="number">33</span></span><br><span class="line">end_idx = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pos用于存储对应位置字符的始末x坐标</span></span><br><span class="line">pos = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字体设置</span></span><br><span class="line">font_setting = (<span class="string">&quot;Arial&quot;</span>, <span class="number">16</span>, <span class="string">&quot;normal&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同字体实现不同，且不同字符长宽又不同</span></span><br><span class="line"><span class="comment"># 这里假设字符像素宽度近似fontsize，宽高比为1.5倍</span></span><br><span class="line"><span class="comment"># 如果想更精确，请自己根据特定字体精调参数</span></span><br><span class="line">aspect_ratio = <span class="number">1.5</span></span><br><span class="line">font_width = font_setting[<span class="number">1</span>]</span><br><span class="line">font_height = font_width*aspect_ratio</span><br><span class="line"></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> text:</span><br><span class="line">    <span class="comment"># 单独绘制每个字符</span></span><br><span class="line">    start = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    turtle.write(ch, move=<span class="literal">True</span>, font=font_setting)</span><br><span class="line">    end = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    pos.append((start, end))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算直径半径</span></span><br><span class="line">d = pos[end_idx][<span class="number">1</span>] - pos[start_idx][<span class="number">0</span>]</span><br><span class="line">r = d/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算circle函数绘制起点坐标</span></span><br><span class="line">center_x = (pos[end_idx][<span class="number">1</span>] + pos[start_idx][<span class="number">0</span>])/<span class="number">2</span></span><br><span class="line">center_y = font_height/<span class="number">2</span> - r + <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置画笔</span></span><br><span class="line">turtle.pencolor(<span class="string">&quot;red&quot;</span>)</span><br><span class="line">turtle.pensize(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">turtle.setposition(center_x, center_y)</span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.circle(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png" alt="demo-1"></p>
-<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png" alt="image-20211216233747578"></p>
-<blockquote>
-<p>Note</p>
-<p>这里仅用于演示，因此圈画功能简单使用了circle函数，绘制的是圆形，在圈画较长或较短字符串时并不美观，实际使用时可以根据需求自己调整，比如绘制椭圆或方框等其他圈画方式。</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>杂项</category>
-      </categories>
-      <tags>
-        <tag>python</tag>
-        <tag>turtle</tag>
       </tags>
   </entry>
   <entry>
@@ -968,6 +927,52 @@ isReadAll(no)->read_key_value</textarea><textarea id="flowchart-0-options" style
         <tag>ctf</tag>
         <tag>web</tag>
         <tag>sqli</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>turtle字体粗糙定位</title>
+    <url>/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/</url>
+    <content><![CDATA[<p>不同的字体<strong>实现</strong>不同，有<strong>等宽</strong>和<strong>非等宽</strong>，非等宽字体<strong>不同字符宽度不同</strong>，<strong>宽高比</strong>也各不相同，而且<strong>字体尺寸</strong>和<strong>像素</strong>是无法直接转换的。因此，今天介绍的方法<strong>并非完美的解决方案</strong>，只是用于<strong>粗糙估算turtle中字符的长宽</strong>，用于在字符上绘图进行绘图操作，如<strong>圈画文本</strong>等。</p>
+<h1 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h1><h2 id="write函数"><a href="#write函数" class="headerlink" title="write函数"></a>write函数</h2><p>turtle中用于书写文本的函数为write</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">turtle.write(arg, move=<span class="literal">False</span>, align=<span class="string">&quot;left&quot;</span>, font=(<span class="string">&quot;Arial&quot;</span>, <span class="number">8</span>, <span class="string">&quot;normal&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<span id="more"></span>
+
+<h3 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h3><ul>
+<li><p><strong>arg</strong> – 要书写到 TurtleScreen 的对象<br>如：”something”，123，(1,2)，[1,2,3]等</p>
+</li>
+<li><p><strong>move</strong> – True/False<br>如果 move 为 True，画笔会移动到文本的右下角，这样文字就不会叠在一块了。</p>
+</li>
+<li><p><strong>align</strong> – 字符串 “left”, “center” 或 “right”<br>align 指定对齐方式 (“left”, “center” 或 right”)</p>
+</li>
+<li><p><strong>font</strong> – 一个三元组 (fontname, fontsize, fonttype)<br>font 指定字体</p>
+</li>
+</ul>
+<h3 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h3><p>书写文本 arg 指定的字符串到当前海龟位置。</p>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><p>这里有两种思路，都不精确，第一种直接估算，第二种根据宽度估算，各有优劣，仅供参考：</p>
+<ol>
+<li><p>用<strong>fontsize近似代替宽度</strong>，然后用<strong>估测的纵横比</strong>近似估算高度，得到字符长宽参数，进而确定位置。</p>
+</li>
+<li><p>由于每个字宽度不同，所以可以单独绘制每个字符，将move设为True，这样在写每个字符时，画笔会跟着移动，可以<strong>记录其始末位置</strong>，作差得到<strong>每个字符的宽度</strong>。</p>
+</li>
+</ol>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>这里我们实现了在turtle中对文本部分子串进行圈画的功能，其中两种思路都有涉及。</p>
+<p>最后选用记录的宽度作为画圈的直径。另外，因为每个字符高度差不多，所以高度统一采用估算的高度。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"></span><br><span class="line">turtle.speed(<span class="number">0</span>)</span><br><span class="line">turtle.delay(<span class="number">0</span>)</span><br><span class="line">turtle.hideturtle()</span><br><span class="line"></span><br><span class="line">text = <span class="string">&quot;ACTACGTCAGCTCGTCATCGGTACGTCTCVATGACGTCGT&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选取字符串子串位置，闭区间[start_idx, end_idx]</span></span><br><span class="line">start_idx = <span class="number">33</span></span><br><span class="line">end_idx = <span class="number">36</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># pos用于存储对应位置字符的始末x坐标</span></span><br><span class="line">pos = <span class="built_in">list</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 字体设置</span></span><br><span class="line">font_setting = (<span class="string">&quot;Arial&quot;</span>, <span class="number">16</span>, <span class="string">&quot;normal&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 不同字体实现不同，且不同字符长宽又不同</span></span><br><span class="line"><span class="comment"># 这里假设字符像素宽度近似fontsize，宽高比为1.5倍</span></span><br><span class="line"><span class="comment"># 如果想更精确，请自己根据特定字体精调参数</span></span><br><span class="line">aspect_ratio = <span class="number">1.5</span></span><br><span class="line">font_width = font_setting[<span class="number">1</span>]</span><br><span class="line">font_height = font_width*aspect_ratio</span><br><span class="line"></span><br><span class="line">turtle.penup()</span><br><span class="line"><span class="keyword">for</span> ch <span class="keyword">in</span> text:</span><br><span class="line">    <span class="comment"># 单独绘制每个字符</span></span><br><span class="line">    start = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    turtle.write(ch, move=<span class="literal">True</span>, font=font_setting)</span><br><span class="line">    end = turtle.position()[<span class="number">0</span>]</span><br><span class="line">    pos.append((start, end))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算直径半径</span></span><br><span class="line">d = pos[end_idx][<span class="number">1</span>] - pos[start_idx][<span class="number">0</span>]</span><br><span class="line">r = d/<span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 计算circle函数绘制起点坐标</span></span><br><span class="line">center_x = (pos[end_idx][<span class="number">1</span>] + pos[start_idx][<span class="number">0</span>])/<span class="number">2</span></span><br><span class="line">center_y = font_height/<span class="number">2</span> - r + <span class="number">1.5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置画笔</span></span><br><span class="line">turtle.pencolor(<span class="string">&quot;red&quot;</span>)</span><br><span class="line">turtle.pensize(<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">turtle.setposition(center_x, center_y)</span><br><span class="line">turtle.pendown()</span><br><span class="line">turtle.circle(r)</span><br><span class="line"></span><br><span class="line"><span class="built_in">input</span>(<span class="string">&quot;Press Enter to continue...&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233550935.png" alt="demo-1"></p>
+<p><img data-src="/2021/12/16/turtle%E5%AD%97%E4%BD%93%E7%B2%97%E7%B3%99%E5%AE%9A%E4%BD%8D/image-20211216233747578.png" alt="image-20211216233747578"></p>
+<blockquote>
+<p>Note</p>
+<p>这里仅用于演示，因此圈画功能简单使用了circle函数，绘制的是圆形，在圈画较长或较短字符串时并不美观，实际使用时可以根据需求自己调整，比如绘制椭圆或方框等其他圈画方式。</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>杂项</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+        <tag>turtle</tag>
       </tags>
   </entry>
 </search>
